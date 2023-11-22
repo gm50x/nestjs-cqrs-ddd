@@ -1,5 +1,15 @@
 version: '3.9'
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: 'gedai'
+      RABBITMQ_DEFAULT_PASS: 'gedai'
+    ports:
+      - 5672:5672
+      - 15672:15672
   mongodb:
     image: mongo:6
     container_name: monguito

@@ -12,6 +12,7 @@ import {
 } from './app/infra/repositories/user.repository';
 import { AmqpEventPropagator } from './app/infra/services/amqp-event.propagator';
 import { TracingModule } from './config';
+import { AmqpModule } from './sdk/amqp';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { TracingModule } from './config';
         schema: SchemaFactory.createForClass(UserSchema),
       },
     ]),
+    AmqpModule,
   ],
   controllers: [SignUpController],
   providers: [

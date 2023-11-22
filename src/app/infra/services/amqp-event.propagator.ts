@@ -1,11 +1,16 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { EventBus, IEvent } from '@nestjs/cqrs';
 import { Subscription } from 'rxjs';
+import { AmqpService } from '../../../sdk/amqp';
 
 @Injectable()
 export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
   private subscription: Subscription;
-  constructor(private readonly eventBus: EventBus) {}
+
+  constructor(
+    private readonly eventBus: EventBus,
+    private readonly amqp: AmqpService,
+  ) {}
 
   onModuleInit() {
     this.subscription = this.eventBus.subscribe(this.propagate.bind(this));
@@ -15,12 +20,7 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     this.subscription.unsubscribe();
   }
 
-  private propagate(event: IEvent) {
-    // TODO: send event to amqp
-    console.log('---');
-    console.log('got an event');
-    console.log(event);
-    console.log('shipping to amqp:::got an event');
-    console.log('---');
+  private async propagate(event: IEvent) {
+    await this.amqp.publish('events', event.constructor.name, event);
   }
 }
