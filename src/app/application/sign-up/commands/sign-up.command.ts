@@ -5,7 +5,6 @@ export class SignUpCommand {
     readonly password: string,
   ) {}
 }
-
 export class SignUpResult {
   constructor(readonly id: string) {}
 }

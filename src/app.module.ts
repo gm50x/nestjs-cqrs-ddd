@@ -1,42 +1,22 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
-import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
-import { SignUpHandler } from './app/application/commands/sign-up.handler';
-import { UserFactory } from './app/domain/user.factory';
-import { SignUpController } from './app/infra/controllers/sign-up.controller';
-import {
-  UserRepository,
-  UserSchema,
-  UserSchemaFactory,
-} from './app/infra/repositories/user.repository';
-import { AmqpEventPropagator } from './app/infra/services/amqp-event.propagator';
+import { MongooseModule } from '@nestjs/mongoose';
+import { SignUpDriverModule } from './app/drivers/sign-up/signup-driver.module';
 import { TracingModule } from './config';
 import { AmqpModule } from './sdk/amqp';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    CqrsModule,
     TracingModule,
-    CqrsModule.forRoot(),
     MongooseModule.forRoot('mongodb://gedai:gedai@localhost:27017', {
       appName: 'dummy-world-service',
     }),
-    MongooseModule.forFeature([
-      {
-        name: UserSchema.name,
-        schema: SchemaFactory.createForClass(UserSchema),
-      },
-    ]),
     AmqpModule,
+    SignUpDriverModule,
   ],
-  controllers: [SignUpController],
-  providers: [
-    SignUpHandler,
-    UserRepository,
-    UserFactory,
-    UserSchemaFactory,
-    AmqpEventPropagator,
-  ],
+  providers: [],
 })
 export class AppModule {}

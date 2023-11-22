@@ -1,24 +1,8 @@
 import { NotFoundException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
-import { Prop } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from 'mongoose';
-
-export class EntitySchema {
-  @Prop()
-  readonly _id: Types.ObjectId;
-}
-
-export interface EntityFactory<TEntity> {
-  create(...args: any): TEntity | Promise<TEntity>;
-}
-
-export interface EntitySchemaFactory<
-  TSchema extends EntitySchema,
-  TEntity extends AggregateRoot,
-> {
-  create(entity: TEntity): TSchema;
-  createFromSchema(entitySchema: TSchema): TEntity;
-}
+import { EntitySchemaFactory } from './entity-schema.factory';
+import { EntitySchema } from './entity.schema';
 
 export abstract class Repository<
   TSchema extends EntitySchema,

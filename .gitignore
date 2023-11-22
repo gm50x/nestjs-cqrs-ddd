@@ -1,6 +1,9 @@
 # environment
 *.env
 
+# generated docs
+.docs
+
 # compiled output
 /dist
 /node_modules

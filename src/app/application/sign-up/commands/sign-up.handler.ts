@@ -1,7 +1,7 @@
 import { UnprocessableEntityException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UserFactory } from '../../domain/user.factory';
-import { UserRepository } from '../../infra/repositories/user.repository';
+import { UserFactory } from '../../../domain/user.factory';
+import { UserRepository } from '../../../infra/repositories/user-repository/user.repository';
 import { SignUpCommand, SignUpResult } from './sign-up.command';
 
 @CommandHandler(SignUpCommand)
@@ -23,7 +23,6 @@ export class SignUpHandler
       command.email,
       command.password,
     );
-
     user.commit();
     return new SignUpResult(user.id);
   }

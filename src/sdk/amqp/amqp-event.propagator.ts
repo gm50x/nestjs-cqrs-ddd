@@ -1,10 +1,16 @@
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  OnModuleInit,
+} from '@nestjs/common';
 import { EventBus, IEvent } from '@nestjs/cqrs';
 import { Subscription } from 'rxjs';
-import { AmqpService } from '../../../sdk/amqp';
+import { AmqpService } from './amqp.service';
 
 @Injectable()
 export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
+  private readonly logger = new Logger(this.constructor.name);
   private subscription: Subscription;
 
   constructor(
@@ -21,6 +27,8 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
   }
 
   private async propagate(event: IEvent) {
+    this.logger.debug('Propagating event');
     await this.amqp.publish('events', event.constructor.name, event);
+    this.logger.log('Event Propagated');
   }
 }

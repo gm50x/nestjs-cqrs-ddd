@@ -1,20 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { IsString } from 'class-validator';
-import { SignUpCommand } from '../../application/commands/sign-up.command';
-
-export class SignUpRequest {
-  @IsString()
-  name: string;
-  @IsString()
-  email: string;
-  @IsString()
-  password: string;
-}
-
-export class SignUpResponse {
-  id: string;
-}
+import { SignUpCommand } from '../../application/sign-up/commands/sign-up.command';
+import { SignUpRequest, SignUpResponse } from './models/sign-up.model';
 
 @Controller({ version: '1' })
 export class SignUpController {

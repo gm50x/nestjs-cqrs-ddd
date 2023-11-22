@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
-import { EntityFactory } from '../infra/repositories/repository';
-import { UserRepository } from '../infra/repositories/user.repository';
+import { EntityFactory } from '../infra/repositories/core/entity.factory';
+import { UserRepository } from '../infra/repositories/user-repository/user.repository';
 import { UserCreatedEvent } from './user-created.event';
 import { User } from './user.entity';
 
