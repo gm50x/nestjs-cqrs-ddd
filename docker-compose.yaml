@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  mongodb:
+    image: mongo:6
+    container_name: monguito
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'gedai'
+      MONGO_INITDB_ROOT_PASSWORD: 'gedai'
+    ports:
+      - 27017:27017
