@@ -1,4 +1,4 @@
-import { createHash } from 'crypto';
+import { createHash, randomBytes } from 'crypto';
 
 export type PasswordAlgorithm = 'sha256' | 'plain';
 
@@ -43,6 +43,9 @@ export class SHA256Password implements Password {
 }
 
 export class PasswordFactory {
+  static generateSalt() {
+    return randomBytes(36).toString('hex');
+  }
   static create(algorithm: PasswordAlgorithm) {
     switch (algorithm) {
       case 'plain':

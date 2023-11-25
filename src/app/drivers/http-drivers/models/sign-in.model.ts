@@ -8,5 +8,5 @@ export class SignInRequest {
 }
 
 export class SignInResponse {
-  id: string;
+  access_token: string;
 }

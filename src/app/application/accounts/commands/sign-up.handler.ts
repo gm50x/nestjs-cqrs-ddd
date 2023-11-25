@@ -1,4 +1,4 @@
-import { UnprocessableEntityException } from '@nestjs/common';
+import { ConflictException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AccountRepository } from '../../../infra/repositories/account/account.repository';
 import { AccountFactory } from '../factories/account.factory';
@@ -18,7 +18,7 @@ export class SignUpHandler
       command.email,
     );
     if (existingAccount) {
-      throw new UnprocessableEntityException('Account already exists');
+      throw new ConflictException();
     }
     const account = await this.accountFactory.create(
       command.name,
