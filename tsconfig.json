@@ -19,7 +19,11 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@core-ddd": ["./src/sdk/core-ddd"],
-      "@core-ddd/*": ["./src/sdk/core-ddd/*"]
+      "@core-ddd/*": ["./src/sdk/core-ddd/*"],
+      "@tracing": ["./src/sdk/tracing"],
+      "@tracing/*": ["./src/sdk/tracing/*"],
+      "@amqp": ["./src/sdk/amqp"],
+      "@amqp/*": ["./src/sdk/amqp/*"]
     }
   }
 }

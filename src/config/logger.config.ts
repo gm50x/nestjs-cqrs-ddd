@@ -6,7 +6,7 @@ import {
   utilities as nestWinstonUtils,
 } from 'nest-winston';
 import { config, format, transports } from 'winston';
-import { TracingService } from './tracing';
+import { TracingService } from '../sdk/tracing';
 
 let tracingService: TracingService;
 

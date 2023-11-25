@@ -6,8 +6,8 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
+import { TracingService } from '@tracing';
 import { Subscription } from 'rxjs';
-import { TracingService } from 'src/config';
 import { AmqpService } from './amqp.service';
 
 @Injectable()

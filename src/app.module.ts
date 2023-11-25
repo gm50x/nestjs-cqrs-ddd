@@ -1,10 +1,10 @@
+import { AmqpModule } from '@amqp';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TracingModule } from '@tracing';
 import { HttpDriversModule } from './app/drivers/http-drivers/http-drivers.module';
-import { TracingModule } from './config';
-import { AmqpModule } from './sdk/amqp';
 
 @Module({
   imports: [
