@@ -18,7 +18,7 @@ export class SignUpHandler
       command.email,
     );
     if (existingAccount) {
-      throw new UnprocessableEntityException('Account already exist');
+      throw new UnprocessableEntityException('Account already exists');
     }
     const account = await this.accountFactory.create(
       command.name,
