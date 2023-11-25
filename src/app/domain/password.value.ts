@@ -1,4 +1,3 @@
-import { Type } from '@nestjs/common';
 import { createHash } from 'crypto';
 
 export type PasswordAlgorithm = 'sha256' | 'plain';
@@ -28,9 +27,9 @@ export class SHA256Password implements Password {
   readonly salt: string;
   readonly algorithm = 'sha256';
 
-  constructor(value: string, salt: string) {
+  constructor(value: string, salt: string, isNew: boolean) {
     this.salt = salt;
-    this.value = this.createHash(value, salt);
+    this.value = isNew ? this.createHash(value, salt) : value;
   }
 
   private createHash(value: string, salt: string) {
@@ -45,16 +44,13 @@ export class SHA256Password implements Password {
 
 export class PasswordFactory {
   static create(algorithm: PasswordAlgorithm) {
-    const algorithms = new Map<PasswordAlgorithm, Type<Password>>()
-      .set('plain', PlainPassword)
-      .set('sha256', SHA256Password);
-
-    const Target = algorithms.get(algorithm);
-
-    if (!Target) {
-      throw new Error(`${algorithm} is not a valid Password Algorithm`);
+    switch (algorithm) {
+      case 'plain':
+        return PlainPassword;
+      case 'sha256':
+        return SHA256Password;
+      default:
+        throw new Error(`${algorithm} is not a valid Password Algorithm`);
     }
-
-    return Target;
   }
 }

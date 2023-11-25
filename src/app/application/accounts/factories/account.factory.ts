@@ -26,7 +26,7 @@ export class AccountFactory implements EntityFactory<Account> {
       new Types.ObjectId().toHexString(),
       name,
       new Email(email),
-      new Password(password, randomBytes(36).toString('hex')),
+      new Password(password, randomBytes(36).toString('hex'), true),
     );
     await this.accountRepository.create(account);
     account.apply(new AccountCreatedEvent(account.id));

@@ -18,6 +18,7 @@ export class AccountSchemaFactory
       name: entity.name,
       email: entity.email.value,
       password: entity.password,
+      token: entity.token,
     };
   }
 
@@ -28,7 +29,12 @@ export class AccountSchemaFactory
         entitySchema._id.toHexString(),
         entitySchema.name,
         new Email(entitySchema.email),
-        new Password(entitySchema.password, entitySchema.password.salt),
+        new Password(
+          entitySchema.password.value,
+          entitySchema.password.salt,
+          false,
+        ),
+        entitySchema.token,
       ),
     );
   }

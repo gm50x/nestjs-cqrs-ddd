@@ -49,6 +49,11 @@ export abstract class Repository<
     await new this.entityModel(schema).save();
   }
 
+  async save(entity: TEntity): Promise<void> {
+    const schema = this.entitySchemaFactory.create(entity);
+    await this.entityModel.updateOne({ _id: schema._id }, schema);
+  }
+
   protected async findOne(
     entityFilterQuery?: FilterQuery<TSchema>,
   ): Promise<TEntity> {
