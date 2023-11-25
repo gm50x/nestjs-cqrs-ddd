@@ -14,7 +14,9 @@ import { AmqpModule } from './sdk/amqp';
     MongooseModule.forRoot('mongodb://gedai:gedai@localhost:27017', {
       appName: 'dummy-world-service',
     }),
-    AmqpModule,
+    AmqpModule.forRoot('amqp://gedai:gedai@localhost:5672', {
+      appName: 'dummy-world-service',
+    }),
     HttpDriversModule,
   ],
 })

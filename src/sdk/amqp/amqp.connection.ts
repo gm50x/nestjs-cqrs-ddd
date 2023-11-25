@@ -1,16 +1,28 @@
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import {
+  Inject,
+  Injectable,
+  OnModuleDestroy,
+  OnModuleInit,
+} from '@nestjs/common';
 import amqp, {
   AmqpConnectionManager,
   ChannelWrapper,
 } from 'amqp-connection-manager';
+
+export type AmqpConnectionOptions = {
+  url: string;
+  appName?: string;
+  heartbeatIntervalInSeconds?: number;
+};
 
 @Injectable()
 export class AmqpConnection implements OnModuleInit, OnModuleDestroy {
   private connection: AmqpConnectionManager;
   private channel: ChannelWrapper;
 
-  constructor(private readonly config: ConfigService) {}
+  constructor(
+    @Inject('AMQP_OPTIONS') private readonly opts: AmqpConnectionOptions,
+  ) {}
 
   async sendToQueue(
     queue: string,
@@ -38,11 +50,9 @@ export class AmqpConnection implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleInit() {
-    const appName = this.config.getOrThrow('APP_NAME');
-    const url = 'amqp://gedai:gedai@localhost:5672';
-    // const url = this.config.getOrThrow('AMQP_URL');
+    const { url, appName, heartbeatIntervalInSeconds = 60 } = this.opts || {};
     this.connection = amqp.connect(url, {
-      heartbeatIntervalInSeconds: 60,
+      heartbeatIntervalInSeconds,
       connectionOptions: { clientProperties: { connection_name: appName } },
     });
     this.channel = this.connection.createChannel({ json: true });
