@@ -18,5 +18,6 @@ export class ChangePasswordHandler
 
     account.changePassword(command.currentPassword, command.newPassword);
     await this.accountRepository.save(account);
+    account.commit();
   }
 }

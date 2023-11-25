@@ -2,6 +2,8 @@ import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { randomUUID } from 'crypto';
 import { Email } from './email.value';
+import { AccountAuthenticatedEvent } from './events/account-authenticated.event';
+import { AccountPasswordChangedEvent } from './events/account-password-changed.event';
 import { Password, PasswordFactory } from './password.value';
 
 export class Account extends AggregateRoot {
@@ -25,6 +27,7 @@ export class Account extends AggregateRoot {
       PasswordFactory.generateSalt(),
       true,
     );
+    this.apply(new AccountPasswordChangedEvent(this.id));
   }
 
   authenticate(password: string) {
@@ -32,6 +35,7 @@ export class Account extends AggregateRoot {
       throw new UnauthorizedException();
     }
     this.token = randomUUID();
+    this.apply(new AccountAuthenticatedEvent(this.id));
     return this.token;
   }
 }

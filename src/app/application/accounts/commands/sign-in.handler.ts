@@ -17,6 +17,7 @@ export class SignInHandler
     }
     const token = account.authenticate(command.password);
     await this.accountRepository.save(account);
+    account.commit();
     return new SignInResult(token);
   }
 }

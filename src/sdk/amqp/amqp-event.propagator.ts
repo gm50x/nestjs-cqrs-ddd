@@ -1,3 +1,4 @@
+import { CoreEvent } from '@core-ddd';
 import {
   Injectable,
   Logger,
@@ -6,7 +7,6 @@ import {
 } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
 import { Subscription } from 'rxjs';
-import { CoreEvent } from 'src/app/domain/core/core-event';
 import { TracingService } from 'src/config';
 import { AmqpService } from './amqp.service';
 

@@ -18,7 +18,8 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@core-ddd*": ["./src/sdk/core-ddd*"]
+      "@core-ddd": ["./src/sdk/core-ddd"],
+      "@core-ddd/*": ["./src/sdk/core-ddd/*"]
     }
   }
 }
