@@ -1,10 +1,10 @@
 import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
-import { randomUUID } from 'crypto';
 import { Email } from './email.value';
 import { AccountAuthenticatedEvent } from './events/account-authenticated.event';
 import { AccountPasswordChangedEvent } from './events/account-password-changed.event';
 import { Password, PasswordFactory } from './password.value';
+import { Token, TokenFactory } from './token.value';
 
 export class Account extends AggregateRoot {
   constructor(
@@ -12,7 +12,7 @@ export class Account extends AggregateRoot {
     readonly name: string,
     readonly email: Email,
     public password: Password,
-    public token?: string,
+    public token?: Token,
   ) {
     super();
   }
@@ -34,7 +34,9 @@ export class Account extends AggregateRoot {
     if (!this.password.validate(password)) {
       throw new UnauthorizedException();
     }
-    this.token = randomUUID();
+    const Token = TokenFactory.create('aes-256-gcm');
+    this.token = new Token();
+    this.token.encrypt(password);
     this.apply(new AccountAuthenticatedEvent(this.id));
     return this.token;
   }

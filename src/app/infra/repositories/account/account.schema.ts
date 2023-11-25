@@ -1,6 +1,7 @@
 import { EntitySchema } from '@core-ddd/entity.schema';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { PasswordAlgorithm } from 'src/app/domain/password.value';
+import { Token, TokenAlgorithm } from 'src/app/domain/token.value';
 
 @Schema({ _id: false })
 export class PasswordSchema {
@@ -14,6 +15,18 @@ export class PasswordSchema {
   algorithm: PasswordAlgorithm;
 }
 
+@Schema({ _id: false })
+export class TokenSchema {
+  @Prop()
+  value: string;
+
+  @Prop()
+  meta: string;
+
+  @Prop()
+  algorithm: TokenAlgorithm;
+}
+
 @Schema({ versionKey: false, collection: 'Accounts' })
 export class AccountSchema extends EntitySchema {
   @Prop()
@@ -22,9 +35,9 @@ export class AccountSchema extends EntitySchema {
   @Prop()
   readonly email: string;
 
-  @Prop({ schema: PasswordSchema })
+  @Prop({ schema: PasswordSchema, type: TokenSchema })
   readonly password: PasswordSchema;
 
-  @Prop()
-  readonly token?: string;
+  @Prop({ schema: TokenSchema, type: TokenSchema })
+  readonly token?: Token;
 }

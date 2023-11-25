@@ -10,7 +10,7 @@ export interface Password {
 }
 
 export class PlainPassword implements Password {
-  readonly algorithm = 'plain';
+  readonly algorithm: PasswordAlgorithm = 'plain';
 
   constructor(
     readonly value: string,
@@ -25,7 +25,7 @@ export class PlainPassword implements Password {
 export class SHA256Password implements Password {
   readonly value: string;
   readonly salt: string;
-  readonly algorithm = 'sha256';
+  readonly algorithm: PasswordAlgorithm = 'sha256';
 
   constructor(value: string, salt: string, isNew: boolean) {
     this.salt = salt;
