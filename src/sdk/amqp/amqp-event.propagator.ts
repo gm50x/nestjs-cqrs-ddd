@@ -4,8 +4,10 @@ import {
   OnModuleDestroy,
   OnModuleInit,
 } from '@nestjs/common';
-import { EventBus, IEvent } from '@nestjs/cqrs';
+import { EventBus } from '@nestjs/cqrs';
 import { Subscription } from 'rxjs';
+import { CoreEvent } from 'src/app/domain/core/core-event';
+import { TracingService } from 'src/config';
 import { AmqpService } from './amqp.service';
 
 @Injectable()
@@ -16,6 +18,7 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
   constructor(
     private readonly eventBus: EventBus,
     private readonly amqp: AmqpService,
+    private readonly tracer: TracingService,
   ) {}
 
   onModuleInit() {
@@ -26,9 +29,8 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     this.subscription.unsubscribe();
   }
 
-  private translateEventNameToRoutingKey(event: IEvent): string {
-    const baseName = event.constructor.name;
-    const baseNameWithoutSuffix = baseName.replace(/Event$/g, '');
+  private translateEventNameToRoutingKey(eventName: string): string {
+    const baseNameWithoutSuffix = eventName.replace(/Event$/g, '');
     const values = [baseNameWithoutSuffix[0].toLowerCase()];
     for (let i = 1; i < baseNameWithoutSuffix.length; i++) {
       const thisCharacter = baseNameWithoutSuffix[i];
@@ -41,10 +43,26 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     return values.join('');
   }
 
-  private async propagate(event: IEvent) {
-    this.logger.debug('Propagating event');
-    const eventName = this.translateEventNameToRoutingKey(event);
-    await this.amqp.publish('events', eventName, event);
-    this.logger.log('Event Propagated');
+  private async propagate(event: CoreEvent) {
+    const { _meta, ...eventData } = event;
+    const eventName = event.constructor.name;
+    const routingKey = this.translateEventNameToRoutingKey(eventName);
+    if (!_meta.autoPropagated) {
+      this.logger.debug(
+        `Supressing event propagation as ${eventName}.autoPropagated is set to ${_meta.autoPropagated}`,
+      );
+      return;
+    }
+    this.logger.debug(
+      `Propagating event ${eventName} with routingKey ${routingKey}`,
+    );
+    const traceId = this.tracer.get('traceId');
+    await this.amqp.publish('events', routingKey, eventData, {
+      ..._meta,
+      'x-trace-id': traceId,
+    });
+    this.logger.log(
+      `Sucessfully propagated ${eventName} with ${routingKey} to the event bus`,
+    );
   }
 }

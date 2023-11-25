@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SignUpDriverModule } from './app/drivers/sign-up/signup-driver.module';
+import { HttpDriversModule } from './app/drivers/http-drivers/http-drivers.module';
 import { TracingModule } from './config';
 import { AmqpModule } from './sdk/amqp';
 
@@ -15,8 +15,7 @@ import { AmqpModule } from './sdk/amqp';
       appName: 'dummy-world-service',
     }),
     AmqpModule,
-    SignUpDriverModule,
+    HttpDriversModule,
   ],
-  providers: [],
 })
 export class AppModule {}
