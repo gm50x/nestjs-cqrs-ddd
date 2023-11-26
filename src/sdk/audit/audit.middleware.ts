@@ -6,29 +6,39 @@ export class AuditMiddleware implements NestMiddleware {
   private logger = new Logger(this.constructor.name);
 
   use(req: Request, res: Response, next: NextFunction) {
-    const { method, headers, body, originalUrl: url } = req;
-    this.logger.log({
-      message: 'REQUEST AUDIT',
-      request: { method, url, headers, body },
-    });
-
     let responseBody = null;
     const originalSend = res.send;
     res.send = (body) => {
+      if (!responseBody) {
+        responseBody = body;
+      }
       res.send = originalSend;
-      responseBody = body;
       return res.send(body);
     };
 
+    const originalJson = res.json;
+    res.json = (body) => {
+      if (!responseBody) {
+        responseBody = body;
+      }
+      res.json = originalJson;
+      return res.json(body);
+    };
+
     res.on('finish', () => {
-      const { statusCode, statusMessage } = res;
-      const headers = res.getHeaders();
       this.logger.log({
-        message: 'RESPONSE AUDIT',
+        message: 'REQUEST AUDIT',
+        request: {
+          method: req.method,
+          url: req.originalUrl,
+          headers: req.headers,
+          body: req.body,
+          query: req.query,
+        },
         response: {
-          statusCode,
-          statusMessage,
-          headers,
+          statusCode: res.statusCode,
+          statusMessage: res.statusMessage,
+          headers: res.getHeaders(),
           body: responseBody,
         },
       });

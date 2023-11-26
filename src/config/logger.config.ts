@@ -32,7 +32,7 @@ const trace = format((info) => {
   return { ...info, traceId: tracingService.get('traceId') };
 });
 
-const hideFields = format((info) => {
+const sensitive = format((info) => {
   // TODO: must hide:
   // password,
   // clientSecret, client_secret,
@@ -61,7 +61,7 @@ const treatError = format(({ stack: _stack, ...info }) => {
 });
 
 const remoteFormat = () =>
-  combine(timestamp(), severity(), trace(), treatError(), hideFields(), json());
+  combine(timestamp(), severity(), trace(), treatError(), sensitive(), json());
 
 const localFormat = (appName: string) =>
   combine(
@@ -69,7 +69,7 @@ const localFormat = (appName: string) =>
     severity(),
     trace(),
     treatError(),
-    hideFields(),
+    sensitive(),
     nestLike(appName),
   );
 
