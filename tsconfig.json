@@ -22,6 +22,8 @@
       "@core-ddd/*": ["./src/sdk/core-ddd/*"],
       "@tracing": ["./src/sdk/tracing"],
       "@tracing/*": ["./src/sdk/tracing/*"],
+      "@audit": ["./src/sdk/audit"],
+      "@audit/*": ["./src/sdk/audit/*"],
       "@amqp": ["./src/sdk/amqp"],
       "@amqp/*": ["./src/sdk/amqp/*"]
     }

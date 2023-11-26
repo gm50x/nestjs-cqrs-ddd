@@ -35,7 +35,7 @@ export class AccountSchema extends EntitySchema {
   @Prop()
   readonly email: string;
 
-  @Prop({ schema: PasswordSchema, type: TokenSchema })
+  @Prop({ schema: PasswordSchema, type: PasswordSchema })
   readonly password: PasswordSchema;
 
   @Prop({ schema: TokenSchema, type: TokenSchema })

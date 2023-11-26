@@ -25,18 +25,20 @@ const levels = {
 
 const severity = format((info) => {
   const { level } = info;
-  return Object.assign({}, info, { severity: levels[level] });
+  return { ...info, severity: levels[level] };
 });
 
 const trace = format((info) => {
-  return Object.assign({}, info, { traceId: tracingService.get('traceId') });
+  return { ...info, traceId: tracingService.get('traceId') };
 });
 
-const traceClient = format((info) => {
-  return Object.assign({}, info, {
-    clientId: tracingService.get('clientId'),
-    clientName: tracingService.get('clientName'),
-  });
+const hideFields = format((info) => {
+  // TODO: must hide:
+  // password,
+  // clientSecret, client_secret,
+  // accessToken, access_token, token,
+  // *secret
+  return { ...info };
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,28 +54,22 @@ const treatError = format(({ stack: _stack, ...info }) => {
     ? { response: { status: res.status, data: res.data } }
     : {};
 
-  return Object.assign({}, info, {
+  return {
+    ...info,
     error: { message: error.message, stack: error.stack, ...response },
-  });
+  };
 });
 
 const remoteFormat = () =>
-  combine(
-    timestamp(),
-    severity(),
-    trace(),
-    traceClient(),
-    treatError(),
-    json(),
-  );
+  combine(timestamp(), severity(), trace(), treatError(), hideFields(), json());
 
 const localFormat = (appName: string) =>
   combine(
     timestamp(),
     severity(),
     trace(),
-    traceClient(),
     treatError(),
+    hideFields(),
     nestLike(appName),
   );
 

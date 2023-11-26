@@ -1,4 +1,5 @@
 import { AmqpModule } from '@amqp';
+import { AuditModule } from '@audit';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -11,6 +12,7 @@ import { HttpDriversModule } from './app/drivers/http-drivers/http-drivers.modul
     ConfigModule.forRoot(),
     CqrsModule,
     TracingModule,
+    AuditModule,
     MongooseModule.forRoot('mongodb://gedai:gedai@localhost:27017', {
       appName: 'dummy-world-service',
     }),
