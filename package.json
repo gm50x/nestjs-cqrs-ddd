@@ -91,7 +91,8 @@
     ],
     "moduleNameMapper": {
       "^@gedai/tracing(|/.*)$": "<rootDir>/libs/tracing/src/$1",
-      "^@gedai/core-ddd(|/.*)$": "<rootDir>/libs/core-ddd/src/$1"
+      "^@gedai/core-ddd(|/.*)$": "<rootDir>/libs/core-ddd/src/$1",
+      "^@gedai/audit(|/.*)$": "<rootDir>/libs/audit/src/$1"
     }
   }
 }

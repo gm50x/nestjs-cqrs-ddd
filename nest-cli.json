@@ -24,6 +24,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/core-ddd/tsconfig.lib.json"
       }
+    },
+    "audit": {
+      "type": "library",
+      "root": "libs/audit",
+      "entryFile": "index",
+      "sourceRoot": "libs/audit/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/audit/tsconfig.lib.json"
+      }
     }
   }
 }
