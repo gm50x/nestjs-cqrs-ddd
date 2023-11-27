@@ -1,6 +1,6 @@
 import { ConflictException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AccountRepository } from '../../../infra/repositories/account/account.repository';
+import { AccountRepository } from '../abstractions/account.repository';
 import { AccountFactory } from '../factories/account.factory';
 import { SignUpCommand, SignUpResult } from './sign-up.command';
 

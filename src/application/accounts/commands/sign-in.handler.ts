@@ -1,6 +1,6 @@
 import { UnauthorizedException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AccountRepository } from '../../../infra/repositories/account/account.repository';
+import { AccountRepository } from '../abstractions/account.repository';
 import { SignInCommand, SignInResult } from './sign-in.command';
 
 @CommandHandler(SignInCommand)

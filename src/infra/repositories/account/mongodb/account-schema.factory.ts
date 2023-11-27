@@ -2,13 +2,13 @@ import { EntitySchemaFactory } from '@gedai/core-ddd';
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
-import { Account } from '../../../domain/account.entity';
-import { Email } from '../../../domain/email.value';
-import { PasswordFactory } from '../../../domain/password.value';
+import { Account } from '../../../../domain/account.entity';
+import { Email } from '../../../../domain/email.value';
+import { PasswordFactory } from '../../../../domain/password.value';
 import { AccountSchema } from './account.schema';
 
 @Injectable()
-export class AccountSchemaFactory
+export class AccountMongoSchemaFactory
   implements EntitySchemaFactory<AccountSchema, Account>
 {
   constructor(private readonly eventPublisher: EventPublisher) {}

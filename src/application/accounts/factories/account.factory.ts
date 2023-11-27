@@ -6,7 +6,7 @@ import { Account } from '../../../domain/account.entity';
 import { Email } from '../../../domain/email.value';
 import { AccountCreatedEvent } from '../../../domain/events/account-created.event';
 import { PasswordFactory } from '../../../domain/password.value';
-import { AccountRepository } from '../../../infra/repositories/account/account.repository';
+import { AccountRepository } from '../abstractions/account.repository';
 
 @Injectable()
 export class AccountFactory implements EntityFactory<Account> {

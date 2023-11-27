@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
-import { AccountSchemaFactory } from './account/account-schema.factory';
-import { AccountRepository } from './account/account.repository';
-import { AccountSchema } from './account/account.schema';
-
-const providedValues = [AccountSchemaFactory, AccountRepository];
+import { AccountRepository } from '../../application/accounts/abstractions/account.repository';
+import { AccountMongoSchemaFactory } from './account/mongodb/account-schema.factory';
+import { AccountMongoRepository } from './account/mongodb/account.repository';
+import { AccountSchema } from './account/mongodb/account.schema';
 
 @Module({
   imports: [
@@ -17,7 +16,13 @@ const providedValues = [AccountSchemaFactory, AccountRepository];
       },
     ]),
   ],
-  providers: providedValues,
-  exports: providedValues,
+  providers: [
+    AccountMongoSchemaFactory,
+    {
+      provide: AccountRepository,
+      useClass: AccountMongoRepository,
+    },
+  ],
+  exports: [AccountRepository],
 })
 export class RepositoryModule {}
