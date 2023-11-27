@@ -1,4 +1,4 @@
-import { EntitySchema } from '@core-ddd/entity.schema';
+import { EntitySchema } from '@gedai/core-ddd';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { PasswordAlgorithm } from 'src/app/domain/password.value';
 import { Token, TokenAlgorithm } from 'src/app/domain/token.value';

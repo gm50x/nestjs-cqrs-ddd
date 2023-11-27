@@ -18,14 +18,14 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@core-ddd": ["./src/sdk/core-ddd"],
-      "@core-ddd/*": ["./src/sdk/core-ddd/*"],
       "@audit": ["./src/sdk/audit"],
       "@audit/*": ["./src/sdk/audit/*"],
       "@amqp": ["./src/sdk/amqp"],
       "@amqp/*": ["./src/sdk/amqp/*"],
       "@gedai/tracing": ["libs/tracing/src"],
-      "@gedai/tracing/*": ["libs/tracing/src/*"]
+      "@gedai/tracing/*": ["libs/tracing/src/*"],
+      "@gedai/core-ddd": ["libs/core-ddd/src"],
+      "@gedai/core-ddd/*": ["libs/core-ddd/src/*"]
     }
   }
 }

@@ -15,6 +15,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/tracing/tsconfig.lib.json"
       }
+    },
+    "core-ddd": {
+      "type": "library",
+      "root": "libs/core-ddd",
+      "entryFile": "index",
+      "sourceRoot": "libs/core-ddd/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/core-ddd/tsconfig.lib.json"
+      }
     }
   }
 }

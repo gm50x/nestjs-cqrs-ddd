@@ -1,4 +1,4 @@
-import { CoreEvent } from '@core-ddd/core-event';
+import { CoreEvent } from '@gedai/core-ddd';
 
 export class AccountAuthenticatedEvent extends CoreEvent {
   constructor(readonly accountId: string) {

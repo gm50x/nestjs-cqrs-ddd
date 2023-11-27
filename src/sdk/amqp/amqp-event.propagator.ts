@@ -1,4 +1,4 @@
-import { CoreEvent } from '@core-ddd';
+import { CoreEvent } from '@gedai/core-ddd';
 import { TracingService } from '@gedai/tracing';
 import {
   Injectable,
