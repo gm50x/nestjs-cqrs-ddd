@@ -18,14 +18,36 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@amqp": ["./src/sdk/amqp"],
-      "@amqp/*": ["./src/sdk/amqp/*"],
-      "@gedai/tracing": ["libs/tracing/src"],
-      "@gedai/tracing/*": ["libs/tracing/src/*"],
-      "@gedai/core-ddd": ["libs/core-ddd/src"],
-      "@gedai/core-ddd/*": ["libs/core-ddd/src/*"],
-      "@gedai/audit": ["libs/audit/src"],
-      "@gedai/audit/*": ["libs/audit/src/*"]
+      "@amqp": [
+        "./src/sdk/amqp"
+      ],
+      "@amqp/*": [
+        "./src/sdk/amqp/*"
+      ],
+      "@gedai/tracing": [
+        "libs/tracing/src"
+      ],
+      "@gedai/tracing/*": [
+        "libs/tracing/src/*"
+      ],
+      "@gedai/core-ddd": [
+        "libs/core-ddd/src"
+      ],
+      "@gedai/core-ddd/*": [
+        "libs/core-ddd/src/*"
+      ],
+      "@gedai/audit": [
+        "libs/audit/src"
+      ],
+      "@gedai/audit/*": [
+        "libs/audit/src/*"
+      ],
+      "@gedai/amqp": [
+        "libs/amqp/src"
+      ],
+      "@gedai/amqp/*": [
+        "libs/amqp/src/*"
+      ]
     }
   }
 }

@@ -16,6 +16,8 @@
     "@gedai/core-ddd/(.*)": "<rootDir>/../libs/core-ddd/src/$1",
     "@gedai/core-ddd": "<rootDir>/../libs/core-ddd/src",
     "@gedai/audit/(.*)": "<rootDir>/../libs/audit/src/$1",
-    "@gedai/audit": "<rootDir>/../libs/audit/src"
+    "@gedai/audit": "<rootDir>/../libs/audit/src",
+    "@gedai/amqp/(.*)": "<rootDir>/../libs/amqp/src/$1",
+    "@gedai/amqp": "<rootDir>/../libs/amqp/src"
   }
 }

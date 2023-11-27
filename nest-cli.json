@@ -33,6 +33,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/audit/tsconfig.lib.json"
       }
+    },
+    "amqp": {
+      "type": "library",
+      "root": "libs/amqp",
+      "entryFile": "index",
+      "sourceRoot": "libs/amqp/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/amqp/tsconfig.lib.json"
+      }
     }
   }
 }

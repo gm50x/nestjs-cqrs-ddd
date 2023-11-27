@@ -1,4 +1,4 @@
-import { AmqpModule } from '@amqp';
+import { AmqpModule } from '@gedai/amqp';
 import { AuditModule } from '@gedai/audit';
 import { TracingModule } from '@gedai/tracing';
 import { Module } from '@nestjs/common';
