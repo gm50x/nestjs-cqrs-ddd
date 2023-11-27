@@ -5,7 +5,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
-import { HttpDriversModule } from './app/drivers/http-drivers/http-drivers.module';
+import { HttpDriversModule } from './drivers/http-drivers/http-drivers.module';
 
 @Module({
   imports: [
