@@ -1,6 +1,6 @@
-import { CoreEvent } from '@gedai/core-ddd';
+import { DomainEvent } from '@gedai/core-ddd';
 
-export class AccountAuthenticatedEvent extends CoreEvent {
+export class AccountAuthenticatedEvent extends DomainEvent {
   constructor(readonly accountId: string) {
     super();
   }

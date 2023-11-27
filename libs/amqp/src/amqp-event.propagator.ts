@@ -1,4 +1,4 @@
-import { CoreEvent } from '@gedai/core-ddd';
+import { DomainEvent } from '@gedai/core-ddd';
 import { TracingService } from '@gedai/tracing';
 import {
   Injectable,
@@ -43,7 +43,7 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     return values.join('');
   }
 
-  private async propagate(event: CoreEvent) {
+  private async propagate(event: DomainEvent) {
     const { _meta, ...eventData } = event;
     const eventName = event.constructor.name;
     const routingKey = this.translateEventNameToRoutingKey(eventName);

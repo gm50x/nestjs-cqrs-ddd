@@ -11,7 +11,7 @@ class EventMetadata {
   }
 }
 
-export class CoreEvent implements IEvent {
+export class DomainEvent implements IEvent {
   readonly _meta: EventMetadata;
 
   constructor(autoPropagated = true) {
