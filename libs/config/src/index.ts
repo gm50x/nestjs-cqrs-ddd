@@ -5,3 +5,4 @@ export * from './helmet.config';
 export * from './logger.config';
 export * from './open-api.config';
 export * from './validation.config';
+export * from './versioning.config';

@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+
 import {
   configureCORS,
   configureCompression,
@@ -10,8 +10,9 @@ import {
   configureLogger,
   configureOpenAPI,
   configureValidation,
-} from './config';
-import { configureVersioning } from './config/versioning.config';
+  configureVersioning,
+} from '@gedai/config';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true })

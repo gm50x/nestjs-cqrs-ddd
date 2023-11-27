@@ -47,6 +47,12 @@
       ],
       "@gedai/amqp/*": [
         "libs/amqp/src/*"
+      ],
+      "@gedai/config": [
+        "libs/config/src"
+      ],
+      "@gedai/config/*": [
+        "libs/config/src/*"
       ]
     }
   }
