@@ -1,3 +1,4 @@
+import { TracingService } from '@gedai/tracing';
 import { INestApplication, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -6,7 +7,6 @@ import {
   utilities as nestWinstonUtils,
 } from 'nest-winston';
 import { config, format, transports } from 'winston';
-import { TracingService } from '../sdk/tracing';
 
 let tracingService: TracingService;
 

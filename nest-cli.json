@@ -3,6 +3,18 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true
+  },
+  "projects": {
+    "tracing": {
+      "type": "library",
+      "root": "libs/tracing",
+      "entryFile": "index",
+      "sourceRoot": "libs/tracing/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/tracing/tsconfig.lib.json"
+      }
+    }
   }
 }

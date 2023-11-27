@@ -11,7 +11,7 @@ export class PasswordSchema {
   @Prop()
   salt: string;
 
-  @Prop()
+  @Prop({ type: String })
   algorithm: PasswordAlgorithm;
 }
 
@@ -23,7 +23,7 @@ export class TokenSchema {
   @Prop()
   meta: string;
 
-  @Prop()
+  @Prop({ type: String })
   algorithm: TokenAlgorithm;
 }
 

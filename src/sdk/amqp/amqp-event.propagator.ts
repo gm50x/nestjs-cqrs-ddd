@@ -1,4 +1,5 @@
 import { CoreEvent } from '@core-ddd';
+import { TracingService } from '@gedai/tracing';
 import {
   Injectable,
   Logger,
@@ -6,7 +7,6 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
-import { TracingService } from '@tracing';
 import { Subscription } from 'rxjs';
 import { AmqpService } from './amqp.service';
 
