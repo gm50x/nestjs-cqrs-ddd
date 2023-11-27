@@ -9,6 +9,8 @@ import {
 export type TokenAlgorithm = 'aes-256-gcm' | 'aes-256-cbc' | 'plain';
 
 export interface Token {
+  algorithm: TokenAlgorithm;
+  meta?: string;
   encrypt(password: string): void;
   decrypt(password: string): void;
   getValue(): string;
@@ -36,10 +38,9 @@ export class PlainToken implements Token {
 }
 
 export class AES256CBCToken implements Token {
-  readonly algorithm: TokenAlgorithm = 'aes-256-cbc';
-
   private value: string;
-  private meta?: string;
+  readonly algorithm: TokenAlgorithm = 'aes-256-cbc';
+  meta?: string;
 
   constructor(value?: string, meta?: string) {
     this.value = value ?? randomUUID();
@@ -90,10 +91,9 @@ export class AES256CBCToken implements Token {
 }
 
 export class AES256GCMToken implements Token {
-  readonly algorithm = 'aes-256-gcm';
-
   private value: string;
-  private meta?: string;
+  readonly algorithm = 'aes-256-gcm';
+  meta?: string;
 
   constructor(value?: string, meta?: string) {
     this.value = value ?? randomUUID();

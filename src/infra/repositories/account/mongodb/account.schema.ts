@@ -1,7 +1,7 @@
-import { EntitySchema } from '@gedai/core-ddd';
+import { EntityMongoSchema } from '@gedai/core-ddd';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { PasswordAlgorithm } from '../../../../domain/password.value';
-import { Token, TokenAlgorithm } from '../../../../domain/token.value';
+import { TokenAlgorithm } from '../../../../domain/token.value';
 
 @Schema({ _id: false })
 export class PasswordSchema {
@@ -28,7 +28,7 @@ export class TokenSchema {
 }
 
 @Schema({ versionKey: false, collection: 'Accounts' })
-export class AccountSchema extends EntitySchema {
+export class AccountSchema extends EntityMongoSchema {
   @Prop()
   readonly name: string;
 
@@ -39,5 +39,5 @@ export class AccountSchema extends EntitySchema {
   readonly password: PasswordSchema;
 
   @Prop({ schema: TokenSchema, type: TokenSchema })
-  readonly token?: Token;
+  readonly token?: TokenSchema;
 }
