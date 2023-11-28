@@ -4,8 +4,8 @@ import { TypeOrmRepositoryModule } from '../typeorm/repository.module';
 
 @Module({})
 export class RepositoryModule {
-  static forRoot(dataSource: 'Mongo' | 'TypeOrm') {
-    if (dataSource === 'Mongo') {
+  static forRoot(dataSource: 'Mongoose' | 'TypeOrm') {
+    if (dataSource === 'Mongoose') {
       return MongooseRepositoryModule;
     }
     if (dataSource === 'TypeOrm') {
