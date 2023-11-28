@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { MongooseRepositoryModule } from '../mongoose/repository.module';
-import { TypeOrmRepositoryModule } from '../typeorm/repository.module';
+import { MongooseRepositoryModule } from './mongoose/repository.module';
+import { TypeOrmRepositoryModule } from './typeorm/repository.module';
 
 @Module({})
-export class RepositoryModule {
+export class AccountRepositoryModule {
   static forRoot(dataSource: 'Mongoose' | 'TypeOrm') {
     if (dataSource === 'Mongoose') {
       return MongooseRepositoryModule;
