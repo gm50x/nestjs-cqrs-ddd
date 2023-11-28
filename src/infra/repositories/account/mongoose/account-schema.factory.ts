@@ -9,7 +9,7 @@ import { TokenFactory } from '../../../../domain/token.value';
 import { AccountSchema } from './account.schema';
 
 @Injectable()
-export class AccountMongoSchemaFactory
+export class AccountMongooseSchemaFactory
   implements EntitySchemaFactory<AccountSchema, Account>
 {
   constructor(private readonly eventPublisher: EventPublisher) {}

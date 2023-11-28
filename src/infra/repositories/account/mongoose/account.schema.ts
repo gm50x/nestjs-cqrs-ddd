@@ -1,4 +1,4 @@
-import { EntityMongoSchema } from '@gedai/core-ddd';
+import { EntityMongooseSchema } from '@gedai/core-ddd';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { PasswordAlgorithm } from '../../../../domain/password.value';
 import { TokenAlgorithm } from '../../../../domain/token.value';
@@ -28,7 +28,7 @@ export class TokenSchema {
 }
 
 @Schema({ versionKey: false, collection: 'Accounts' })
-export class AccountSchema extends EntityMongoSchema {
+export class AccountSchema extends EntityMongooseSchema {
   @Prop()
   readonly name: string;
 

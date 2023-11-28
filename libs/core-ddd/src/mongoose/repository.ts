@@ -3,10 +3,10 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { EntitySchemaFactory } from '../entity-schema.factory';
 import { Repository } from '../repository';
-import { EntityMongoSchema } from './entity.schema';
+import { EntityMongooseSchema } from './entity.schema';
 
-export abstract class MongoRepository<
-  TSchema extends EntityMongoSchema,
+export abstract class MongooseRepository<
+  TSchema extends EntityMongooseSchema,
   TEntity extends AggregateRoot,
 > implements Repository<TEntity>
 {

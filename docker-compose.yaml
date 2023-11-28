@@ -12,7 +12,7 @@ services:
       - 15672:15672
   mongodb:
     image: mongo:6
-    container_name: monguito
+    container_name: mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: 'gedai'
       MONGO_INITDB_ROOT_PASSWORD: 'gedai'

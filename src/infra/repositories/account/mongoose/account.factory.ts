@@ -9,7 +9,7 @@ import { AccountCreatedEvent } from '../../../../domain/events/account-created.e
 import { PasswordFactory } from '../../../../domain/password.value';
 
 @Injectable()
-export class AccountMongoFactory implements AccountFactory {
+export class AccountMongooseFactory implements AccountFactory {
   constructor(
     private readonly accountRepository: AccountRepository,
     private readonly eventPublisher: EventPublisher,
