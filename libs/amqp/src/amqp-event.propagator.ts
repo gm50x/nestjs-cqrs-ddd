@@ -1,6 +1,7 @@
 import { DomainEvent } from '@gedai/core-ddd';
 import { TracingService } from '@gedai/tracing';
 import {
+  Inject,
   Injectable,
   Logger,
   OnModuleDestroy,
@@ -8,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
 import { Subscription } from 'rxjs';
+import { AmqpConnectionOptions } from './amqp.connection';
 import { AmqpService } from './amqp.service';
 
 @Injectable()
@@ -19,14 +21,19 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     private readonly eventBus: EventBus,
     private readonly amqp: AmqpService,
     private readonly tracer: TracingService,
+    @Inject('AMQP_OPTIONS') private readonly options: AmqpConnectionOptions,
   ) {}
 
   onModuleInit() {
+    if (!this.options.enableEventPropagation) {
+      this.logger.debug('Event propagation is disabled');
+      return;
+    }
     this.subscription = this.eventBus.subscribe(this.propagate.bind(this));
   }
 
   onModuleDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   private translateEventNameToRoutingKey(eventName: string): string {

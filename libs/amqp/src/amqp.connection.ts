@@ -13,6 +13,7 @@ export type AmqpConnectionOptions = {
   url: string;
   appName?: string;
   heartbeatIntervalInSeconds?: number;
+  enableEventPropagation?: boolean;
 };
 
 @Injectable()

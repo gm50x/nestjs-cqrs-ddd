@@ -6,15 +6,17 @@ import { AmqpConnection, AmqpConnectionOptions } from './amqp.connection';
 import { AmqpService } from './amqp.service';
 
 type AmqpModuleOptions = {
+  url: string;
   appName?: string;
   heartbeatIntervalInSeconds?: number;
+  enableEventPropagation?: boolean;
   // TODO: add asserts here
 };
 
 @Global()
 @Module({})
 export class AmqpModule {
-  static forRoot(amqpURL: string, opts?: AmqpModuleOptions): DynamicModule {
+  static forRoot(opts: AmqpModuleOptions): DynamicModule {
     return {
       module: AmqpModule,
       imports: [CqrsModule, ConfigModule.forRoot()],
@@ -25,8 +27,9 @@ export class AmqpModule {
         {
           provide: 'AMQP_OPTIONS',
           useValue: {
-            url: amqpURL,
+            url: opts.url,
             appName: opts?.appName,
+            enableEventPropagation: opts?.enableEventPropagation ?? true,
           } as AmqpConnectionOptions,
         },
       ],

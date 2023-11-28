@@ -26,7 +26,8 @@ import { HttpDriversModule } from './drivers/http-drivers/http-drivers.module';
       synchronize: true,
       logging: true,
     }),
-    AmqpModule.forRoot('amqp://gedai:gedai@localhost:5672/gedai', {
+    AmqpModule.forRoot({
+      url: 'amqp://gedai:gedai@localhost:5672/gedai',
       appName: 'dummy-world-service',
     }),
     HttpDriversModule,
