@@ -18,3 +18,12 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 'gedai'
     ports:
       - 27017:27017
+  postgresdb:
+    image: postgres:16
+    container_name: postgresdb
+    environment:
+      POSTGRES_DB: gedai
+      POSTGRES_USER: gedai
+      POSTGRES_PASSWORD: gedai
+    ports:
+      - 5432:5432

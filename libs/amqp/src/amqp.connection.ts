@@ -56,6 +56,9 @@ export class AmqpConnection implements OnModuleInit, OnModuleDestroy {
       connectionOptions: { clientProperties: { connection_name: appName } },
     });
     this.channel = this.connection.createChannel({ json: true });
+    await this.channel.assertExchange('events', 'topic');
+    await this.channel.assertQueue('events-log');
+    await this.channel.bindQueue('events-log', 'events', '#');
   }
 
   async onModuleDestroy() {

@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpDriversModule } from './drivers/http-drivers/http-drivers.module';
 
 @Module({
@@ -15,15 +16,17 @@ import { HttpDriversModule } from './drivers/http-drivers/http-drivers.module';
     AuditModule,
     MongooseModule.forRoot(
       'mongodb://gedai:gedai@localhost:27017/nestjs-cqrs-ddd?authSource=admin',
-      {
-        appName: 'dummy-world-service',
-        connectTimeoutMS: 1000,
-        socketTimeoutMS: 1000,
-        waitQueueTimeoutMS: 1000,
-        serverSelectionTimeoutMS: 1000,
-      },
+      { appName: 'dummy-world-service' },
     ),
-    AmqpModule.forRoot('amqp://gedai:gedai@localhost:5672', {
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: 'postgresql://gedai:gedai@localhost:5432',
+      applicationName: 'dummy-world-service',
+      autoLoadEntities: true,
+      synchronize: true,
+      logging: true,
+    }),
+    AmqpModule.forRoot('amqp://gedai:gedai@localhost:5672/gedai', {
       appName: 'dummy-world-service',
     }),
     HttpDriversModule,

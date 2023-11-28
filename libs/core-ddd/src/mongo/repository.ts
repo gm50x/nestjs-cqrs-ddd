@@ -1,12 +1,12 @@
 import { NotFoundException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { FilterQuery, Model, Types } from 'mongoose';
-import { EntitySchemaFactory } from './entity-schema.factory';
-import { EntitySchema } from './entity.schema';
-import { Repository } from './repository';
+import { EntitySchemaFactory } from '../entity-schema.factory';
+import { Repository } from '../repository';
+import { EntityMongoSchema } from './entity.schema';
 
 export abstract class MongoRepository<
-  TSchema extends EntitySchema,
+  TSchema extends EntityMongoSchema,
   TEntity extends AggregateRoot,
 > implements Repository<TEntity>
 {
