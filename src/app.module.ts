@@ -20,15 +20,16 @@ import { HttpDriversModule } from './drivers/http-drivers/http-drivers.module';
     ),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgresql://gedai:gedai@localhost:5432',
+      url: 'postgresql://gedai:gedai@localhost:5432/gedai',
       applicationName: 'dummy-world-service',
       autoLoadEntities: true,
       synchronize: true,
       logging: true,
     }),
     AmqpModule.forRoot({
-      url: 'amqp://gedai:gedai@localhost:5672/gedai',
+      url: 'amqp://gedai:gedai@localhost:5672',
       appName: 'dummy-world-service',
+      enableEventPropagation: true,
     }),
     HttpDriversModule,
   ],

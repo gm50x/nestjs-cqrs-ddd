@@ -6,15 +6,11 @@ import {
 } from '@nestjs/common';
 import amqp, {
   AmqpConnectionManager,
+  Channel,
   ChannelWrapper,
 } from 'amqp-connection-manager';
 
-export type AmqpConnectionOptions = {
-  url: string;
-  appName?: string;
-  heartbeatIntervalInSeconds?: number;
-  enableEventPropagation?: boolean;
-};
+import { AmqpModuleOptions, MODULE_OPTIONS_TOKEN } from './amqp.options';
 
 @Injectable()
 export class AmqpConnection implements OnModuleInit, OnModuleDestroy {
@@ -22,7 +18,7 @@ export class AmqpConnection implements OnModuleInit, OnModuleDestroy {
   private channel: ChannelWrapper;
 
   constructor(
-    @Inject('AMQP_OPTIONS') private readonly opts: AmqpConnectionOptions,
+    @Inject(MODULE_OPTIONS_TOKEN) private readonly opts: AmqpModuleOptions,
   ) {}
 
   async sendToQueue(
@@ -56,10 +52,14 @@ export class AmqpConnection implements OnModuleInit, OnModuleDestroy {
       heartbeatIntervalInSeconds,
       connectionOptions: { clientProperties: { connection_name: appName } },
     });
-    this.channel = this.connection.createChannel({ json: true });
-    await this.channel.assertExchange('events', 'topic');
-    await this.channel.assertQueue('events-log');
-    await this.channel.bindQueue('events-log', 'events', '#');
+    this.channel = this.connection.createChannel({
+      json: true,
+      async setup(channel: Channel) {
+        await channel.assertExchange('events', 'topic');
+        await channel.assertQueue('events-log');
+        await channel.bindQueue('events-log', 'events', '#');
+      },
+    });
   }
 
   async onModuleDestroy() {

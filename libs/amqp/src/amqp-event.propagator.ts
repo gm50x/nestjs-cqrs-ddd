@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
 import { Subscription } from 'rxjs';
-import { AmqpConnectionOptions } from './amqp.connection';
+import { AmqpModuleOptions, MODULE_OPTIONS_TOKEN } from './amqp.options';
 import { AmqpService } from './amqp.service';
 
 @Injectable()
@@ -21,7 +21,8 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     private readonly eventBus: EventBus,
     private readonly amqp: AmqpService,
     private readonly tracer: TracingService,
-    @Inject('AMQP_OPTIONS') private readonly options: AmqpConnectionOptions,
+    @Inject(MODULE_OPTIONS_TOKEN)
+    private readonly options: AmqpModuleOptions,
   ) {}
 
   onModuleInit() {
