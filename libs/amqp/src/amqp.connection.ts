@@ -16,6 +16,7 @@ import { AmqpModuleOptions, MODULE_OPTIONS_TOKEN } from './amqp.options';
 export class AmqpConnection implements OnModuleInit, OnModuleDestroy {
   private connection: AmqpConnectionManager;
   private channel: ChannelWrapper;
+  private ready: boolean;
 
   constructor(
     @Inject(MODULE_OPTIONS_TOKEN) private readonly opts: AmqpModuleOptions,
@@ -52,17 +53,24 @@ export class AmqpConnection implements OnModuleInit, OnModuleDestroy {
       heartbeatIntervalInSeconds,
       connectionOptions: { clientProperties: { connection_name: appName } },
     });
+    const setReadyState = () => (this.ready = true);
     this.channel = this.connection.createChannel({
       json: true,
       async setup(channel: Channel) {
         await channel.assertExchange('events', 'topic');
         await channel.assertQueue('events-log');
         await channel.bindQueue('events-log', 'events', '#');
+        setReadyState();
       },
     });
   }
 
   async onModuleDestroy() {
+    if (!this.ready) {
+      // TODO: find better ways to prevent this from crashing in e2e tests
+      return;
+    }
+
     await this.channel.close();
     await this.connection.close();
   }
