@@ -1,25 +1,23 @@
 {
-  "moduleFileExtensions": [
-    "js",
-    "json",
-    "ts"
-  ],
-  "rootDir": ".",
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "..",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
+  "collectCoverageFrom": ["./src/**/*.(t|j)s", "./libs/**/*.(t|j)s"],
+  "coverageDirectory": "./coverage-e2e",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "@gedai/tracing/(.*)": "<rootDir>/../libs/tracing/src/$1",
-    "@gedai/tracing": "<rootDir>/../libs/tracing/src",
-    "@gedai/core-ddd/(.*)": "<rootDir>/../libs/core-ddd/src/$1",
-    "@gedai/core-ddd": "<rootDir>/../libs/core-ddd/src",
-    "@gedai/audit/(.*)": "<rootDir>/../libs/audit/src/$1",
-    "@gedai/audit": "<rootDir>/../libs/audit/src",
-    "@gedai/amqp/(.*)": "<rootDir>/../libs/amqp/src/$1",
-    "@gedai/amqp": "<rootDir>/../libs/amqp/src",
-    "@gedai/config/(.*)": "<rootDir>/../libs/config/src/$1",
-    "@gedai/config": "<rootDir>/../libs/config/src"
+    "@gedai/tracing/(.*)": "<rootDir>/libs/tracing/src/$1",
+    "@gedai/tracing": "<rootDir>/libs/tracing/src",
+    "@gedai/core-ddd/(.*)": "<rootDir>/libs/core-ddd/src/$1",
+    "@gedai/core-ddd": "<rootDir>/libs/core-ddd/src",
+    "@gedai/audit/(.*)": "<rootDir>/libs/audit/src/$1",
+    "@gedai/audit": "<rootDir>/libs/audit/src",
+    "@gedai/amqp/(.*)": "<rootDir>/libs/amqp/src/$1",
+    "@gedai/amqp": "<rootDir>/libs/amqp/src",
+    "@gedai/config/(.*)": "<rootDir>/libs/config/src/$1",
+    "@gedai/config": "<rootDir>/libs/config/src"
   }
 }
