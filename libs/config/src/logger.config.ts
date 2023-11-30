@@ -75,7 +75,7 @@ const localFormat = (appName: string) =>
     nestLike(appName),
   );
 
-export const configureLogger = (app: INestApplication) => {
+export const configureLogger = (app: INestApplication, silent = false) => {
   const configService = app.get(ConfigService);
   tracingService = app.get(TracingService);
 
@@ -88,6 +88,7 @@ export const configureLogger = (app: INestApplication) => {
   const useLocalFormat = env === 'development';
 
   const loggerConfig: WinstonModuleOptions = {
+    silent,
     levels: config.npm.levels,
     level: logLevel,
     format: useLocalFormat ? localFormat(appName) : remoteFormat(),

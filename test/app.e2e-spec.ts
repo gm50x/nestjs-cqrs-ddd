@@ -27,7 +27,7 @@ describe('AppController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
 
-    configureLogger(app);
+    configureLogger(app, true);
     configureCORS(app);
     configureCompression(app);
     configureExceptionsHandler(app);
