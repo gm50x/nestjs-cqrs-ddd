@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
-import { AccountFactory } from '../../../../application/accounts/abstractions/account.factory';
-import { AccountRepository } from '../../../../application/accounts/abstractions/account.repository';
+import { AccountFactory } from '../../../../application/abstractions/account.factory';
+import { AccountRepository } from '../../../../application/abstractions/account.repository';
 import { Account } from '../../../../domain/account.entity';
 import { Email } from '../../../../domain/email.value';
 import { AccountCreatedEvent } from '../../../../domain/events/account-created.event';

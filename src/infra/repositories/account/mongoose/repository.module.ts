@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
-import { AccountFactory } from '../../../../application/accounts/abstractions/account.factory';
-import { AccountRepository } from '../../../../application/accounts/abstractions/account.repository';
+import { AccountFactory } from '../../../../application/abstractions/account.factory';
+import { AccountRepository } from '../../../../application/abstractions/account.repository';
 import { AccountMongooseSchemaFactory } from './account-schema.factory';
 import { AccountMongooseFactory } from './account.factory';
 import { AccountMongooseRepository } from './account.repository';

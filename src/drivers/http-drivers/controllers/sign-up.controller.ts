@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { SignUpCommand } from '../../../application/accounts/commands/sign-up.command';
+import { SignUpCommand } from '../../../application/commands/sign-up.command';
 import { SignUpRequest, SignUpResponse } from '../models/sign-up.model';
 
 @Controller({ version: '1' })
