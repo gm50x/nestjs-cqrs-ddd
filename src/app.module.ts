@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { HttpDriversModule } from './drivers/http-drivers/http-drivers.module';
+import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { HttpDriversModule } from './drivers/http-drivers/http-drivers.module';
       appName: 'dummy-world-service',
       enableEventPropagation: true,
     }),
-    HttpDriversModule,
+    AccountModule,
   ],
 })
 export class AppModule {}

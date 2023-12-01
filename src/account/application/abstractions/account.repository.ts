@@ -1,5 +1,5 @@
 import { Repository } from '@gedai/core-ddd';
-import { Account } from '../../../domain/account.entity';
+import { Account } from '../../domain/account.entity';
 
 export abstract class AccountRepository implements Repository<Account> {
   abstract findOneById(id: string): Promise<Account>;

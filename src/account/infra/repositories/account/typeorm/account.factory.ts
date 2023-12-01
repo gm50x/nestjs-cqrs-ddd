@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
-import { Types } from 'mongoose';
-import { AccountFactory } from '../../../../application/accounts/abstractions/account.factory';
-import { AccountRepository } from '../../../../application/accounts/abstractions/account.repository';
+import { AccountFactory } from '../../../../application/abstractions/account.factory';
+import { AccountRepository } from '../../../../application/abstractions/account.repository';
 import { Account } from '../../../../domain/account.entity';
 import { Email } from '../../../../domain/email.value';
 import { AccountCreatedEvent } from '../../../../domain/events/account-created.event';
 import { PasswordFactory } from '../../../../domain/password.value';
 
 @Injectable()
-export class AccountMongooseFactory implements AccountFactory {
+export class AccountTypeOrmFactory implements AccountFactory {
   constructor(
     private readonly accountRepository: AccountRepository,
     private readonly eventPublisher: EventPublisher,
@@ -22,7 +21,7 @@ export class AccountMongooseFactory implements AccountFactory {
   ): Promise<Account> {
     const Password = PasswordFactory.create('sha256');
     const account = new Account(
-      new Types.ObjectId().toHexString(),
+      null,
       name,
       new Email(email),
       new Password(password, PasswordFactory.generateSalt(), true),

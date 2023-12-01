@@ -2,7 +2,7 @@ import { TypeOrmRepository } from '@gedai/core-ddd';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository as BaseRepository } from 'typeorm';
-import { AccountRepository } from '../../../../application/accounts/abstractions/account.repository';
+import { AccountRepository } from '../../../../application/abstractions/account.repository';
 import { Account } from '../../../../domain/account.entity';
 import { AccountTypeOrmSchemaFactory } from './account-schema.factory';
 import { AccountSchema } from './account.schema';

@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ChangePasswordCommand } from '../../../application/accounts/commands/change-password.command';
+import { ChangePasswordCommand } from '../../../application/commands/change-password.command';
 import { ChangePasswordRequest } from '../models/change-password.model';
 
 @Controller({ version: '1' })

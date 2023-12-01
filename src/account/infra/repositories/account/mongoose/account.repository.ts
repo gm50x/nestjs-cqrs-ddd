@@ -2,7 +2,7 @@ import { MongooseRepository } from '@gedai/core-ddd';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AccountRepository } from '../../../../application/accounts/abstractions/account.repository';
+import { AccountRepository } from '../../../../application/abstractions/account.repository';
 import { Account } from '../../../../domain/account.entity';
 import { AccountMongooseSchemaFactory } from './account-schema.factory';
 import { AccountSchema } from './account.schema';
