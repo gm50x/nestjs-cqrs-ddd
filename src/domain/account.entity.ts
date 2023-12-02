@@ -21,7 +21,7 @@ export class Account extends AggregateRoot {
     if (!this.password.validate(currentPassword)) {
       throw new ForbiddenException();
     }
-    const Password = PasswordFactory.create('sha256');
+    const Password = PasswordFactory.create('pbkdf2');
     this.password = new Password(
       newPassword,
       PasswordFactory.generateSalt(),
