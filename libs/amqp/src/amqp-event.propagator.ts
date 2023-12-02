@@ -1,4 +1,4 @@
-import { DomainEvent } from '@gedai/core-ddd';
+import { DomainEvent } from '@gedai/core-events';
 import { TracingService } from '@gedai/tracing';
 import {
   Inject,

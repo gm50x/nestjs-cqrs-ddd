@@ -51,6 +51,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
+    },
+    "core-events": {
+      "type": "library",
+      "root": "libs/core-events",
+      "entryFile": "index",
+      "sourceRoot": "libs/core-events/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/core-events/tsconfig.lib.json"
+      }
     }
   }
 }

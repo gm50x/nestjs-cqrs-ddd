@@ -1,8 +1,10 @@
+import {
+  AccountAuthenticatedEvent,
+  AccountPasswordChangedEvent,
+} from '@gedai/core-events';
 import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Email } from './email.value';
-import { AccountAuthenticatedEvent } from './events/account-authenticated.event';
-import { AccountPasswordChangedEvent } from './events/account-password-changed.event';
 import { Password, PasswordFactory } from './password.value';
 import { Token, TokenFactory } from './token.value';
 

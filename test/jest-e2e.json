@@ -18,6 +18,8 @@
     "@gedai/amqp/(.*)": "<rootDir>/libs/amqp/src/$1",
     "@gedai/amqp": "<rootDir>/libs/amqp/src",
     "@gedai/config/(.*)": "<rootDir>/libs/config/src/$1",
-    "@gedai/config": "<rootDir>/libs/config/src"
+    "@gedai/config": "<rootDir>/libs/config/src",
+    "@gedai/core-events/(.*)": "<rootDir>/libs/core-events/src/$1",
+    "@gedai/core-events": "<rootDir>/libs/core-events/src"
   }
 }

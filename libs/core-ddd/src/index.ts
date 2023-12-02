@@ -1,4 +1,3 @@
-export * from './domain-event';
 export * from './entity-schema.factory';
 export * from './entity.factory';
 export * from './mongoose/entity.schema';

@@ -1,3 +1,4 @@
+import { AccountCreatedEvent } from '@gedai/core-events';
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
@@ -5,7 +6,6 @@ import { AccountFactory } from '../../../../application/abstractions/account.fac
 import { AccountRepository } from '../../../../application/abstractions/account.repository';
 import { Account } from '../../../../domain/account.entity';
 import { Email } from '../../../../domain/email.value';
-import { AccountCreatedEvent } from '../../../../domain/events/account-created.event';
 import { PasswordFactory } from '../../../../domain/password.value';
 
 @Injectable()

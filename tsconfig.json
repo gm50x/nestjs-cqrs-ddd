@@ -53,6 +53,12 @@
       ],
       "@gedai/config/*": [
         "libs/config/src/*"
+      ],
+      "@gedai/core-events": [
+        "libs/core-events/src"
+      ],
+      "@gedai/core-events/*": [
+        "libs/core-events/src/*"
       ]
     }
   }
