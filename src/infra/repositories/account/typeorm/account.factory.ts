@@ -19,7 +19,7 @@ export class AccountTypeOrmFactory implements AccountFactory {
     email: string,
     password: string,
   ): Promise<Account> {
-    const Password = PasswordFactory.create('sha256');
+    const Password = PasswordFactory.create('pbkdf2');
     const account = new Account(
       null,
       name,
