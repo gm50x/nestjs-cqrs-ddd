@@ -16,7 +16,7 @@ import { Connection as MongooseConnection } from 'mongoose';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('AppController (e2e)', () => {
+describe('Accounts (e2e)', () => {
   let app: INestApplication;
   let server: HttpServer;
 
@@ -85,6 +85,41 @@ describe('AppController (e2e)', () => {
         .send({ email, password });
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({ access_token: expect.any(String) });
+    });
+
+    it('POST /v1/change-password should change the account password', async () => {
+      const fullName = faker.person.fullName();
+      const [firstName, ...lastNames] = fullName.split(' ');
+      const password = faker.internet.password();
+      const email = faker.internet.email({
+        firstName,
+        lastName: lastNames.join('_'),
+      });
+      await request(server)
+        .post('/v1/sign-up')
+        .send({ name: fullName, email, password });
+
+      const newPassword = faker.internet.password();
+      const changePasswordResponse = await request(server)
+        .post('/v1/change-password')
+        .send({
+          email,
+          currentPassword: password,
+          newPassword,
+        });
+      const oldPasswordSignInResponse = await request(server)
+        .post('/v1/sign-in')
+        .send({ email, password });
+      const newPasswordSignInResponse = await request(server)
+        .post('/v1/sign-in')
+        .send({ email, password: newPassword });
+      expect(changePasswordResponse.statusCode).toBe(201);
+      expect(changePasswordResponse.body).toEqual({});
+      expect(oldPasswordSignInResponse.statusCode).toBe(401);
+      expect(newPasswordSignInResponse.statusCode).toBe(201);
+      expect(newPasswordSignInResponse.body).toEqual({
+        access_token: expect.any(String),
+      });
     });
   });
 });
