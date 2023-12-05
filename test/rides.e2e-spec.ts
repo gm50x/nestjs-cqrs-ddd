@@ -196,5 +196,45 @@ describe('Rides (e2e)', () => {
         expect(acceptRideResponse.statusCode).toBe(422);
       });
     });
+    describe('Start Ride', () => {
+      it('POST /v1/start-ride should start the ride', async () => {
+        const passenger = getPassengerAccount();
+        const driver = getDriverAccount();
+        const createPassengerResponse = await request(server)
+          .post('/v1/sign-up')
+          .send(passenger);
+        const createDriverResponse = await request(server)
+          .post('/v1/sign-up')
+          .send(driver);
+        const passengerId = createPassengerResponse.body.id;
+        const driverId = createDriverResponse.body.id;
+        const requestRideResponse = await request(server)
+          .post('/v1/request-ride')
+          .send(getRequestRide(passengerId));
+        const rideId = requestRideResponse.body.id;
+        await request(server)
+          .post('/v1/accept-ride')
+          .send({ driverId, rideId });
+        const startRideResponse = await request(server)
+          .post('/v1/start-ride')
+          .send({ rideId });
+        const getRideResponse = await request(server).get(
+          `/v1/rides/${rideId}`,
+        );
+        expect(startRideResponse.statusCode).toBe(201);
+        expect(getRideResponse.body).toEqual(
+          expect.objectContaining({
+            status: 'IN_PROGRESS',
+            driver: expect.objectContaining({ id: driverId }),
+          }),
+        );
+      });
+      it('POST /v1/start-ride fail starting non existing rides', async () => {
+        const startRideResponse = await request(server)
+          .post('/v1/start-ride')
+          .send({ rideId: new Types.ObjectId().toHexString() });
+        expect(startRideResponse.statusCode).toBe(422);
+      });
+    });
   });
 });

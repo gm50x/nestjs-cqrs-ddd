@@ -7,6 +7,7 @@ import { GetRideHandler } from './commands/get-ride.handler';
 import { RequestRideHandler } from './commands/request-ride.handler';
 import { SignInHandler } from './commands/sign-in.handler';
 import { SignUpHandler } from './commands/sign-up.handler';
+import { StartRideHandler } from './commands/start-ride.handler';
 
 @Module({
   imports: [CqrsModule, AccountRepositoryModule.forRoot('Mongoose')],
@@ -16,6 +17,7 @@ import { SignUpHandler } from './commands/sign-up.handler';
     ChangePasswordHandler,
     RequestRideHandler,
     AcceptRideHandler,
+    StartRideHandler,
     GetRideHandler,
   ],
   exports: [
@@ -24,6 +26,7 @@ import { SignUpHandler } from './commands/sign-up.handler';
     ChangePasswordHandler,
     RequestRideHandler,
     AcceptRideHandler,
+    StartRideHandler,
     GetRideHandler,
   ],
 })

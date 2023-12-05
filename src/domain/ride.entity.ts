@@ -1,3 +1,5 @@
+import { RideAcceptedEvent } from '@gedai/core-events/ride/ride-accepted.event';
+import { RideStartedEvent } from '@gedai/core-events/ride/ride-started-event';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Coord } from './coord.value';
 
@@ -22,5 +24,11 @@ export class Ride extends AggregateRoot {
   accept(driverId: string) {
     this.driverId = driverId;
     this.status = 'ACCEPTED';
+    this.apply(new RideAcceptedEvent(this.id));
+  }
+
+  start() {
+    this.status = 'IN_PROGRESS';
+    this.apply(new RideStartedEvent(this.id));
   }
 }

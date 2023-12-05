@@ -7,6 +7,7 @@ import { GetRideController } from './controllers/get-ride.controller';
 import { RequestRideController } from './controllers/request-ride.controller';
 import { SignInController } from './controllers/sign-in.controller';
 import { SignUpController } from './controllers/sign-up.controller';
+import { StartRideController } from './controllers/start-ride.controller';
 
 @Module({
   imports: [CqrsModule, ApplicationModule],
@@ -16,6 +17,7 @@ import { SignUpController } from './controllers/sign-up.controller';
     ChangePasswordController,
     RequestRideController,
     AcceptRideController,
+    StartRideController,
     GetRideController,
   ],
 })

@@ -38,6 +38,11 @@ export class AcceptRideHandler
       );
     }
     const ride = await this.rideRepository.findOneById(command.rideId);
+    if (!ride) {
+      throw new UnprocessableEntityException(
+        `Ride ${command.rideId} does not exist`,
+      );
+    }
     ride.accept(command.driverId);
     await this.rideRepository.save(ride);
     ride.commit();
