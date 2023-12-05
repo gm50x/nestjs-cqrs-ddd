@@ -4,7 +4,6 @@ import {
 } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AccountRepository } from '../abstractions/account.repository';
-import { RideFactory } from '../abstractions/ride.factory';
 import { RideRepository } from '../abstractions/ride.repository';
 import { AcceptRideCommand } from './accept-ride.command';
 
@@ -15,7 +14,6 @@ export class AcceptRideHandler
   constructor(
     private readonly accountRepository: AccountRepository,
     private readonly rideRepository: RideRepository,
-    private readonly rideFactory: RideFactory,
   ) {}
 
   async execute(command: AcceptRideCommand): Promise<void> {
