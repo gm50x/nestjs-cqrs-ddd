@@ -88,7 +88,7 @@ describe('Rides (e2e)', () => {
       });
     });
     describe('Accept Ride', () => {
-      it('POST /v1/request-ride allow driver accepting ride', async () => {
+      it('POST /v1/request-ride should allow driver accepting ride', async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -106,7 +106,16 @@ describe('Rides (e2e)', () => {
         const acceptRideResponse = await request(server)
           .post('/v1/accept-ride')
           .send({ driverId, rideId });
+        const getRideResponse = await request(server).get(
+          `/v1/rides/${rideId}`,
+        );
         expect(acceptRideResponse.statusCode).toBe(201);
+        expect(getRideResponse.body).toEqual(
+          expect.objectContaining({
+            status: 'ACCEPTED',
+            driver: expect.objectContaining({ id: driverId }),
+          }),
+        );
       });
       it(`POST /v1/request-ride should prevent driver from accepting a ride when there's another ongoing ride`, async () => {
         const passenger = getPassengerAccount();
