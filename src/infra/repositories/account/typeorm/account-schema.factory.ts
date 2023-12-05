@@ -2,6 +2,7 @@ import { EntitySchemaFactory } from '@gedai/core-ddd';
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Account } from '../../../../domain/account.entity';
+import { CarPlate } from '../../../../domain/car-plate.value';
 import { Email } from '../../../../domain/email.value';
 import { PasswordFactory } from '../../../../domain/password.value';
 import { TokenFactory } from '../../../../domain/token.value';
@@ -34,6 +35,9 @@ export class AccountTypeOrmSchemaFactory
     const token = Token
       ? new Token(entitySchema.tokenValue, entitySchema.tokenMeta)
       : null;
+    const carPlate = entitySchema.carPlate
+      ? new CarPlate(entitySchema.carPlate)
+      : null;
     return this.eventPublisher.mergeObjectContext(
       new Account(
         entitySchema._id.toString(),
@@ -44,6 +48,7 @@ export class AccountTypeOrmSchemaFactory
           entitySchema.passwordSalt,
           false,
         ),
+        carPlate,
         token,
       ),
     );

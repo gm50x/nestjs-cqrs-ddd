@@ -4,6 +4,7 @@ import {
 } from '@gedai/core-events';
 import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
+import { CarPlate } from './car-plate.value';
 import { Email } from './email.value';
 import { Password, PasswordFactory } from './password.value';
 import { Token, TokenFactory } from './token.value';
@@ -14,6 +15,7 @@ export class Account extends AggregateRoot {
     readonly name: string,
     readonly email: Email,
     public password: Password,
+    readonly carPlate?: CarPlate,
     public token?: Token,
   ) {
     super();

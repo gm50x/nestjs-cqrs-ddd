@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import { Account } from '../../../../domain/account.entity';
+import { CarPlate } from '../../../../domain/car-plate.value';
 import { Email } from '../../../../domain/email.value';
 import { PasswordFactory } from '../../../../domain/password.value';
 import { TokenFactory } from '../../../../domain/token.value';
@@ -38,6 +39,9 @@ export class AccountMongooseSchemaFactory
     const token = Token
       ? new Token(entitySchema.token.value, entitySchema.token.meta)
       : null;
+    const carPlate = entitySchema.carPlate
+      ? new CarPlate(entitySchema.carPlate)
+      : null;
     return this.eventPublisher.mergeObjectContext(
       new Account(
         entitySchema._id.toHexString(),
@@ -48,6 +52,7 @@ export class AccountMongooseSchemaFactory
           entitySchema.password.salt,
           false,
         ),
+        carPlate,
         token,
       ),
     );

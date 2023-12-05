@@ -38,6 +38,9 @@ export class AccountSchema extends EntityMongooseSchema {
   @Prop({ schema: PasswordSchema, type: PasswordSchema })
   readonly password: PasswordSchema;
 
+  @Prop()
+  readonly carPlate?: string;
+
   @Prop({ schema: TokenSchema, type: TokenSchema })
   readonly token?: TokenSchema;
 }

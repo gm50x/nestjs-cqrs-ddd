@@ -21,6 +21,9 @@ export class AccountSchema extends EntityTypeOrmSchema {
   readonly passwordSalt: string;
 
   @Column({ nullable: true })
+  carPlate?: string;
+
+  @Column({ nullable: true })
   tokenValue?: string;
 
   @Column({ nullable: true })
