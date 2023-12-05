@@ -25,8 +25,11 @@ export class RideMongooseFactory implements RideFactory {
     const ride = new Ride(
       new Types.ObjectId().toHexString(),
       passengerId,
+      null,
       new Coord(from.lat, from.long),
       new Coord(to.lat, to.long),
+      null,
+      new Date(),
     );
     await this.rideRepository.create(ride);
     ride.apply(new RideRequestedEvent(ride.id));

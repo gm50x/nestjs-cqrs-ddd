@@ -28,6 +28,7 @@ export class AccountMongooseSchemaFactory
       email: entity.email.value,
       password: entity.password,
       token: token,
+      carPlate: entity.carPlate?.value,
     };
   }
 

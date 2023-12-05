@@ -26,3 +26,17 @@ export function getDriverAccount() {
     carPlate: 'ABC-1234',
   };
 }
+
+export function getRequestRide(passengerId: string) {
+  return {
+    passengerId,
+    from: {
+      lat: -27.584905257808835,
+      long: -48.545022195325124,
+    },
+    to: {
+      lat: -27.496887588317275,
+      long: -48.522234807851476,
+    },
+  };
+}

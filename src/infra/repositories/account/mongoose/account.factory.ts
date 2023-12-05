@@ -5,6 +5,7 @@ import { Types } from 'mongoose';
 import { AccountFactory } from '../../../../application/abstractions/account.factory';
 import { AccountRepository } from '../../../../application/abstractions/account.repository';
 import { Account } from '../../../../domain/account.entity';
+import { CarPlate } from '../../../../domain/car-plate.value';
 import { Email } from '../../../../domain/email.value';
 import { PasswordFactory } from '../../../../domain/password.value';
 
@@ -19,6 +20,7 @@ export class AccountMongooseFactory implements AccountFactory {
     name: string,
     email: string,
     password: string,
+    carPlate?: string,
   ): Promise<Account> {
     const Password = PasswordFactory.create('pbkdf2');
     const account = new Account(
@@ -26,6 +28,7 @@ export class AccountMongooseFactory implements AccountFactory {
       name,
       new Email(email),
       new Password(password, PasswordFactory.generateSalt(), true),
+      carPlate ? new CarPlate(carPlate) : null,
     );
     await this.accountRepository.create(account);
     account.apply(new AccountCreatedEvent(account.id));

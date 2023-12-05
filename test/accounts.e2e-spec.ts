@@ -52,7 +52,7 @@ describe('Accounts (e2e)', () => {
     await app.close();
   });
 
-  describe('accounts', () => {
+  describe('Account', () => {
     it('POST /v1/sign-up should accept passenger sign-up of new accounts', async () => {
       const passenger = getPassengerAccount();
       const response = await request(server)

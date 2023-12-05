@@ -24,6 +24,7 @@ export class SignUpHandler
       command.name,
       command.email,
       command.password,
+      command.carPlate,
     );
     account.commit();
     return new SignUpResult(account.id);

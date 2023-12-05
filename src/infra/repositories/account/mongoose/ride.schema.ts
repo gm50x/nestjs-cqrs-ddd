@@ -15,6 +15,9 @@ export class RideSchema extends EntityMongooseSchema {
   @Prop()
   passengerId: Types.ObjectId;
 
+  @Prop({ required: false })
+  driverId?: Types.ObjectId;
+
   @Prop({ schema: CoordSchema, type: CoordSchema })
   from: CoordSchema;
 
@@ -23,4 +26,7 @@ export class RideSchema extends EntityMongooseSchema {
 
   @Prop()
   status: string;
+
+  @Prop()
+  date: Date;
 }

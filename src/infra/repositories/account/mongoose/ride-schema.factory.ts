@@ -23,7 +23,9 @@ export class RideMongooseSchemaFactory
         long: entity.to.long,
       },
       passengerId: new Types.ObjectId(entity.passengerId),
+      driverId: entity.driverId ? new Types.ObjectId(entity.driverId) : null,
       status: entity.status,
+      date: entity.date,
     };
   }
 
@@ -32,9 +34,11 @@ export class RideMongooseSchemaFactory
       new Ride(
         entitySchema._id.toHexString(),
         entitySchema.passengerId.toHexString(),
+        entitySchema.driverId?.toHexString(),
         new Coord(entitySchema.from.lat, entitySchema.from.long),
         new Coord(entitySchema.to.lat, entitySchema.to.long),
         entitySchema.status,
+        entitySchema.date,
       ),
     );
   }

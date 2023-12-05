@@ -6,5 +6,6 @@ export abstract class AccountFactory implements EntityFactory<Account> {
     name: string,
     email: string,
     password: string,
+    carPlate?: string,
   ): Promise<Account>;
 }
