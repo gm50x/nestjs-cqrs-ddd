@@ -21,6 +21,10 @@ export class Account extends AggregateRoot {
     super();
   }
 
+  get isDriver() {
+    return Boolean(this.carPlate);
+  }
+
   changePassword(currentPassword: string, newPassword: string) {
     if (!this.password.validate(currentPassword)) {
       throw new ForbiddenException();

@@ -10,7 +10,7 @@ export class SignUpController {
   @Post('sign-up')
   async execute(@Body() data: SignUpRequest): Promise<SignUpResponse> {
     return await this.commandBus.execute(
-      new SignUpCommand(data.name, data.email, data.password),
+      new SignUpCommand(data.name, data.email, data.password, data.carPlate),
     );
   }
 }

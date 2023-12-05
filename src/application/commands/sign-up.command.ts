@@ -3,6 +3,7 @@ export class SignUpCommand {
     readonly name: string,
     readonly email: string,
     readonly password: string,
+    readonly carPlate?: string,
   ) {}
 }
 export class SignUpResult {
