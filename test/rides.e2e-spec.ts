@@ -63,8 +63,18 @@ describe('Rides (e2e)', () => {
         const requestRideResponse = await request(server)
           .post('/v1/request-ride')
           .send(getRequestRide(passengerId));
+        const rideId = requestRideResponse.body.id;
+        const getRideResponse = await request(server).get(
+          `/v1/rides/${rideId}`,
+        );
         expect(requestRideResponse.statusCode).toBe(201);
-        expect(requestRideResponse.body.id).toEqual(expect.any(String));
+        expect(rideId).toEqual(expect.any(String));
+        expect(getRideResponse.body).toEqual(
+          expect.objectContaining({
+            status: 'REQUESTED',
+            passenger: expect.objectContaining({ id: passengerId }),
+          }),
+        );
       });
       it('POST /v1/request-ride should fail creating a new ride if passenger does not exist', async () => {
         const requestRideResponse = await request(server)
