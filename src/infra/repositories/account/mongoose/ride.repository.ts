@@ -29,7 +29,7 @@ export class RideMongooseRepository
 
   async getActiveRidesByDriverId(driverId: string): Promise<Ride[]> {
     return this.find({
-      passengerId: new Types.ObjectId(driverId),
+      driverId: new Types.ObjectId(driverId),
       status: { $in: ['ACCEPTED', 'IN_PROGRESS'] },
     });
   }
