@@ -2,7 +2,7 @@ version: '3.9'
 services:
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq
+    container_name: gedai-rabbitmq
     hostname: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: 'gedai'
@@ -12,7 +12,7 @@ services:
       - 15672:15672
   mongodb:
     image: mongo:6
-    container_name: mongodb
+    container_name: gedai-mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: 'gedai'
       MONGO_INITDB_ROOT_PASSWORD: 'gedai'
@@ -20,7 +20,7 @@ services:
       - 27017:27017
   postgresdb:
     image: postgres:16
-    container_name: postgresdb
+    container_name: gedai-postgresdb
     environment:
       POSTGRES_DB: gedai
       POSTGRES_USER: gedai
