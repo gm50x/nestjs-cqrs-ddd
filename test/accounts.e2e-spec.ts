@@ -10,11 +10,11 @@ import {
   configureVersioning,
 } from '@gedai/config';
 import { HttpServer, INestApplication } from '@nestjs/common';
-import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Connection as MongooseConnection } from 'mongoose';
 import * as request from 'supertest';
+import { setTimeout } from 'timers/promises';
 import { AppModule } from '../src/app.module';
+import { getDriverAccount, getPassengerAccount } from './utils';
 
 describe('Accounts (e2e)', () => {
   let app: INestApplication;
@@ -44,63 +44,35 @@ describe('Accounts (e2e)', () => {
   });
 
   afterAll(async () => {
+    await setTimeout(500);
     // TODO: This should work with typeorm too
-    const mongooseConnection =
-      app.get<MongooseConnection>(getConnectionToken());
-    await mongooseConnection.dropDatabase();
+    // const mongooseConnection =
+    //   app.get<MongooseConnection>(getConnectionToken());
+    // await mongooseConnection.dropDatabase();
     await app.close();
   });
 
   describe('accounts', () => {
     it('POST /v1/sign-up should accept passenger sign-up of new accounts', async () => {
-      const fullName = faker.person.fullName();
-      const [firstName, ...lastNames] = fullName.split(' ');
+      const passenger = getPassengerAccount();
       const response = await request(server)
         .post('/v1/sign-up')
-        .send({
-          name: fullName,
-          email: faker.internet.email({
-            firstName,
-            lastName: lastNames.join('_'),
-          }),
-          password: faker.internet.password(),
-        });
+        .send(passenger);
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({ id: expect.any(String) });
     });
 
     it('POST /v1/sign-up should accept driver sign-up of new accounts', async () => {
-      const fullName = faker.person.fullName();
-      const [firstName, ...lastNames] = fullName.split(' ');
-      const response = await request(server)
-        .post('/v1/sign-up')
-        .send({
-          name: fullName,
-          email: faker.internet.email({
-            firstName,
-            lastName: lastNames.join('_'),
-          }),
-          password: faker.internet.password(),
-          carPlate: 'ABC-1234',
-        });
+      const driver = getDriverAccount();
+      const response = await request(server).post('/v1/sign-up').send(driver);
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({ id: expect.any(String) });
     });
 
     it('POST /v1/sign-up should reject duplicated sign-up', async () => {
-      const fullName = faker.person.fullName();
-      const [firstName, ...lastNames] = fullName.split(' ');
-      const payload = {
-        name: fullName,
-        email: faker.internet.email({
-          firstName,
-          lastName: lastNames.join('_'),
-        }),
-        password: faker.internet.password(),
-        carPlate: 'ABC-1234',
-      };
+      const driver = getDriverAccount();
       const makeRequest = () =>
-        request(server).post('/v1/sign-up').send(payload);
+        request(server).post('/v1/sign-up').send(driver);
       const firstResponse = await makeRequest();
       const secondResponse = await makeRequest();
       expect(firstResponse.statusCode).toBe(201);
@@ -109,63 +81,40 @@ describe('Accounts (e2e)', () => {
     });
 
     it('POST /v1/sign-in should return an access_token', async () => {
-      const fullName = faker.person.fullName();
-      const [firstName, ...lastNames] = fullName.split(' ');
-      const password = faker.internet.password();
-      const email = faker.internet.email({
-        firstName,
-        lastName: lastNames.join('_'),
-      });
-      await request(server)
-        .post('/v1/sign-up')
-        .send({ name: fullName, email, password });
+      const passenger = getPassengerAccount();
+      await request(server).post('/v1/sign-up').send(passenger);
       const response = await request(server)
         .post('/v1/sign-in')
-        .send({ email, password });
+        .send({ email: passenger.email, password: passenger.password });
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({ access_token: expect.any(String) });
     });
 
     it('POST /v1/sign-in should reject nonexisting accounts', async () => {
-      const fullName = faker.person.fullName();
-      const [firstName, ...lastNames] = fullName.split(' ');
-      const password = faker.internet.password();
-      const email = faker.internet.email({
-        firstName,
-        lastName: lastNames.join('_'),
-      });
+      const passenger = getPassengerAccount();
       const response = await request(server)
         .post('/v1/sign-in')
-        .send({ email, password });
+        .send({ email: passenger.email, password: passenger.password });
       expect(response.statusCode).toBe(401);
     });
 
     it('POST /v1/change-password should change the account password', async () => {
-      const fullName = faker.person.fullName();
-      const [firstName, ...lastNames] = fullName.split(' ');
-      const password = faker.internet.password();
-      const email = faker.internet.email({
-        firstName,
-        lastName: lastNames.join('_'),
-      });
-      await request(server)
-        .post('/v1/sign-up')
-        .send({ name: fullName, email, password });
-
+      const passenger = getPassengerAccount();
+      await request(server).post('/v1/sign-up').send(passenger);
       const newPassword = faker.internet.password();
       const changePasswordResponse = await request(server)
         .post('/v1/change-password')
         .send({
-          email,
-          currentPassword: password,
+          email: passenger.email,
+          currentPassword: passenger.password,
           newPassword,
         });
       const oldPasswordSignInResponse = await request(server)
         .post('/v1/sign-in')
-        .send({ email, password });
+        .send({ email: passenger.email, password: passenger.password });
       const newPasswordSignInResponse = await request(server)
         .post('/v1/sign-in')
-        .send({ email, password: newPassword });
+        .send({ email: passenger.email, password: newPassword });
       expect(changePasswordResponse.statusCode).toBe(201);
       expect(changePasswordResponse.body).toEqual({});
       expect(oldPasswordSignInResponse.statusCode).toBe(401);

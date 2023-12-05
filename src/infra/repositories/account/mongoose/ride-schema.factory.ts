@@ -1,0 +1,41 @@
+import { EntitySchemaFactory } from '@gedai/core-ddd';
+import { Injectable } from '@nestjs/common';
+import { EventPublisher } from '@nestjs/cqrs';
+import { Types } from 'mongoose';
+import { Coord } from '../../../../domain/coord.value';
+import { Ride } from '../../../../domain/ride.entity';
+import { RideSchema } from './ride.schema';
+
+@Injectable()
+export class RideMongooseSchemaFactory
+  implements EntitySchemaFactory<RideSchema, Ride>
+{
+  constructor(private readonly eventPublisher: EventPublisher) {}
+  create(entity: Ride): RideSchema {
+    return {
+      _id: new Types.ObjectId(entity.id),
+      from: {
+        lat: entity.from.lat,
+        long: entity.from.long,
+      },
+      to: {
+        lat: entity.to.lat,
+        long: entity.to.long,
+      },
+      passengerId: new Types.ObjectId(entity.passengerId),
+      status: entity.status,
+    };
+  }
+
+  createFromSchema(entitySchema: RideSchema): Ride {
+    return this.eventPublisher.mergeObjectContext(
+      new Ride(
+        entitySchema._id.toHexString(),
+        entitySchema.passengerId.toHexString(),
+        new Coord(entitySchema.from.lat, entitySchema.from.long),
+        new Coord(entitySchema.to.lat, entitySchema.to.long),
+        entitySchema.status,
+      ),
+    );
+  }
+}
