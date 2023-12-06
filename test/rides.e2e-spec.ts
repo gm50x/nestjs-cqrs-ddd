@@ -14,7 +14,12 @@ import { Types } from 'mongoose';
 import * as request from 'supertest';
 import { setTimeout } from 'timers/promises';
 import { AppModule } from '../src/app.module';
-import { getDriverAccount, getPassengerAccount, getRequestRide } from './utils';
+import {
+  getDriverAccount,
+  getPassengerAccount,
+  getRequestRide,
+  getUpdatedPosition,
+} from './utils';
 
 describe('Rides (e2e)', () => {
   let app: INestApplication;
@@ -232,6 +237,38 @@ describe('Rides (e2e)', () => {
       it('POST /v1/start-ride fail starting non existing rides', async () => {
         const startRideResponse = await request(server)
           .post('/v1/start-ride')
+          .send({ rideId: new Types.ObjectId().toHexString() });
+        expect(startRideResponse.statusCode).toBe(422);
+      });
+    });
+    describe('Update Position', () => {
+      it(`POST /v1/update-position should update the ride's position`, async () => {
+        const passenger = getPassengerAccount();
+        const driver = getDriverAccount();
+        const createPassengerResponse = await request(server)
+          .post('/v1/sign-up')
+          .send(passenger);
+        const createDriverResponse = await request(server)
+          .post('/v1/sign-up')
+          .send(driver);
+        const passengerId = createPassengerResponse.body.id;
+        const driverId = createDriverResponse.body.id;
+        const requestRideResponse = await request(server)
+          .post('/v1/request-ride')
+          .send(getRequestRide(passengerId));
+        const rideId = requestRideResponse.body.id;
+        await request(server)
+          .post('/v1/accept-ride')
+          .send({ driverId, rideId });
+        await request(server).post('/v1/start-ride').send({ rideId });
+        const updatePositionResponse = await request(server)
+          .post('/v1/update-position')
+          .send(getUpdatedPosition(rideId));
+        expect(updatePositionResponse.statusCode).toBe(201);
+      });
+      it('POST /v1/update-position fail starting non existing rides', async () => {
+        const startRideResponse = await request(server)
+          .post('/v1/update-position')
           .send({ rideId: new Types.ObjectId().toHexString() });
         expect(startRideResponse.statusCode).toBe(422);
       });

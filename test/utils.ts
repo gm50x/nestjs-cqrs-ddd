@@ -40,3 +40,13 @@ export function getRequestRide(passengerId: string) {
     },
   };
 }
+
+export function getUpdatedPosition(rideId: string) {
+  return {
+    rideId,
+    coord: {
+      lat: -27.496887588317275,
+      long: -48.522234807851476,
+    },
+  };
+}
