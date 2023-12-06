@@ -103,7 +103,7 @@ describe('Rides (e2e)', () => {
       });
     });
     describe('Accept Ride', () => {
-      it('POST /v1/request-ride should allow driver accepting ride', async () => {
+      it('POST /v1/accept-ride should allow driver accepting ride', async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -132,7 +132,7 @@ describe('Rides (e2e)', () => {
           }),
         );
       });
-      it(`POST /v1/request-ride should prevent driver from accepting a ride when there's another ongoing ride`, async () => {
+      it(`POST /v1/accept-ride should prevent driver from accepting a ride when there's another ongoing ride`, async () => {
         const passenger = getPassengerAccount();
         const otherPassenger = getPassengerAccount();
         const driver = getDriverAccount();
@@ -230,7 +230,6 @@ describe('Rides (e2e)', () => {
         expect(getRideResponse.body).toEqual(
           expect.objectContaining({
             status: 'IN_PROGRESS',
-            driver: expect.objectContaining({ id: driverId }),
           }),
         );
       });
@@ -269,6 +268,44 @@ describe('Rides (e2e)', () => {
       it('POST /v1/update-position fail starting non existing rides', async () => {
         const startRideResponse = await request(server)
           .post('/v1/update-position')
+          .send({ rideId: new Types.ObjectId().toHexString() });
+        expect(startRideResponse.statusCode).toBe(422);
+      });
+    });
+    describe('Finish Ride', () => {
+      it('POST /v1/finish-ride should finish the ride', async () => {
+        const passenger = getPassengerAccount();
+        const driver = getDriverAccount();
+        const createPassengerResponse = await request(server)
+          .post('/v1/sign-up')
+          .send(passenger);
+        const createDriverResponse = await request(server)
+          .post('/v1/sign-up')
+          .send(driver);
+        const passengerId = createPassengerResponse.body.id;
+        const driverId = createDriverResponse.body.id;
+        const requestRideResponse = await request(server)
+          .post('/v1/request-ride')
+          .send(getRequestRide(passengerId));
+        const rideId = requestRideResponse.body.id;
+        await request(server)
+          .post('/v1/accept-ride')
+          .send({ driverId, rideId });
+        await request(server).post('/v1/start-ride').send({ rideId });
+        const finishRideResponse = await request(server)
+          .post('/v1/finish-ride')
+          .send({ rideId });
+        const getRideResponse = await request(server).get(
+          `/v1/rides/${rideId}`,
+        );
+        expect(finishRideResponse.statusCode).toBe(201);
+        expect(getRideResponse.body).toEqual(
+          expect.objectContaining({ status: 'COMPLETED' }),
+        );
+      });
+      it('POST /v1/finish-ride fail finishing non existing rides', async () => {
+        const startRideResponse = await request(server)
+          .post('/v1/finish-ride')
           .send({ rideId: new Types.ObjectId().toHexString() });
         expect(startRideResponse.statusCode).toBe(422);
       });

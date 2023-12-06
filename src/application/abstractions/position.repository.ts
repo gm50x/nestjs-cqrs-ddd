@@ -7,4 +7,5 @@ export abstract class PositionRepository implements Repository<Position> {
   abstract findAll(): Promise<Position[]>;
   abstract create(entity: Position): Promise<void>;
   abstract save(entity: Position): Promise<void>;
+  abstract getByRideId(rideId: string);
 }

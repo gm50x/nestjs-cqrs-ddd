@@ -1,7 +1,7 @@
 import { MongooseRepository } from '@gedai/core-ddd';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { PositionRepository } from '../../../../application/abstractions/position.repository';
 import { Position } from '../../../../domain/position.entity';
 import { PositionMongooseSchemaFactory } from './position-schema.factory';
@@ -18,5 +18,10 @@ export class PositionMongooseRepository
     protected readonly userSchemaFactory: PositionMongooseSchemaFactory,
   ) {
     super(userModel, userSchemaFactory);
+  }
+  async getByRideId(rideId: string) {
+    return this.find({
+      rideId: new Types.ObjectId(rideId),
+    });
   }
 }
