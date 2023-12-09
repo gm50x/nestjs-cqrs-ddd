@@ -23,7 +23,7 @@ export class AccountTypeOrmSchemaFactory
       passwordValue: entity.password.value,
       tokenAlgorithm: entity.token?.algorithm,
       tokenMeta: entity.token?.meta,
-      tokenValue: entity.token?.getValue(),
+      tokenValue: entity.token?.value,
     };
   }
 

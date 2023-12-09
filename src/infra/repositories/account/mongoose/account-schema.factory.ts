@@ -19,7 +19,7 @@ export class AccountMongooseSchemaFactory
       ? {
           algorithm: entity.token.algorithm,
           meta: entity.token.meta,
-          value: entity.token.getValue(),
+          value: entity.token.value,
         }
       : null;
     return {

@@ -9,46 +9,46 @@ import {
 export type TokenAlgorithm = 'aes-256-gcm' | 'aes-256-cbc' | 'plain';
 
 export interface Token {
-  algorithm: TokenAlgorithm;
-  meta?: string;
+  readonly algorithm: TokenAlgorithm;
+  readonly meta?: string;
+  readonly value: string;
   encrypt(password: string): void;
   decrypt(password: string): void;
-  getValue(): string;
 }
 
 export class PlainToken implements Token {
   readonly algorithm = 'plain';
-  private value: string;
+  private _value: string;
 
   constructor() {
-    this.value = randomUUID();
+    this._value = randomUUID();
   }
 
-  getValue(): string {
-    return this.value;
+  get value(): string {
+    return this._value;
   }
 
   encrypt(): void {
-    this.value = `${this.value}`;
+    this._value = `${this._value}`;
   }
 
   decrypt(): void {
-    this.value = `${this.value}`;
+    this._value = `${this._value}`;
   }
 }
 
 export class AES256CBCToken implements Token {
-  private value: string;
+  private _value: string;
   readonly algorithm: TokenAlgorithm = 'aes-256-cbc';
   meta?: string;
 
   constructor(value?: string, meta?: string) {
-    this.value = value ?? randomUUID();
+    this._value = value ?? randomUUID();
     this.meta = meta;
   }
 
-  getValue(): string {
-    return this.value;
+  get value(): string {
+    return this._value;
   }
 
   encrypt(password: string): void {
@@ -67,7 +67,7 @@ export class AES256CBCToken implements Token {
     const encryption = Buffer.concat([hydratedCipher, finalCipher]);
 
     this.meta = initializationVector.toString('hex');
-    this.value = encryption.toString('hex');
+    this._value = encryption.toString('hex');
   }
 
   decrypt(password: string): void {
@@ -86,22 +86,22 @@ export class AES256CBCToken implements Token {
     const decryption = Buffer.concat([hidratedDecipher, finalDecipher]);
 
     this.meta = null;
-    this.value = decryption.toString('utf-8');
+    this._value = decryption.toString('utf-8');
   }
 }
 
 export class AES256GCMToken implements Token {
-  private value: string;
+  private _value: string;
   readonly algorithm = 'aes-256-gcm';
   meta?: string;
 
   constructor(value?: string, meta?: string) {
-    this.value = value ?? randomUUID();
+    this._value = value ?? randomUUID();
     this.meta = meta;
   }
 
-  getValue(): string {
-    return this.value;
+  get value(): string {
+    return this._value;
   }
 
   encrypt(password: string): void {
@@ -123,7 +123,7 @@ export class AES256GCMToken implements Token {
       initializationVector.toString('hex'),
       cipher.getAuthTag().toString('hex'),
     ].join('.');
-    this.value = encryption.toString('hex');
+    this._value = encryption.toString('hex');
   }
 
   decrypt(password: string): void {
@@ -147,7 +147,7 @@ export class AES256GCMToken implements Token {
     const decryption = Buffer.concat([hidratedDecipher, finalDecipher]);
 
     this.meta = null;
-    this.value = decryption.toString('utf-8');
+    this._value = decryption.toString('utf-8');
   }
 }
 

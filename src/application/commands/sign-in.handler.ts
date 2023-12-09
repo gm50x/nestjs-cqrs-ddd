@@ -19,6 +19,6 @@ export class SignInHandler
     await this.accountRepository.save(account);
     token.decrypt(command.password);
     account.commit();
-    return new SignInResult(token.getValue());
+    return new SignInResult(token.value);
   }
 }

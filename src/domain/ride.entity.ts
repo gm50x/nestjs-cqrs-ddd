@@ -9,9 +9,10 @@ import { Position } from './position.entity';
 import { RideStatus } from './ride-status.value';
 
 export class Ride extends AggregateRoot {
-  driverId?: string;
-  distance?: number;
-  fare?: number;
+  private _driverId?: string;
+  private _distance?: number;
+  private _fare?: number;
+  private _status: RideStatus;
 
   constructor(
     readonly id: string,
@@ -19,44 +20,60 @@ export class Ride extends AggregateRoot {
     driverId: string | null,
     readonly from: Coord,
     readonly to: Coord,
-    public status: RideStatus,
+    status: RideStatus,
     readonly date: Date,
     fare?: number,
     distance?: number,
   ) {
     super();
-    this.status = status;
-    this.driverId = driverId;
-    this.fare = fare;
-    this.distance = distance;
+    this._status = status;
+    this._driverId = driverId;
+    this._fare = fare;
+    this._distance = distance;
+  }
+
+  get status() {
+    return this._status;
+  }
+
+  get driverId(): string | null {
+    return this._driverId;
+  }
+
+  get fare(): number | null {
+    return this._fare;
+  }
+
+  get distance(): number | null {
+    return this._distance;
   }
 
   accept(driverId: string) {
-    this.driverId = driverId;
-    this.status = this.status.accept();
+    this._driverId = driverId;
+    this._status = this._status.accept();
     this.apply(new RideAcceptedEvent(this.id));
   }
 
   start() {
-    this.status = this.status.start();
+    this._status = this._status.start();
     this.apply(new RideStartedEvent(this.id));
   }
 
   finish(positions: Position[]) {
-    this.distance = 0;
+    this._distance = 0;
     for (const [index, currentPosition] of positions.entries()) {
       const nextPosition = positions[index + 1];
       if (!nextPosition) {
         break;
       }
-      this.distance = DistanceCalculator.calculate(
+      this._distance = DistanceCalculator.calculate(
         currentPosition.coord,
         nextPosition.coord,
       );
     }
     const fareCalculator = FareCalculatorFactory.create(this.date);
-    this.fare = fareCalculator.calculate(this.distance);
-    this.status = this.status.finish();
+    this._fare = fareCalculator.calculate(this._distance);
+    this._status = this._status.finish();
     this.apply(new RideCompletedEvent(this.id));
   }
 }
