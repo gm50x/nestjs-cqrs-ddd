@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { HttpDriversModule } from './drivers/drivers.module';
+import { DriversModule } from './drivers/drivers.module';
 
 @Module({
-  imports: [HttpDriversModule],
+  imports: [DriversModule],
+  exports: [DriversModule],
 })
 export class RideModule {}

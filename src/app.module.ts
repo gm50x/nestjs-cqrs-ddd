@@ -7,6 +7,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountModule } from './account/account.module';
+import { PaymentModule } from './payment/payment.module';
 import { RideModule } from './ride/ride.module';
 
 @Module({
@@ -30,9 +31,14 @@ import { RideModule } from './ride/ride.module';
       url: 'amqp://gedai:gedai@localhost:5672',
       appName: 'dummy-world-service',
       enableEventPropagation: true,
+      exchanges: [
+        { name: 'events', type: 'topic' },
+        { name: 'payments.dlx', type: 'topic' },
+      ],
     }),
     AccountModule,
     RideModule,
+    PaymentModule,
   ],
 })
 export class AppModule {}

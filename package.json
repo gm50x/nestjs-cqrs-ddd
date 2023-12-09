@@ -22,6 +22,7 @@
     "test:e2e:cov": "jest --config ./test/jest-e2e.json --coverage"
   },
   "dependencies": {
+    "@golevelup/nestjs-rabbitmq": "^4.1.0",
     "@nestjs/axios": "^3.0.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",

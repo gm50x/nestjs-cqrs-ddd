@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AccountClient } from '../../../account/drivers/client/account.client';
+import { AccountClient } from '../../../account/drivers/clients/account.client';
 import {
   AccountModel,
   AccountService,
@@ -9,7 +9,9 @@ import {
 export class AccountClientService implements AccountService {
   constructor(private readonly client: AccountClient) {}
   async getById(id: string): Promise<AccountModel> {
-    const account = await this.client.getById({ id }).catch(() => null);
+    const account = await this.client
+      .getById(id)
+      .catch((): AccountModel => null);
     if (!account) {
       return;
     }

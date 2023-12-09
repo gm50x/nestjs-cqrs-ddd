@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
 import { Subscription } from 'rxjs';
+import { AmqpEventNameAdapter } from './amqp-event-name.adapter';
 import { AmqpModuleOptions, MODULE_OPTIONS_TOKEN } from './amqp.options';
 import { AmqpService } from './amqp.service';
 
@@ -37,24 +38,10 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     this.subscription?.unsubscribe();
   }
 
-  private translateEventNameToRoutingKey(eventName: string): string {
-    const baseNameWithoutSuffix = eventName.replace(/Event$/g, '');
-    const values = [baseNameWithoutSuffix[0].toLowerCase()];
-    for (let i = 1; i < baseNameWithoutSuffix.length; i++) {
-      const thisCharacter = baseNameWithoutSuffix[i];
-      if (thisCharacter === thisCharacter.toUpperCase()) {
-        values.push('.', thisCharacter.toLowerCase());
-      } else {
-        values.push(thisCharacter);
-      }
-    }
-    return values.join('');
-  }
-
   private async propagate(event: DomainEvent) {
     const { _meta, ...eventData } = event;
     const eventName = event.constructor.name;
-    const routingKey = this.translateEventNameToRoutingKey(eventName);
+    const routingKey = AmqpEventNameAdapter.getRoutingKey(event);
     if (!_meta.autoPropagated) {
       this.logger.debug(
         `Supressing event propagation as ${eventName}.autoPropagated is set to ${_meta.autoPropagated}`,

@@ -16,7 +16,6 @@ import { RideMongooseFactory } from './repositories/mongoose/ride.factory';
 import { RideMongooseRepository } from './repositories/mongoose/ride.repository';
 import { RideSchema } from './repositories/mongoose/ride.schema';
 import { AccountClientService } from './services/account-client.service';
-
 @Module({
   imports: [
     CqrsModule,

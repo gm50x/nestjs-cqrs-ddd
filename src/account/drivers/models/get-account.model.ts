@@ -1,7 +1,3 @@
-import { GetAccountOutput } from 'src/account/application/query/get-account.query';
-
-export class GetAccountRequest {
-  id: string;
-}
+import { GetAccountOutput } from '../../application/query/get-account.query';
 
 export class GetAccountResponse extends GetAccountOutput {}

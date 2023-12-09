@@ -8,7 +8,7 @@ import { PaymentMongooseSchemaFactory } from './payment-schema.factory';
 import { PaymentSchema } from './payment.schema';
 
 @Injectable()
-export class AccountMongooseRepository
+export class PaymentMongooseRepository
   extends MongooseRepository<PaymentSchema, Payment>
   implements PaymentRepository
 {

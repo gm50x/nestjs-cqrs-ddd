@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { PaymentFactory } from '../abstractions/payment.factory';
 import { PaymentGateway } from '../abstractions/payment.gateway';
@@ -8,6 +9,7 @@ import { ProcessPaymentCommand } from './process-payment.command';
 export class ProcessPaymentHandler
   implements ICommandHandler<ProcessPaymentCommand, void>
 {
+  private readonly logger = new Logger(this.constructor.name);
   constructor(
     private readonly rideService: RideService,
     private readonly paymentFactory: PaymentFactory,
@@ -17,6 +19,7 @@ export class ProcessPaymentHandler
   async execute(command: ProcessPaymentCommand): Promise<void> {
     const ride = await this.rideService.getById(command.rideId);
     await this.paymentGateway.charge(ride.passenger.id, ride.fare);
+    // TODO: consider failures
     const payment = await this.paymentFactory.create(
       ride.id,
       ride.passenger.id,

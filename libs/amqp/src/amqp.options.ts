@@ -1,3 +1,7 @@
+import {
+  RabbitMQExchangeConfig,
+  RabbitMQQueueConfig,
+} from '@golevelup/nestjs-rabbitmq';
 import { ConfigurableModuleBuilder } from '@nestjs/common';
 
 export type AmqpModuleOptions = {
@@ -5,7 +9,8 @@ export type AmqpModuleOptions = {
   appName?: string;
   heartbeatIntervalInSeconds?: number;
   enableEventPropagation?: boolean;
-  // TODO: add asserts here
+  exchanges?: RabbitMQExchangeConfig[];
+  queues?: RabbitMQQueueConfig[];
 };
 
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =
