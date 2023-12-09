@@ -9,7 +9,7 @@ import {
 export class AccountClientService implements AccountService {
   constructor(private readonly client: AccountClient) {}
   async getById(id: string): Promise<AccountModel> {
-    const account = await this.client.getById(id).catch(() => null);
+    const account = await this.client.getById({ id }).catch(() => null);
     if (!account) {
       return;
     }

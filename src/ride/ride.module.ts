@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { HttpDriversModule } from './drivers/http-drivers/http-drivers.module';
+import { HttpDriversModule } from './drivers/drivers.module';
 
 @Module({
   imports: [HttpDriversModule],

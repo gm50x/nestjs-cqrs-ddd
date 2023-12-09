@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { AcceptRideCommand } from '../../../../ride/application/commands/accept-ride.command';
-import { AcceptRideRequest } from '../models/accept-ride.model';
+import { AcceptRideRequest } from '../../models/accept-ride.model';
 
 @Controller({ version: '1' })
 export class AcceptRideController {

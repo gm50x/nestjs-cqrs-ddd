@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { SignInCommand } from '../../../application/commands/sign-in.command';
-import { SignInRequest, SignInResponse } from '../models/sign-in.model';
+import { SignInRequest, SignInResponse } from '../../models/sign-in.model';
 
 @Controller({ version: '1' })
 export class SignInController {

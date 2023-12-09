@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { GetRideQuery } from '../../../application/queries/get-ride.query';
-import { GetRideResponse } from '../models/get-ride.model';
+import { GetRideResponse } from '../../models/get-ride.model';
 
 @Controller({ version: '1' })
 export class GetRideController {

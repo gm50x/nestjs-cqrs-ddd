@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { UpdatePositionCommand } from '../../../../ride/application/commands/update-position.command';
-import { UpdatePositionRequest } from '../models/update-position.model';
+import { UpdatePositionRequest } from '../../models/update-position.model';
 
 @Controller({ version: '1' })
 export class UpdatePositionController {

@@ -4,7 +4,7 @@ import { RequestRideCommand } from '../../../../ride/application/commands/reques
 import {
   RequestRideRequest,
   RequestRideResponse,
-} from '../models/request-ride.model';
+} from '../../models/request-ride.model';
 
 @Controller({ version: '1' })
 export class RequestRideController {
