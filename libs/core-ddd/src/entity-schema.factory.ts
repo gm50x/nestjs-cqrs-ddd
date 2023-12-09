@@ -1,9 +1,8 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { EntityMongooseSchema } from './mongoose/entity.schema';
-import { EntityTypeOrmSchema } from './typeorm/entity.schema';
 
 export interface EntitySchemaFactory<
-  TSchema extends EntityMongooseSchema | EntityTypeOrmSchema,
+  TSchema extends EntityMongooseSchema,
   TEntity extends AggregateRoot,
 > {
   create(entity: TEntity): TSchema;
