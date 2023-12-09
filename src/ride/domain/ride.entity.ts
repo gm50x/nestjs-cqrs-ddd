@@ -1,6 +1,8 @@
-import { RideAcceptedEvent } from '@gedai/core-events/ride/ride-accepted.event';
-import { RideCompletedEvent } from '@gedai/core-events/ride/ride-completed.event';
-import { RideStartedEvent } from '@gedai/core-events/ride/ride-started.event';
+import {
+  RideAcceptedEvent,
+  RideFinishedEvent,
+  RideStartedEvent,
+} from '@gedai/core';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Coord } from './coord.value';
 import { DistanceCalculator } from './distance-calculator.ds';
@@ -74,6 +76,6 @@ export class Ride extends AggregateRoot {
     const fareCalculator = FareCalculatorFactory.create(this.date);
     this._fare = fareCalculator.calculate(this._distance);
     this._status = this._status.finish();
-    this.apply(new RideCompletedEvent(this.id));
+    this.apply(new RideFinishedEvent(this.id));
   }
 }

@@ -16,13 +16,13 @@
         "tsConfigPath": "libs/tracing/tsconfig.lib.json"
       }
     },
-    "core-ddd": {
+    "core": {
       "type": "library",
-      "root": "libs/core-ddd",
+      "root": "libs/core",
       "entryFile": "index",
-      "sourceRoot": "libs/core-ddd/src",
+      "sourceRoot": "libs/core/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/core-ddd/tsconfig.lib.json"
+        "tsConfigPath": "libs/core/tsconfig.lib.json"
       }
     },
     "audit": {
@@ -50,15 +50,6 @@
       "sourceRoot": "libs/config/src",
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
-      }
-    },
-    "core-events": {
-      "type": "library",
-      "root": "libs/core-events",
-      "entryFile": "index",
-      "sourceRoot": "libs/core-events/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/core-events/tsconfig.lib.json"
       }
     }
   }

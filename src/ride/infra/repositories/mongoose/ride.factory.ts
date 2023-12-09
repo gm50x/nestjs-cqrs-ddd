@@ -1,4 +1,4 @@
-import { RideRequestedEvent } from '@gedai/core-events/ride/ride-requested.event';
+import { RideRequestedEvent } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';

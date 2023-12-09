@@ -1,4 +1,4 @@
-import { EntitySchemaFactory } from '@gedai/core-ddd';
+import { EntitySchemaFactory } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';

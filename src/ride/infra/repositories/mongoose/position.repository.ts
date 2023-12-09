@@ -1,4 +1,4 @@
-import { MongooseRepository } from '@gedai/core-ddd';
+import { MongooseRepository } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';

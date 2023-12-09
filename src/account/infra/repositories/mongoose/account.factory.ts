@@ -1,4 +1,4 @@
-import { AccountCreatedEvent } from '@gedai/core-events';
+import { AccountCreatedEvent } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';

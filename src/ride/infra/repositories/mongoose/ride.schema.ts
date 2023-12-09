@@ -1,4 +1,4 @@
-import { EntityMongooseSchema } from '@gedai/core-ddd';
+import { EntityMongooseSchema } from '@gedai/core';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { RideStatusValues } from '../../../domain/ride-status.value';

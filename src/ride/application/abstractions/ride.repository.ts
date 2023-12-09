@@ -1,4 +1,4 @@
-import { Repository } from '@gedai/core-ddd';
+import { Repository } from '@gedai/core';
 
 import { Ride } from '../../domain/ride.entity';
 

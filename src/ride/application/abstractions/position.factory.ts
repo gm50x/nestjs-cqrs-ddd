@@ -1,4 +1,4 @@
-import { EntityFactory } from '@gedai/core-ddd';
+import { EntityFactory } from '@gedai/core';
 import { Position } from '../../domain/position.entity';
 import { Coord } from './ride.factory';
 

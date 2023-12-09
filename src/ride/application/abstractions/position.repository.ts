@@ -1,4 +1,4 @@
-import { Repository } from '@gedai/core-ddd';
+import { Repository } from '@gedai/core';
 import { Position } from '../../domain/position.entity';
 
 export abstract class PositionRepository implements Repository<Position> {

@@ -1,5 +1,5 @@
 {
-  "name": "nest-core-ddd",
+  "name": "nest-core",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -98,11 +98,10 @@
     ],
     "moduleNameMapper": {
       "^@gedai/tracing(|/.*)$": "<rootDir>/libs/tracing/src/$1",
-      "^@gedai/core-ddd(|/.*)$": "<rootDir>/libs/core-ddd/src/$1",
+      "^@gedai/core(|/.*)$": "<rootDir>/libs/core/src/$1",
       "^@gedai/audit(|/.*)$": "<rootDir>/libs/audit/src/$1",
       "^@gedai/amqp(|/.*)$": "<rootDir>/libs/amqp/src/$1",
-      "^@gedai/config(|/.*)$": "<rootDir>/libs/config/src/$1",
-      "^@gedai/core-events(|/.*)$": "<rootDir>/libs/core-events/src/$1"
+      "^@gedai/config(|/.*)$": "<rootDir>/libs/config/src/$1"
     }
   }
 }

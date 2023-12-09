@@ -1,4 +1,4 @@
-import { EntityFactory } from '@gedai/core-ddd';
+import { EntityFactory } from '@gedai/core';
 import { Account } from '../../domain/account.entity';
 
 export abstract class AccountFactory implements EntityFactory<Account> {
