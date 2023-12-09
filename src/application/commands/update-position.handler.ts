@@ -15,7 +15,7 @@ export class UpdatePositionHandler
 
   async execute(command: UpdatePositionCommand): Promise<void> {
     const ride = await this.rideRepository.findOneById(command.rideId);
-    if (ride?.status !== 'IN_PROGRESS') {
+    if (!ride) {
       throw new UnprocessableEntityException(
         `Ride ${command.rideId} does not exist`,
       );

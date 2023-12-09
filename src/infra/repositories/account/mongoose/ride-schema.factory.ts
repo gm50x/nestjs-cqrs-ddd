@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import { Coord } from '../../../../domain/coord.value';
+import { RideStatusFactory } from '../../../../domain/ride-status.value';
 import { Ride } from '../../../../domain/ride.entity';
 import { RideSchema } from './ride.schema';
 
@@ -24,7 +25,7 @@ export class RideMongooseSchemaFactory
       },
       passengerId: new Types.ObjectId(entity.passengerId),
       driverId: entity.driverId ? new Types.ObjectId(entity.driverId) : null,
-      status: entity.status,
+      status: entity.status.value,
       date: entity.date,
     };
   }
@@ -37,7 +38,7 @@ export class RideMongooseSchemaFactory
         entitySchema.driverId?.toHexString(),
         new Coord(entitySchema.from.lat, entitySchema.from.long),
         new Coord(entitySchema.to.lat, entitySchema.to.long),
-        entitySchema.status,
+        RideStatusFactory.create(entitySchema.status),
         entitySchema.date,
       ),
     );

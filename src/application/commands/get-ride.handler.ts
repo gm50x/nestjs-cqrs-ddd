@@ -26,7 +26,7 @@ export class GetRideHandler
     return {
       id: ride.id,
       date: ride.date,
-      status: ride.status,
+      status: ride.status.value,
       passenger: {
         id: passenger.id,
         name: passenger.name,

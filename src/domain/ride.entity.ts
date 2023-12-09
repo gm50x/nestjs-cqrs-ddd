@@ -6,10 +6,10 @@ import { Coord } from './coord.value';
 import { DistanceCalculator } from './distance-calculator.ds';
 import { FareCalculatorFactory } from './fare-calculator.ds';
 import { Position } from './position.entity';
+import { RideStatus } from './ride-status.value';
 
 export class Ride extends AggregateRoot {
   driverId?: string;
-  status: string;
   distance?: number;
   fare?: number;
 
@@ -19,22 +19,22 @@ export class Ride extends AggregateRoot {
     driverId: string | null,
     readonly from: Coord,
     readonly to: Coord,
-    status: string | null,
+    public status: RideStatus,
     readonly date: Date,
   ) {
     super();
-    this.status = status ?? 'REQUESTED';
+    this.status = status;
     this.driverId = driverId;
   }
 
   accept(driverId: string) {
     this.driverId = driverId;
-    this.status = 'ACCEPTED';
+    this.status = this.status.accept();
     this.apply(new RideAcceptedEvent(this.id));
   }
 
   start() {
-    this.status = 'IN_PROGRESS';
+    this.status = this.status.start();
     this.apply(new RideStartedEvent(this.id));
   }
 
@@ -52,7 +52,7 @@ export class Ride extends AggregateRoot {
     }
     const fareCalculator = FareCalculatorFactory.create(this.date);
     this.fare = fareCalculator.calculate(this.distance);
-    this.status = 'COMPLETED';
+    this.status = this.status.finish();
     this.apply(new RideCompletedEvent(this.id));
   }
 }

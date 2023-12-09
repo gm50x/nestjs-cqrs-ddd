@@ -8,6 +8,7 @@ import {
 } from '../../../../application/abstractions/ride.factory';
 import { RideRepository } from '../../../../application/abstractions/ride.repository';
 import { Coord } from '../../../../domain/coord.value';
+import { RideStatusFactory } from '../../../../domain/ride-status.value';
 import { Ride } from '../../../../domain/ride.entity';
 
 @Injectable()
@@ -28,7 +29,7 @@ export class RideMongooseFactory implements RideFactory {
       null,
       new Coord(from.lat, from.long),
       new Coord(to.lat, to.long),
-      null,
+      RideStatusFactory.create('REQUESTED'),
       new Date(),
     );
     await this.rideRepository.create(ride);

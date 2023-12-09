@@ -300,7 +300,7 @@ describe('Rides (e2e)', () => {
         );
         expect(finishRideResponse.statusCode).toBe(201);
         expect(getRideResponse.body).toEqual(
-          expect.objectContaining({ status: 'COMPLETED' }),
+          expect.objectContaining({ status: 'FINISHED' }),
         );
       });
       it('POST /v1/finish-ride fail finishing non existing rides', async () => {

@@ -1,6 +1,7 @@
 import { EntityMongooseSchema } from '@gedai/core-ddd';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
+import { RideStatusValues } from '../../../../domain/ride-status.value';
 @Schema({ _id: false })
 export class CoordSchema {
   @Prop()
@@ -25,7 +26,7 @@ export class RideSchema extends EntityMongooseSchema {
   to: CoordSchema;
 
   @Prop()
-  status: string;
+  status: RideStatusValues;
 
   @Prop()
   date: Date;
