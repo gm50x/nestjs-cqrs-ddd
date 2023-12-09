@@ -27,6 +27,8 @@ export class GetRideHandler
       id: ride.id,
       date: ride.date,
       status: ride.status.value,
+      fare: ride.fare,
+      distance: ride.distance,
       passenger: {
         id: passenger.id,
         name: passenger.name,

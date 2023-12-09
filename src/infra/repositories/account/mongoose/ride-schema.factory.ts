@@ -15,6 +15,12 @@ export class RideMongooseSchemaFactory
   create(entity: Ride): RideSchema {
     return {
       _id: new Types.ObjectId(entity.id),
+      passengerId: new Types.ObjectId(entity.passengerId),
+      driverId: entity.driverId ? new Types.ObjectId(entity.driverId) : null,
+      status: entity.status.value,
+      date: entity.date,
+      fare: entity.fare,
+      distance: entity.distance,
       from: {
         lat: entity.from.lat,
         long: entity.from.long,
@@ -23,10 +29,6 @@ export class RideMongooseSchemaFactory
         lat: entity.to.lat,
         long: entity.to.long,
       },
-      passengerId: new Types.ObjectId(entity.passengerId),
-      driverId: entity.driverId ? new Types.ObjectId(entity.driverId) : null,
-      status: entity.status.value,
-      date: entity.date,
     };
   }
 
@@ -40,6 +42,8 @@ export class RideMongooseSchemaFactory
         new Coord(entitySchema.to.lat, entitySchema.to.long),
         RideStatusFactory.create(entitySchema.status),
         entitySchema.date,
+        entitySchema.fare,
+        entitySchema.distance,
       ),
     );
   }

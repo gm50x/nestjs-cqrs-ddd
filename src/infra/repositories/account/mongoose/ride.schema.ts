@@ -19,13 +19,19 @@ export class RideSchema extends EntityMongooseSchema {
   @Prop({ required: false })
   driverId?: Types.ObjectId;
 
+  @Prop()
+  fare?: number;
+
+  @Prop()
+  distance?: number;
+
   @Prop({ schema: CoordSchema, type: CoordSchema })
   from: CoordSchema;
 
   @Prop({ schema: CoordSchema, type: CoordSchema })
   to: CoordSchema;
 
-  @Prop()
+  @Prop({ type: String })
   status: RideStatusValues;
 
   @Prop()

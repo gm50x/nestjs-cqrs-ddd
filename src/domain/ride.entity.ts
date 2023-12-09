@@ -21,10 +21,14 @@ export class Ride extends AggregateRoot {
     readonly to: Coord,
     public status: RideStatus,
     readonly date: Date,
+    fare?: number,
+    distance?: number,
   ) {
     super();
     this.status = status;
     this.driverId = driverId;
+    this.fare = fare;
+    this.distance = distance;
   }
 
   accept(driverId: string) {

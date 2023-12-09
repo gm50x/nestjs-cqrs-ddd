@@ -4,13 +4,13 @@ export interface FareCalculator {
 
 export class NormalFareCalculator implements FareCalculator {
   calculate(distance: number): number {
-    return distance * 2.1;
+    return distance * 10 * 2.1;
   }
 }
 
 export class OvernightFareCalculator implements FareCalculator {
   calculate(distance: number): number {
-    return distance * 5;
+    return distance * 10 * 5;
   }
 }
 

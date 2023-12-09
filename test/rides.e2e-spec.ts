@@ -18,7 +18,7 @@ import {
   getDriverAccount,
   getPassengerAccount,
   getRequestRide,
-  getUpdatedPosition,
+  getRidePositions,
 } from './utils';
 
 describe('Rides (e2e)', () => {
@@ -262,7 +262,7 @@ describe('Rides (e2e)', () => {
         await request(server).post('/v1/start-ride').send({ rideId });
         const updatePositionResponse = await request(server)
           .post('/v1/update-position')
-          .send(getUpdatedPosition(rideId));
+          .send(getRidePositions(rideId).data.at(1));
         expect(updatePositionResponse.statusCode).toBe(201);
       });
       it('POST /v1/update-position fail starting non existing rides', async () => {
@@ -292,6 +292,10 @@ describe('Rides (e2e)', () => {
           .post('/v1/accept-ride')
           .send({ driverId, rideId });
         await request(server).post('/v1/start-ride').send({ rideId });
+        const positions = getRidePositions(rideId).data;
+        for (const position of positions) {
+          await request(server).post('/v1/update-position').send(position);
+        }
         const finishRideResponse = await request(server)
           .post('/v1/finish-ride')
           .send({ rideId });
@@ -300,7 +304,11 @@ describe('Rides (e2e)', () => {
         );
         expect(finishRideResponse.statusCode).toBe(201);
         expect(getRideResponse.body).toEqual(
-          expect.objectContaining({ status: 'FINISHED' }),
+          expect.objectContaining({
+            status: 'FINISHED',
+            distance: expect.closeTo(0.7455),
+            fare: expect.closeTo(15.6572),
+          }),
         );
       });
       it('POST /v1/finish-ride fail finishing non existing rides', async () => {

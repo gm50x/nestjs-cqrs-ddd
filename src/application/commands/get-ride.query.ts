@@ -10,6 +10,8 @@ export class GetRideResult {
   status: string;
   from: Coord;
   to: Coord;
+  fare?: number;
+  distance?: number;
   passenger: {
     id: string;
     name: string;
