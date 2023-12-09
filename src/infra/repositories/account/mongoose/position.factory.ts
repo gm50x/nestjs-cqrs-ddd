@@ -1,4 +1,4 @@
-import { PositionCreatedEvent } from '@gedai/core-events/ride/position-created.event';
+import { PositionUpdatedEvent } from '@gedai/core-events/ride/position-created.event';
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
@@ -23,7 +23,7 @@ export class PositionMongooseFactory implements PositionFactory {
       new Date(),
     );
     await this.positionRepository.create(position);
-    position.apply(new PositionCreatedEvent(position.id));
+    position.apply(new PositionUpdatedEvent(position.id));
     return this.eventPublisher.mergeObjectContext(position);
   }
 }
