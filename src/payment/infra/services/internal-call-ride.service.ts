@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { RideClient } from '../../../ride/drivers/clients/ride.client';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetRideQuery } from '../../../ride/application/queries/get-ride.query';
 import {
   RideModel,
   RideService,
 } from '../../application/abstractions/ride.service';
 
 @Injectable()
-export class RideClientService implements RideService {
-  constructor(private readonly rideClient: RideClient) {}
+export class InterncalCallRideService implements RideService {
+  constructor(private readonly queryBus: QueryBus) {}
 
   async getById(id: string): Promise<RideModel> {
-    const ride = await this.rideClient.getRide(id).catch((err): RideModel => {
-      console.log(err);
-      return null;
-    });
+    const ride = await this.queryBus
+      .execute(new GetRideQuery(id))
+      .catch(() => null);
     if (!ride) {
       return;
     }

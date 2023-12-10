@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ApplicationModule } from '../application/application.module';
-import { RideClient } from './clients/ride.client';
 import { AcceptRideController } from './http-drivers/controllers/accept-ride.controller';
 import { FinishRideController } from './http-drivers/controllers/finish-ride.controller';
 import { GetRideController } from './http-drivers/controllers/get-ride.controller';
@@ -19,7 +18,5 @@ import { UpdatePositionController } from './http-drivers/controllers/update-posi
     FinishRideController,
     GetRideController,
   ],
-  providers: [RideClient],
-  exports: [RideClient],
 })
 export class DriversModule {}

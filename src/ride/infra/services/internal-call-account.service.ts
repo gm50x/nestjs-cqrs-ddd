@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { AccountClient } from '../../../account/drivers/clients/account.client';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetAccountQuery } from '../../../account/application/query/get-account.query';
 import {
   AccountModel,
   AccountService,
 } from '../../application/abstractions/account.service';
 
 @Injectable()
-export class AccountClientService implements AccountService {
-  constructor(private readonly client: AccountClient) {}
+export class InternalCallAccountService implements AccountService {
+  constructor(private readonly queryBus: QueryBus) {}
   async getById(id: string): Promise<AccountModel> {
-    const account = await this.client
-      .getById(id)
+    const account = await this.queryBus
+      .execute(new GetAccountQuery(id))
       .catch((): AccountModel => null);
     if (!account) {
       return;

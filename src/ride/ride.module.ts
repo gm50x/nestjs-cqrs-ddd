@@ -3,6 +3,5 @@ import { DriversModule } from './drivers/drivers.module';
 
 @Module({
   imports: [DriversModule],
-  exports: [DriversModule],
 })
 export class RideModule {}

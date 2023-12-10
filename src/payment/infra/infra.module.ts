@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
-import { RideModule } from '../../ride/ride.module';
 import { PaymentFactory } from '../application/abstractions/payment.factory';
 import { PaymentGateway } from '../application/abstractions/payment.gateway';
 import { PaymentRepository } from '../application/abstractions/payment.repository';
@@ -11,12 +10,11 @@ import { PaymentMongooseSchemaFactory } from './repositories/mongoose/payment-sc
 import { PaymentMongooseFactory } from './repositories/mongoose/payment.factory';
 import { PaymentMongooseRepository } from './repositories/mongoose/payment.repository';
 import { PaymentSchema } from './repositories/mongoose/payment.schema';
-import { RideClientService } from './services/ride-client.service';
+import { InterncalCallRideService } from './services/internal-call-ride.service';
 
 @Module({
   imports: [
     CqrsModule,
-    RideModule,
     MongooseModule.forFeature([
       {
         name: PaymentSchema.name,
@@ -40,7 +38,7 @@ import { RideClientService } from './services/ride-client.service';
     },
     {
       provide: RideService,
-      useClass: RideClientService,
+      useClass: InterncalCallRideService,
     },
   ],
   exports: [PaymentRepository, PaymentFactory, PaymentGateway, RideService],
