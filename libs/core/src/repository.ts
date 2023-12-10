@@ -1,6 +1,6 @@
-import { AggregateRoot } from '@nestjs/cqrs';
+import { Entity } from './entity';
 
-export interface Repository<TEntity extends AggregateRoot> {
+export interface Repository<TEntity extends Entity> {
   findOneById(id: string): Promise<TEntity>;
   findOneAndReplaceById(id: string, entity: TEntity): Promise<void>;
   findAll(): Promise<TEntity[]>;

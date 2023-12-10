@@ -1,6 +1,6 @@
-import { AggregateRoot } from '@nestjs/cqrs';
+import { Entity } from '@gedai/core';
 
-export class Payment extends AggregateRoot {
+export class Payment extends Entity {
   constructor(
     readonly id: string,
     readonly rideId: string,

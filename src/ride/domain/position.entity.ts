@@ -1,7 +1,7 @@
-import { AggregateRoot } from '@nestjs/cqrs';
+import { Entity } from '@gedai/core';
 import { Coord } from './coord.value';
 
-export class Position extends AggregateRoot {
+export class Position extends Entity {
   constructor(
     readonly id: string,
     readonly rideId: string,

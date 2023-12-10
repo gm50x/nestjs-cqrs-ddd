@@ -1,16 +1,16 @@
 import {
+  Entity,
   RideAcceptedEvent,
   RideFinishedEvent,
   RideStartedEvent,
 } from '@gedai/core';
-import { AggregateRoot } from '@nestjs/cqrs';
 import { Coord } from './coord.value';
 import { DistanceCalculator } from './distance-calculator.ds';
 import { FareCalculatorFactory } from './fare-calculator.ds';
 import { Position } from './position.entity';
 import { RideStatus } from './ride-status.value';
 
-export class Ride extends AggregateRoot {
+export class Ride extends Entity {
   private _driverId?: string;
   private _distance?: number;
   private _fare?: number;

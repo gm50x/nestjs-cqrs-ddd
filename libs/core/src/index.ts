@@ -1,3 +1,4 @@
+export * from './entity';
 export * from './entity-schema.factory';
 export * from './entity.factory';
 export * from './events';
