@@ -59,6 +59,12 @@ $ npm run test:integration
 
 # integration tests coverage
 $ npm run test:integration:cov
+
+# all tests (unit + integration)
+$ npm run test:all
+
+# all tests (unit + integration) coverage
+$ npm run test:all:cov
 ```
 
 ## Layers
