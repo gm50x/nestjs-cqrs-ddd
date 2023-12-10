@@ -1,32 +1,3 @@
-import { faker } from '@faker-js/faker';
-
-export function getPassengerAccount() {
-  const fullName = faker.person.fullName();
-  const [firstName, ...lastNames] = fullName.split(' ');
-  return {
-    name: fullName,
-    email: faker.internet.email({
-      firstName,
-      lastName: lastNames.join('_'),
-    }),
-    password: faker.internet.password(),
-  };
-}
-
-export function getDriverAccount() {
-  const fullName = faker.person.fullName();
-  const [firstName, ...lastNames] = fullName.split(' ');
-  return {
-    name: fullName,
-    email: faker.internet.email({
-      firstName,
-      lastName: lastNames.join('_'),
-    }),
-    password: faker.internet.password(),
-    carPlate: 'ABC-1234',
-  };
-}
-
 export function getRidePositions(rideId: string) {
   // const validRideData = [
   //   [-23.52862, -46.90328], //0

@@ -13,10 +13,10 @@ import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { setTimeout } from 'timers/promises';
-import { AppModule } from '../src/app.module';
-import { getDriverAccount, getPassengerAccount } from './utils';
+import { AppModule } from '../../src/app.module';
+import { getDriverAccount, getPassengerAccount } from '../utils/accounts';
 
-describe('Accounts (e2e)', () => {
+describe('Accounts (Integration Specs)', () => {
   let app: INestApplication;
   let server: HttpServer;
 
@@ -52,8 +52,8 @@ describe('Accounts (e2e)', () => {
     await app.close();
   });
 
-  describe('Account', () => {
-    it('POST /v1/sign-up should accept passenger sign-up of new accounts', async () => {
+  describe('POST /v1/sign-up', () => {
+    it('should accept passenger sign-up of new accounts', async () => {
       const passenger = getPassengerAccount();
       const response = await request(server)
         .post('/v1/sign-up')
@@ -61,15 +61,13 @@ describe('Accounts (e2e)', () => {
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({ id: expect.any(String) });
     });
-
-    it('POST /v1/sign-up should accept driver sign-up of new accounts', async () => {
+    it('should accept driver sign-up of new accounts', async () => {
       const driver = getDriverAccount();
       const response = await request(server).post('/v1/sign-up').send(driver);
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({ id: expect.any(String) });
     });
-
-    it('POST /v1/sign-up should reject duplicated sign-up', async () => {
+    it('should reject duplicated sign-up', async () => {
       const driver = getDriverAccount();
       const makeRequest = () =>
         request(server).post('/v1/sign-up').send(driver);
@@ -79,8 +77,9 @@ describe('Accounts (e2e)', () => {
       expect(firstResponse.body).toEqual({ id: expect.any(String) });
       expect(secondResponse.statusCode).toBe(409);
     });
-
-    it('POST /v1/sign-in should return an access_token', async () => {
+  });
+  describe('POST /v1/sign-in', () => {
+    it('should return an access_token', async () => {
       const passenger = getPassengerAccount();
       await request(server).post('/v1/sign-up').send(passenger);
       const response = await request(server)
@@ -89,16 +88,16 @@ describe('Accounts (e2e)', () => {
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({ access_token: expect.any(String) });
     });
-
-    it('POST /v1/sign-in should reject nonexisting accounts', async () => {
+    it('should reject nonexisting accounts', async () => {
       const passenger = getPassengerAccount();
       const response = await request(server)
         .post('/v1/sign-in')
         .send({ email: passenger.email, password: passenger.password });
       expect(response.statusCode).toBe(401);
     });
-
-    it('POST /v1/change-password should change the account password', async () => {
+  });
+  describe('POST /v1/change-password', () => {
+    it('should change the account password', async () => {
       const passenger = getPassengerAccount();
       await request(server).post('/v1/sign-up').send(passenger);
       const newPassword = faker.internet.password();

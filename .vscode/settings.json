@@ -1,0 +1,4 @@
+{
+  "jest.jestCommandLine": "npm run test:integration -- ",
+  "jestrunner.jestCommand": "npm run test:integration -- "
+}

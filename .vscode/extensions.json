@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "firsttris.vscode-jest-runner",
+    "orta.vscode-jest",
+    "dbaeumer.vscode-eslint",
+    "wix.vscode-import-cost",
+    "liamhammett.inline-parameters",
+    "esbenp.prettier-vscode",
+    "sonarsource.sonarlint-vscode",
+    "gruntfuggly.todo-tree",
+    "zxh404.vscode-proto3",
+    "redhat.vscode-yaml",
+    "irongeek.vscode-env"
+  ]
+}

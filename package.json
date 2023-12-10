@@ -15,11 +15,11 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
-    "test:watch": "jest --watch --forceExit",
+    "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --forceExit",
-    "test:e2e": "jest --config ./test/jest-e2e.json --forceExit",
-    "test:e2e:cov": "jest --config ./test/jest-e2e.json --coverage"
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:integration": "jest --config ./test/jest-integration.js",
+    "test:integration:cov": "jest --config ./test/jest-integration.js --coverage"
   },
   "dependencies": {
     "@golevelup/nestjs-rabbitmq": "^4.1.0",

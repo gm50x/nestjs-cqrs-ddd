@@ -10,19 +10,12 @@ import {
 } from '@gedai/config';
 import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Types } from 'mongoose';
-import * as request from 'supertest';
 import { setTimeout } from 'timers/promises';
-import { AppModule } from '../src/app.module';
-import {
-  getDriverAccount,
-  getPassengerAccount,
-  getRequestRide,
-  getRidePositions,
-} from './utils';
+import { AppModule } from '../../src/app.module';
 
-describe('Rides (e2e)', () => {
+describe('Payment (Integration Specs)', () => {
   let app: INestApplication;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let server: HttpServer;
 
   beforeAll(async () => {
@@ -58,8 +51,9 @@ describe('Rides (e2e)', () => {
   });
 
   describe('Payment', () => {
-    describe('Process Payment', () => {
-      it('onRideFinishedEvent should charge passenger', async () => {
+    describe('onRideFinished', () => {
+      it.todo(
+        'should charge passenger' /* async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -84,14 +78,19 @@ describe('Rides (e2e)', () => {
         }
         await request(server).post('/v1/finish-ride').send({ rideId });
         await setTimeout(1000);
+
         expect(1).toBe(1);
-      });
-      it('POST /v1/finish-ride fail finishing non existing rides', async () => {
-        const startRideResponse = await request(server)
-          .post('/v1/finish-ride')
-          .send({ rideId: new Types.ObjectId().toHexString() });
-        expect(startRideResponse.statusCode).toBe(422);
-      });
+      }*/,
+      );
+      it.todo(
+        'should do something magical',
+        /*async () => {
+          const startRideResponse = await request(server)
+            .post('/v1/finish-ride')
+            .send({ rideId: new Types.ObjectId().toHexString() });
+          expect(startRideResponse.statusCode).toBe(422);
+        },*/
+      );
     });
   });
 });

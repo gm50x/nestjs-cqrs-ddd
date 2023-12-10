@@ -13,15 +13,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
 import * as request from 'supertest';
 import { setTimeout } from 'timers/promises';
-import { AppModule } from '../src/app.module';
-import {
-  getDriverAccount,
-  getPassengerAccount,
-  getRequestRide,
-  getRidePositions,
-} from './utils';
+import { AppModule } from '../../src/app.module';
+import { getDriverAccount, getPassengerAccount } from '../utils/accounts';
+import { getRequestRide, getRidePositions } from '../utils/rides';
 
-describe('Rides (e2e)', () => {
+describe('Rides (Integration Specs)', () => {
   let app: INestApplication;
   let server: HttpServer;
 
@@ -58,8 +54,8 @@ describe('Rides (e2e)', () => {
   });
 
   describe('Ride', () => {
-    describe('Request Ride', () => {
-      it('POST /v1/request-ride should create a new ride for passenger and return the ride id', async () => {
+    describe('POST /v1/request-ride', () => {
+      it('should create a new ride for passenger and return the ride id', async () => {
         const passenger = getPassengerAccount();
         const createPassengerResponse = await request(server)
           .post('/v1/sign-up')
@@ -81,13 +77,13 @@ describe('Rides (e2e)', () => {
           }),
         );
       });
-      it('POST /v1/request-ride should fail creating a new ride if passenger does not exist', async () => {
+      it('should fail creating a new ride if passenger does not exist', async () => {
         const requestRideResponse = await request(server)
           .post('/v1/request-ride')
           .send(getRequestRide(new Types.ObjectId().toHexString()));
         expect(requestRideResponse.statusCode).toBe(422);
       });
-      it('POST /v1/request-ride should fail creating a new ride if passenger already has an active ride', async () => {
+      it('should fail creating a new ride if passenger already has an active ride', async () => {
         const passenger = getPassengerAccount();
         const createPassengerResponse = await request(server)
           .post('/v1/sign-up')
@@ -102,8 +98,8 @@ describe('Rides (e2e)', () => {
         expect(secondRideResponse.statusCode).toBe(409);
       });
     });
-    describe('Accept Ride', () => {
-      it('POST /v1/accept-ride should allow driver accepting ride', async () => {
+    describe('POST /v1/accept-ride', () => {
+      it('should allow driver accepting ride', async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -132,7 +128,7 @@ describe('Rides (e2e)', () => {
           }),
         );
       });
-      it(`POST /v1/accept-ride should prevent driver from accepting a ride when there's another ongoing ride`, async () => {
+      it(`should prevent driver from accepting a ride when there's another ongoing ride`, async () => {
         const passenger = getPassengerAccount();
         const otherPassenger = getPassengerAccount();
         const driver = getDriverAccount();
@@ -164,7 +160,7 @@ describe('Rides (e2e)', () => {
           .send({ driverId, rideId: otherRideId });
         expect(acceptOtherRideResponse.statusCode).toBe(409);
       });
-      it('POST /v1/request-ride reject accepting ride if driver does not exist', async () => {
+      it('should reject accepting ride if driver does not exist', async () => {
         const passenger = getPassengerAccount();
         const createPassengerResponse = await request(server)
           .post('/v1/sign-up')
@@ -180,7 +176,7 @@ describe('Rides (e2e)', () => {
           .send({ driverId, rideId });
         expect(acceptRideResponse.statusCode).toBe(422);
       });
-      it(`POST /v1/request-ride reject accepting ride if account is not a driver's account`, async () => {
+      it(`should reject accepting ride if account is not a driver's account`, async () => {
         const passenger = getPassengerAccount();
         const otherPassenger = getPassengerAccount();
         const createPassengerResponse = await request(server)
@@ -201,8 +197,8 @@ describe('Rides (e2e)', () => {
         expect(acceptRideResponse.statusCode).toBe(422);
       });
     });
-    describe('Start Ride', () => {
-      it('POST /v1/start-ride should start the ride', async () => {
+    describe('POST /v1/start-ride', () => {
+      it('should start the ride', async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -233,15 +229,15 @@ describe('Rides (e2e)', () => {
           }),
         );
       });
-      it('POST /v1/start-ride fail starting non existing rides', async () => {
+      it('should fail starting non existing rides', async () => {
         const startRideResponse = await request(server)
           .post('/v1/start-ride')
           .send({ rideId: new Types.ObjectId().toHexString() });
         expect(startRideResponse.statusCode).toBe(422);
       });
     });
-    describe('Update Position', () => {
-      it(`POST /v1/update-position should update the ride's position`, async () => {
+    describe('POST /v1/update-position', () => {
+      it(`should update the ride's position`, async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -265,15 +261,15 @@ describe('Rides (e2e)', () => {
           .send(getRidePositions(rideId).data.at(1));
         expect(updatePositionResponse.statusCode).toBe(201);
       });
-      it('POST /v1/update-position fail starting non existing rides', async () => {
+      it('should fail starting non existing rides', async () => {
         const startRideResponse = await request(server)
           .post('/v1/update-position')
           .send({ rideId: new Types.ObjectId().toHexString() });
         expect(startRideResponse.statusCode).toBe(422);
       });
     });
-    describe('Finish Ride', () => {
-      it('POST /v1/finish-ride should finish the ride', async () => {
+    describe('POST /v1/finish-ride', () => {
+      it('should finish the ride', async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -311,7 +307,7 @@ describe('Rides (e2e)', () => {
           }),
         );
       });
-      it('POST /v1/finish-ride fail finishing non existing rides', async () => {
+      it('should fail finishing non existing rides', async () => {
         const startRideResponse = await request(server)
           .post('/v1/finish-ride')
           .send({ rideId: new Types.ObjectId().toHexString() });
