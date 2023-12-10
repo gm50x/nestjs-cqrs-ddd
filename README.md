@@ -87,6 +87,32 @@ The Domain Layer is the heart of the application, where Domain-Driven Design (DD
 
 ## Project Structure
 
+````
+root
+├── libs
+│   ├── amqp
+│   ├── audit
+│   ├── config
+│   ├── core
+│   └── tracing
+├── src
+│   └── entrypoint (main)
+├── account
+│   ├── domain
+│   ├── application
+│   ├── infra
+│   └── drivers
+├── payment
+│   ├── domain
+│   ├── application
+│   ├── infra
+│   └── drivers
+└── ride
+    ├── domain
+    ├── application
+    ├── infra
+    └── drivers```
+
 ## libs
 
 The libs directory serves as a central hub for cross-cutting concerns and shared functionalities. It encompasses features that are applicable across various parts of the application, promoting reusability and maintaining a clean, modular architecture.
@@ -126,3 +152,4 @@ The src directory is the core of the application, housing service slices that en
 - The **payment** slice within the src directory focuses on functionalities related to payments.
 - The **account** slice is responsible for managing user accounts and associated functionalities.
 - The **ride** slice focuses on functionalities related to ride services, handling aspects such as ride requests, tracking, and coordination.
+````
