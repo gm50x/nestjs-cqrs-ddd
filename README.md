@@ -1,35 +1,35 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NestJS CQRS DDD
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Welcome to NestJS CQRS DDD, a robust and scalable sample application built with cutting-edge technologies such as NestJS, CQRS, DDD, and Clean Architecture principles. This project showcases a well-organized structure that follows the concept of vertical slices, where each major domain (payment, account, ride) has its dedicated slice. Each slice is further divided into layers – infra, application, drivers, and domain – ensuring a clear separation of concerns and maintainability.
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### CQRS Implementation
+
+The project leverages NestJS's default CQRS module, which facilitates in-memory publishing of events. To enhance this mechanism, we have seamlessly integrated RabbitMQ, ensuring events are efficiently published to an exchange for widespread consumption. This not only improves scalability but also enables seamless communication between different parts of the application.
+
+### Configuration Management
+
+Our project is equipped with a comprehensive configuration setup, covering essential aspects such as logging, error handling, common middlewares, API versioning, and a request auditing mechanism. The latter anonymizes known sensitive properties from both incoming requests and outgoing responses, prioritizing security and privacy.
+
+### Testing Strategy
+
+At the heart of our project lies a robust testing strategy. We've meticulously designed the configuration of the NestJS project to allow the execution of unit tests in isolation from integration tests, optimizing the build process in continuous integration pipelines. Additionally, our integration tests are set up with minimal setup, ensuring a streamlined and efficient testing process. These tests encompass all existing test files throughout the entire project, ensuring thorough validation.
+
+## Getting Started
+
+To explore the capabilities of this project, follow the steps outlined in the Installation Guide and refer to this Documentation for detailed information on the architecture, features, and usage.
 
 ## Installation
 
 ```bash
+# install dependencies
 $ npm install
+
+# start containers
+$ docker compose up -d
 ```
 
 ## Running the app
@@ -51,23 +51,72 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
 # test coverage
 $ npm run test:cov
+
+# integration tests
+$ npm run test:integration
+
+# integration tests coverage
+$ npm run test:integration:cov
 ```
 
-## Support
+## Layers
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Drivers
 
-## Stay in touch
+The Drivers Layer serves as the primary entry point for a slice, acting as the interface between external entities and the internal application logic. This layer is designed to handle various types of interactions, including HTTP requests, message-based communication, and internal method calls. Its main components are HTTP controllers, message controllers, and clients responsible for consuming the application layer via method call.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Infrastructure (Infra)
 
-## License
+The Infrastructure Layer plays a critical role in bridging the gap between the internal application logic and the external world. Operating as an anti-corruption layer, this infrastructure is dedicated to implementing the ports declared in the Application Layer, effectively abstracting away complexities from the outside world. This layer encompasses repository implementations and provides abstractions for service communication, including storage, pubsub, method calls and any other requirement.
 
-Nest is [MIT licensed](LICENSE).
+### Application
+
+The Application Layer serves as the orchestrator of business logic, embodying the core use-cases defined by the domain. Leveraging NestJS's CQRS commands and queries, this layer seamlessly translates business requirements into executable actions, encapsulating the application's operational logic.
+
+### Domain
+
+The Domain Layer is the heart of the application, where Domain-Driven Design (DDD) principles come to life. This layer houses a rich collection of DDD artifacts, including entities, value objects, domain services, and other strategic design elements. The primary purpose of the Domain Layer is to model and encapsulate the core business logic, ensuring a deep alignment with the problem domain.
+
+## Project Structure
+
+## libs
+
+The libs directory serves as a central hub for cross-cutting concerns and shared functionalities. It encompasses features that are applicable across various parts of the application, promoting reusability and maintaining a clean, modular architecture.
+
+### Core Lib
+
+#### Domain Events
+
+The core library is dedicated to housing domain events, enabling wide consumption across different parts of the application. Domain events capture significant changes in the system and serve as a powerful tool for decoupling components and maintaining consistency throughout the application.
+
+#### DDD Base Implementation
+
+The core library provides a fundamental implementation of Domain-Driven Design (DDD) principles, offering key interfaces and base classes for building domain-centric components.
+
+#### Entity Interfaces and Base Implementation
+
+Within the core library, you'll find interfaces for entities and base implementations that set the foundation for modeling domain entities. These interfaces guide the definition of entities in different domains, ensuring a standardized approach to encapsulating business logic.
+
+#### Repository Interfaces and Base Implementation
+
+The core library introduces interfaces for repositories, outlining the contract for data access in a domain-agnostic manner. Additionally, a base repository implementation for each data source (currently Mongoose only) is provided, simplifying the process of creating repositories specific to the chosen data storage technology.
+
+#### Entity Factory Interfaces
+
+The core library defines interfaces for entity factories, offering a blueprint for creating domain entities. This abstraction allows for consistent and flexible entity creation processes across different parts of the application.
+
+#### Entity Schema Factory Interfaces
+
+The core library defines interfaces for schema factories, offering a blueprint for transforming domain entities into datasource specific models and vice-versa. This abstraction allows for consistent and flexible persistency of entities across a variety of datasources.
+
+## src
+
+The src directory is the core of the application, housing service slices that encapsulate specific domains. This directory follows a vertical slice architecture, where each major domain (payment, account, ride) has its dedicated slice. Each slice is further organized into layers, including infra, application, drivers, and domain, to ensure a clean separation of concerns and maintainability.
+
+### Service Slices (domain contexts)
+
+- The **payment** slice within the src directory focuses on functionalities related to payments.
+- The **account** slice is responsible for managing user accounts and associated functionalities.
+- The **ride** slice focuses on functionalities related to ride services, handling aspects such as ride requests, tracking, and coordination.
