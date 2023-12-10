@@ -11,7 +11,7 @@ import {
 import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { setTimeout } from 'timers/promises';
-import { AppModule } from '../../src/app.module';
+import { AppModule } from '../src/app.module';
 
 describe('Payment (Integration Specs)', () => {
   let app: INestApplication;

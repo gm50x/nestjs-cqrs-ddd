@@ -13,9 +13,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
 import * as request from 'supertest';
 import { setTimeout } from 'timers/promises';
-import { AppModule } from '../../src/app.module';
-import { getDriverAccount, getPassengerAccount } from '../utils/accounts';
-import { getRequestRide, getRidePositions } from '../utils/rides';
+import { AppModule } from '../src/app.module';
+import { getDriverAccount, getPassengerAccount } from './utils/accounts';
+import { getRequestRide, getRidePositions } from './utils/rides';
 
 describe('Rides (Integration Specs)', () => {
   let app: INestApplication;

@@ -13,8 +13,8 @@ import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { setTimeout } from 'timers/promises';
-import { AppModule } from '../../src/app.module';
-import { getDriverAccount, getPassengerAccount } from '../utils/accounts';
+import { AppModule } from '../src/app.module';
+import { getDriverAccount, getPassengerAccount } from './utils/accounts';
 
 describe('Accounts (Integration Specs)', () => {
   let app: INestApplication;
