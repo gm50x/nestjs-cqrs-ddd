@@ -65,7 +65,7 @@ $ npm run test:integration:cov
 
 ### Drivers
 
-The Drivers Layer serves as the primary entry point for a slice, acting as the interface between external entities and the internal application logic. This layer is designed to handle various types of interactions, including HTTP requests, message-based communication, and internal method calls. Its main components are HTTP controllers, message controllers, and clients responsible for consuming the application layer via method call.
+The Drivers Layer serves as the primary entry point for a slice, acting as the interface between external entities and the internal application logic. This layer is designed to handle various types of interactions, including HTTP requests, message-based communication, and internal method calls. Its main components are HTTP controllers, message controllers. For internal communication between slices we are leveraging Nest's Query Bus.
 
 ### Infrastructure (Infra)
 

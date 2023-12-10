@@ -19,7 +19,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:integration": "jest --config ./test/jest-integration.js",
-    "test:integration:cov": "jest --config ./test/jest-integration.js --coverage"
+    "test:integration:cov": "jest --config ./test/jest-integration.js --coverage",
+    "test:all": "jest --config ./test/jest-all.js",
+    "test:all:cov": "jest --config ./test/jest-all.js --coverage"
   },
   "dependencies": {
     "@golevelup/nestjs-rabbitmq": "^4.1.0",

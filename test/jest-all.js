@@ -4,6 +4,6 @@ const { jest: jestConfig } = require('../package.json');
 module.exports = {
   ...jestConfig,
   rootDir: '..',
-  testRegex: '.test.ts$',
-  coverageDirectory: './coverage-integration',
+  testRegex: '.(test|spec).ts$',
+  coverageDirectory: './coverage-all',
 };
