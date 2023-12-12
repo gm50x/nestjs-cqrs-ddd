@@ -16,4 +16,5 @@ export type AmqpModuleOptions = {
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =
   new ConfigurableModuleBuilder<AmqpModuleOptions>()
     .setClassMethodName('forRoot')
+    .setFactoryMethodName('createAmqpOptions')
     .build();

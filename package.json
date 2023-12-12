@@ -34,7 +34,6 @@
     "@nestjs/mongoose": "^10.0.2",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.1.16",
-    "@nestjs/typeorm": "^10.0.1",
     "@types/compression": "^1.7.5",
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.3",
@@ -45,10 +44,8 @@
     "helmet": "^7.1.0",
     "mongoose": "^8.0.1",
     "nest-winston": "^1.9.4",
-    "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.17",
     "winston": "^3.11.0"
   },
   "devDependencies": {

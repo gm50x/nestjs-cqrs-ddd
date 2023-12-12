@@ -1,41 +1,23 @@
 import { AmqpModule } from '@gedai/amqp';
 import { AuditModule } from '@gedai/audit';
+import { AmqpConfig, MongooseConfig } from '@gedai/config';
 import { TracingModule } from '@gedai/tracing';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountModule } from './account/account.module';
 import { PaymentModule } from './payment/payment.module';
 import { RideModule } from './ride/ride.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     CqrsModule,
     TracingModule,
     AuditModule,
-    MongooseModule.forRoot(
-      'mongodb://gedai:gedai@localhost:27017/nestjs-cqrs-ddd?authSource=admin',
-      { appName: 'dummy-world-service' },
-    ),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: 'postgresql://gedai:gedai@localhost:5432/gedai',
-      applicationName: 'dummy-world-service',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
-    AmqpModule.forRoot({
-      url: 'amqp://gedai:gedai@localhost:5672',
-      appName: 'dummy-world-service',
-      enableEventPropagation: true,
-      exchanges: [
-        { name: 'events', type: 'topic' },
-        { name: 'payments.dlx', type: 'topic' },
-      ],
-    }),
+    MongooseModule.forRootAsync({ useClass: MongooseConfig }),
+    AmqpModule.forRootAsync({ useClass: AmqpConfig }),
     AccountModule,
     RideModule,
     PaymentModule,
