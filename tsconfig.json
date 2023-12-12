@@ -29,7 +29,9 @@
       "@gedai/amqp": ["libs/amqp/src"],
       "@gedai/amqp/*": ["libs/amqp/src/*"],
       "@gedai/config": ["libs/config/src"],
-      "@gedai/config/*": ["libs/config/src/*"]
+      "@gedai/config/*": ["libs/config/src/*"],
+      "@gedai/stub-factory": ["test/stubs"],
+      "@gedai/stub-factory/*": ["test/stubs/*"]
     }
   }
 }

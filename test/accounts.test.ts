@@ -3,7 +3,7 @@ import { HttpServer, INestApplication } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Connection as MongooseConnection } from 'mongoose';
 import * as request from 'supertest';
-import { getDriverAccount, getPassengerAccount } from './utils/accounts';
+import { getDriverAccount, getPassengerAccount } from './stubs/accounts';
 import { createTestApp } from './utils/configure-test-app';
 
 describe('Accounts (Integration Specs)', () => {

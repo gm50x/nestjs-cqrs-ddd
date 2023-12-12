@@ -101,7 +101,8 @@
       "^@gedai/core(|/.*)$": "<rootDir>/libs/core/src/$1",
       "^@gedai/audit(|/.*)$": "<rootDir>/libs/audit/src/$1",
       "^@gedai/amqp(|/.*)$": "<rootDir>/libs/amqp/src/$1",
-      "^@gedai/config(|/.*)$": "<rootDir>/libs/config/src/$1"
+      "^@gedai/config(|/.*)$": "<rootDir>/libs/config/src/$1",
+      "^@gedai/stub-factory(|/.*)$": "<rootDir>/test/stubs/$1"
     }
   }
 }
