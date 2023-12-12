@@ -9,6 +9,7 @@ import {
   configureHelmet,
   configureLogger,
   configureOpenAPI,
+  configureRoutePrefix,
   configureValidation,
   configureVersioning,
 } from '@gedai/config';
@@ -23,7 +24,8 @@ async function bootstrap() {
     .then(configureHelmet)
     .then(configureOpenAPI)
     .then(configureValidation)
-    .then(configureVersioning);
+    .then(configureVersioning)
+    .then(configureRoutePrefix);
 
   const config = app.get(ConfigService);
   const port = config.get('PORT', '3000');

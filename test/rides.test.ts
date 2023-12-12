@@ -5,6 +5,7 @@ import {
   configureHelmet,
   configureLogger,
   configureOpenAPI,
+  configureRoutePrefix,
   configureValidation,
   configureVersioning,
 } from '@gedai/config';
@@ -36,6 +37,7 @@ describe('Rides (Integration Specs)', () => {
     configureOpenAPI(app);
     configureValidation(app);
     configureVersioning(app);
+    configureRoutePrefix(app);
 
     await app.init();
   });
