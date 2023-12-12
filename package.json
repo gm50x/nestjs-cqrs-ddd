@@ -90,6 +90,12 @@
       "<rootDir>/libs/**/*.(t|j)s"
     ],
     "coverageDirectory": "./coverage",
+    "coverageThreshold": {
+      "global": {
+        "lines": 80,
+        "branches": 50
+      }
+    },
     "testEnvironment": "node",
     "roots": [
       "<rootDir>/src/",
