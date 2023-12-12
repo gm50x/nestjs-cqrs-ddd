@@ -24,10 +24,9 @@ describe('Payment (Integration Specs)', () => {
     await app.close();
   });
 
-  describe('Payment', () => {
-    describe('onRideFinished', () => {
-      it.todo(
-        'should charge passenger' /* async () => {
+  describe('onRideFinished', () => {
+    it.todo(
+      'should charge passenger' /* async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -55,16 +54,15 @@ describe('Payment (Integration Specs)', () => {
 
         expect(1).toBe(1);
       }*/,
-      );
-      it.todo(
-        'should do something magical',
-        /*async () => {
+    );
+    it.todo(
+      'should do something magical',
+      /*async () => {
           const startRideResponse = await request(server)
             .post('/v1/finish-ride')
             .send({ rideId: new Types.ObjectId().toHexString() });
           expect(startRideResponse.statusCode).toBe(422);
         },*/
-      );
-    });
+    );
   });
 });
