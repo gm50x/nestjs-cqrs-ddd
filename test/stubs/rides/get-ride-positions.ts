@@ -22,11 +22,3 @@ export function getRidePositions(rideId: string) {
     ],
   };
 }
-
-export function getRequestRide(passengerId: string) {
-  return {
-    passengerId,
-    from: getRidePositions('').data.at(0).coord,
-    to: getRidePositions('').data.at(-1).coord,
-  };
-}
