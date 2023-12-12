@@ -87,7 +87,7 @@ The Domain Layer is the heart of the application, where Domain-Driven Design (DD
 
 ## Project Structure
 
-````
+```
 root
 ├── libs
 │   ├── amqp
@@ -111,7 +111,8 @@ root
     ├── domain
     ├── application
     ├── infra
-    └── drivers```
+    └── drivers
+```
 
 ## libs
 
