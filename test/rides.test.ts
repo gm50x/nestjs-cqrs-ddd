@@ -1,11 +1,9 @@
 import { HttpServer, INestApplication } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { Types } from 'mongoose';
+import { getConnectionToken } from '@nestjs/mongoose';
+import { Connection as MongooseConnection, Types } from 'mongoose';
 import * as request from 'supertest';
-import { setTimeout } from 'timers/promises';
-import { AppModule } from '../src/app.module';
-import { configureTestApp } from './config/configure-test-app';
 import { getDriverAccount, getPassengerAccount } from './utils/accounts';
+import { createTestApp } from './utils/configure-test-app';
 import { getRequestRide, getRidePositions } from './utils/rides';
 
 describe('Rides (Integration Specs)', () => {
@@ -13,11 +11,7 @@ describe('Rides (Integration Specs)', () => {
   let server: HttpServer;
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-    app = moduleFixture.createNestApplication();
-    configureTestApp(app);
+    app = await createTestApp();
     await app.init();
   });
 
@@ -26,11 +20,9 @@ describe('Rides (Integration Specs)', () => {
   });
 
   afterAll(async () => {
-    await setTimeout(500);
-    // TODO: This should work with typeorm too
-    // const mongooseConnection =
-    //   app.get<MongooseConnection>(getConnectionToken());
-    // await mongooseConnection.dropDatabase();
+    const mongooseConnection =
+      app.get<MongooseConnection>(getConnectionToken());
+    await mongooseConnection.dropDatabase();
     await app.close();
   });
 

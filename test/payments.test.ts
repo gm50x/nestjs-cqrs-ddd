@@ -1,8 +1,7 @@
 import { HttpServer, INestApplication } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { setTimeout } from 'timers/promises';
-import { AppModule } from '../src/app.module';
-import { configureTestApp } from './config/configure-test-app';
+import { getConnectionToken } from '@nestjs/mongoose';
+import { Connection as MongooseConnection } from 'mongoose';
+import { createTestApp } from './utils/configure-test-app';
 
 describe('Payment (Integration Specs)', () => {
   let app: INestApplication;
@@ -10,12 +9,7 @@ describe('Payment (Integration Specs)', () => {
   let server: HttpServer;
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    configureTestApp(app);
+    app = await createTestApp();
     await app.init();
   });
 
@@ -24,11 +18,9 @@ describe('Payment (Integration Specs)', () => {
   });
 
   afterAll(async () => {
-    await setTimeout(500);
-    // TODO: This should work with typeorm too
-    // const mongooseConnection =
-    //   app.get<MongooseConnection>(getConnectionToken());
-    // await mongooseConnection.dropDatabase();
+    const mongooseConnection =
+      app.get<MongooseConnection>(getConnectionToken());
+    await mongooseConnection.dropDatabase();
     await app.close();
   });
 
