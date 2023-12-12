@@ -1,18 +1,8 @@
-import {
-  configureCORS,
-  configureCompression,
-  configureExceptionsHandler,
-  configureHelmet,
-  configureLogger,
-  configureOpenAPI,
-  configureRoutePrefix,
-  configureValidation,
-  configureVersioning,
-} from '@gedai/config';
 import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { setTimeout } from 'timers/promises';
 import { AppModule } from '../src/app.module';
+import { configureTestApp } from './config/configure-test-app';
 
 describe('Payment (Integration Specs)', () => {
   let app: INestApplication;
@@ -25,17 +15,7 @@ describe('Payment (Integration Specs)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-
-    configureLogger(app, true);
-    configureCORS(app);
-    configureCompression(app);
-    configureExceptionsHandler(app);
-    configureHelmet(app);
-    configureOpenAPI(app);
-    configureValidation(app);
-    configureVersioning(app);
-    configureRoutePrefix(app);
-
+    configureTestApp(app);
     await app.init();
   });
 
