@@ -1,11 +1,11 @@
 import { Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
-import { AuditMiddleware } from './audit.middleware';
+import { HttpAuditMiddleware } from './http-audit.middleware';
 
 @Global()
 @Module({})
 export class AuditModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuditMiddleware).forRoutes('*');
+    consumer.apply(HttpAuditMiddleware).forRoutes('*');
   }
 }

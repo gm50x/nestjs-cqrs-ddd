@@ -153,4 +153,7 @@ The src directory is the core of the application, housing service slices that en
 - The **payment** slice within the src directory focuses on functionalities related to payments.
 - The **account** slice is responsible for managing user accounts and associated functionalities.
 - The **ride** slice focuses on functionalities related to ride services, handling aspects such as ride requests, tracking, and coordination.
-````
+
+```
+
+```

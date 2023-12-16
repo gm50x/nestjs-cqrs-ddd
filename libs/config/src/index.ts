@@ -1,3 +1,4 @@
+export * from './amqp-audit.config';
 export * from './amqp.config';
 export * from './compression.config';
 export * from './cors.config';

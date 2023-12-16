@@ -1,12 +1,13 @@
 import { AmqpEventNameAdapter } from '@gedai/amqp/amqp-event-name.adapter';
 import { RideFinishedEvent } from '@gedai/core';
 import { Nack, RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ProcessPaymentCommand } from '../../application/commands/process-payment.command';
+import { ProcessPaymentCommand } from 'src/payment/application/commands/process-payment.command';
 
 @Controller()
 export class OnRideFinishedController {
+  private readonly logger = new Logger(this.constructor.name);
   constructor(private readonly commandBus: CommandBus) {}
   @RabbitSubscribe({
     exchange: 'events',
@@ -23,8 +24,8 @@ export class OnRideFinishedController {
   async execute(message: any) {
     try {
       await this.commandBus.execute(new ProcessPaymentCommand(message.rideId));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      this.logger.error({ message: 'Failed processing message', error });
       return new Nack();
     }
   }

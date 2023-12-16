@@ -31,8 +31,8 @@ class LogExceptionFilter
       error: exception,
     };
 
-    this.logger.debug(log);
     if (statusCode < HttpStatus.INTERNAL_SERVER_ERROR) {
+      this.logger.debug(log);
       return;
     }
 

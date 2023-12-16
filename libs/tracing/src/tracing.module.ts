@@ -6,11 +6,11 @@ import { TracingService } from './tracing.service';
 @Global()
 @Module({
   providers: [
-    TracingService,
     {
       provide: TracingContext,
       useValue: TracingContext.getContext(),
     },
+    TracingService,
   ],
   exports: [TracingService],
 })
