@@ -3,7 +3,7 @@ import { RideFinishedEvent } from '@gedai/core';
 import { Nack, RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Controller, Logger } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ProcessPaymentCommand } from 'src/payment/application/commands/process-payment.command';
+import { ProcessPaymentCommand } from '../../application/commands/process-payment.command';
 
 @Controller()
 export class OnRideFinishedController {
