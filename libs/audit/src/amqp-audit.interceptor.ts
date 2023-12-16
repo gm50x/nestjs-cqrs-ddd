@@ -1,5 +1,4 @@
 import { AmqpContextType } from '@gedai/amqp';
-import { TracingContext } from '@gedai/tracing';
 import {
   CallHandler,
   ExecutionContext,
@@ -25,8 +24,6 @@ export class AmqpAuditInterceptor implements NestInterceptor {
     const rpcContext = context.switchToRpc();
     const data = rpcContext.getData();
     const { content, fields, properties } = rpcContext.getContext<Message>();
-    const runningCOntext = TracingContext.getContext();
-    console.log(runningCOntext.getStore(), 'store');
     this.logger.log({
       message: 'AMQP MESSAGE AUDIT',
       data: {
