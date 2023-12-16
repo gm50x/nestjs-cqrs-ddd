@@ -1,4 +1,4 @@
 {
   "jest.jestCommandLine": "npm run test:all -- ",
-  "jestrunner.jestCommand": "npm run test:all -- "
+  "jestrunner.configPath": "./test/config/jest-all.js"
 }
