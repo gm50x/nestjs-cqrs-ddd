@@ -12,7 +12,7 @@ export class InterncalCallRideService implements RideService {
 
   async getById(id: string): Promise<RideModel> {
     const ride = await this.queryBus
-      .execute(new GetRideQuery(id))
+      .execute(new GetRideQuery({ rideId: id }))
       .catch(() => null);
     if (!ride) {
       return;

@@ -13,17 +13,17 @@ export class GetRideHandler
     private readonly rideRepository: RideRepository,
   ) {}
 
-  async execute(command: GetRideQuery): Promise<GetRideResult> {
-    const ride = await this.rideRepository.findOneById(command.rideId);
+  async execute({ data }: GetRideQuery): Promise<GetRideResult> {
+    const ride = await this.rideRepository.findOneById(data.rideId);
     if (!ride) {
-      throw new NotFoundException(`Ride ${command.rideId} does not exist`);
+      throw new NotFoundException(`Ride ${data.rideId} does not exist`);
     }
     const [passenger, driver] = await Promise.all([
       this.accountService.getById(ride.passengerId),
       ride.driverId ? this.accountService.getById(ride.driverId) : null,
     ]);
 
-    return {
+    return new GetRideResult({
       id: ride.id,
       date: ride.date,
       status: ride.status.value,
@@ -50,6 +50,6 @@ export class GetRideHandler
         lat: ride.to.lat,
         long: ride.to.long,
       },
-    };
+    });
   }
 }

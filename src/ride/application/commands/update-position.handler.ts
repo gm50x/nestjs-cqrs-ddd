@@ -13,17 +13,14 @@ export class UpdatePositionHandler
     private readonly positionFactory: PositionFactory,
   ) {}
 
-  async execute(command: UpdatePositionCommand): Promise<void> {
-    const ride = await this.rideRepository.findOneById(command.rideId);
+  async execute({ data }: UpdatePositionCommand): Promise<void> {
+    const ride = await this.rideRepository.findOneById(data.rideId);
     if (!ride) {
       throw new UnprocessableEntityException(
-        `Ride ${command.rideId} does not exist`,
+        `Ride ${data.rideId} does not exist`,
       );
     }
-    const position = await this.positionFactory.create(
-      command.rideId,
-      command.coord,
-    );
+    const position = await this.positionFactory.create(data.rideId, data.coord);
     position.commit();
   }
 }

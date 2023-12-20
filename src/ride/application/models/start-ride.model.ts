@@ -1,9 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class AcceptRideRequest {
-  @IsString()
-  driverId: string;
-
+export class StartRideInput {
   @IsString()
   rideId: string;
 }

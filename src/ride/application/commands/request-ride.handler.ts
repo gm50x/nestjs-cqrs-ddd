@@ -18,27 +18,27 @@ export class RequestRideHandler
     private readonly rideFactory: RideFactory,
   ) {}
 
-  async execute(command: RequestRideCommand): Promise<RequestRideResult> {
-    const account = await this.accountService.getById(command.passengerId);
+  async execute({ data }: RequestRideCommand): Promise<RequestRideResult> {
+    const account = await this.accountService.getById(data.passengerId);
     if (!account) {
       throw new UnprocessableEntityException(
-        `Account ${command.passengerId} does not exist`,
+        `Account ${data.passengerId} does not exist`,
       );
     }
     const activeRides = await this.rideRepository.getActiveRidesByPassengerId(
-      command.passengerId,
+      data.passengerId,
     );
     if (activeRides.length > 0) {
       throw new ConflictException(
-        `Passenger ${command.passengerId} already has an active ride`,
+        `Passenger ${data.passengerId} already has an active ride`,
       );
     }
     const ride = await this.rideFactory.create(
-      command.passengerId,
-      command.from,
-      command.to,
+      data.passengerId,
+      data.from,
+      data.to,
     );
     ride.commit();
-    return new RequestRideResult(ride.id);
+    return new RequestRideResult({ id: ride.id });
   }
 }

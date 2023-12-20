@@ -1,13 +1,12 @@
-import { Coord } from '../abstractions/ride.factory';
+import {
+  RequestRideInput,
+  RequestRideOutput,
+} from '../models/request-ride.model';
 
 export class RequestRideCommand {
-  constructor(
-    readonly passengerId: string,
-    readonly from: Coord,
-    readonly to: Coord,
-  ) {}
+  constructor(readonly data: RequestRideInput) {}
 }
 
 export class RequestRideResult {
-  constructor(readonly id: string) {}
+  constructor(readonly data: RequestRideOutput) {}
 }

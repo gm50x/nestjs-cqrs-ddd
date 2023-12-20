@@ -16,33 +16,33 @@ export class AcceptRideHandler
     private readonly rideRepository: RideRepository,
   ) {}
 
-  async execute(command: AcceptRideCommand): Promise<void> {
-    const account = await this.acccountService.getById(command.driverId);
+  async execute({ data }: AcceptRideCommand): Promise<void> {
+    const account = await this.acccountService.getById(data.driverId);
     if (!account) {
       throw new UnprocessableEntityException(
-        `Account ${command.driverId} does not exist`,
+        `Account ${data.driverId} does not exist`,
       );
     }
     if (!account.isDriver) {
       throw new UnprocessableEntityException(
-        `Account ${command.driverId} is not a driver's account`,
+        `Account ${data.driverId} is not a driver's account`,
       );
     }
     const activeRides = await this.rideRepository.getActiveRidesByDriverId(
-      command.driverId,
+      data.driverId,
     );
     if (activeRides.length > 0) {
       throw new ConflictException(
-        `Driver ${command.driverId} already has an active ride`,
+        `Driver ${data.driverId} already has an active ride`,
       );
     }
-    const ride = await this.rideRepository.findOneById(command.rideId);
+    const ride = await this.rideRepository.findOneById(data.rideId);
     if (!ride) {
       throw new UnprocessableEntityException(
-        `Ride ${command.rideId} does not exist`,
+        `Ride ${data.rideId} does not exist`,
       );
     }
-    ride.accept(command.driverId);
+    ride.accept(data.driverId);
     await this.rideRepository.save(ride);
     ride.commit();
   }

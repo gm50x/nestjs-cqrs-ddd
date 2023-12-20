@@ -1,6 +1,5 @@
+import { AcceptRideInput } from '../models/accept-ride.model';
+
 export class AcceptRideCommand {
-  constructor(
-    readonly driverId: string,
-    readonly rideId: string,
-  ) {}
+  constructor(readonly data: AcceptRideInput) {}
 }

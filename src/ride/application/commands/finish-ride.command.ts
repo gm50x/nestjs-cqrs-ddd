@@ -1,3 +1,5 @@
+import { FinishRideInput } from '../models/finish-ride.model';
+
 export class FinishRideCommand {
-  constructor(readonly rideId: string) {}
+  constructor(readonly data: FinishRideInput) {}
 }

@@ -1,8 +1,5 @@
-import { Coord } from '../abstractions/ride.factory';
+import { UpdatePositionInput } from '../models/update-position.model';
 
 export class UpdatePositionCommand {
-  constructor(
-    readonly rideId: string,
-    readonly coord: Coord,
-  ) {}
+  constructor(readonly data: UpdatePositionInput) {}
 }

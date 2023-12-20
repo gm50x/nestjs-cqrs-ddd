@@ -1,3 +1,5 @@
+import { StartRideInput } from '../models/start-ride.model';
+
 export class StartRideCommand {
-  constructor(readonly rideId: string) {}
+  constructor(readonly data: StartRideInput) {}
 }

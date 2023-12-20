@@ -13,14 +13,14 @@ export class FinishRideHandler
     private readonly positionsRepository: PositionRepository,
   ) {}
 
-  async execute(command: FinishRideCommand): Promise<void> {
+  async execute({ data }: FinishRideCommand): Promise<void> {
     const [ride, positions] = await Promise.all([
-      this.rideRepository.findOneById(command.rideId),
-      this.positionsRepository.getByRideId(command.rideId),
+      this.rideRepository.findOneById(data.rideId),
+      this.positionsRepository.getByRideId(data.rideId),
     ]);
     if (!ride) {
       throw new UnprocessableEntityException(
-        `Ride ${command.rideId} does not exist`,
+        `Ride ${data.rideId} does not exist`,
       );
     }
     ride.finish(positions);

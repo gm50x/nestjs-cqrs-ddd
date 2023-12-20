@@ -11,7 +11,7 @@ export class Coord {
   long: number;
 }
 
-export class RequestRideRequest {
+export class RequestRideInput {
   @IsString()
   passengerId: string;
 
@@ -26,6 +26,6 @@ export class RequestRideRequest {
   to: Coord;
 }
 
-export class RequestRideResponse {
+export class RequestRideOutput {
   id: string;
 }

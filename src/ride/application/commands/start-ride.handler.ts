@@ -9,11 +9,11 @@ export class StartRideHandler
 {
   constructor(private readonly rideRepository: RideRepository) {}
 
-  async execute(command: StartRideCommand): Promise<void> {
-    const ride = await this.rideRepository.findOneById(command.rideId);
+  async execute({ data }: StartRideCommand): Promise<void> {
+    const ride = await this.rideRepository.findOneById(data.rideId);
     if (!ride) {
       throw new UnprocessableEntityException(
-        `Ride ${command.rideId} does not exist`,
+        `Ride ${data.rideId} does not exist`,
       );
     }
     ride.start();
