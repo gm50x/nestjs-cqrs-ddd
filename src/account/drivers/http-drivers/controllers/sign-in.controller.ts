@@ -1,16 +1,26 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { SignInCommand } from '../../../application/commands/sign-in.command';
-import { SignInRequest, SignInResponse } from '../../models/sign-in.model';
+import {
+  SignInCommand,
+  SignInResult,
+} from '../../../application/commands/sign-in.command';
+import {
+  SignInInput,
+  SignInOutput,
+} from '../../../application/models/sign-in.model';
 
 @Controller({ version: '1' })
 export class SignInController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @Post('sign-in')
-  async execute(@Body() data: SignInRequest): Promise<SignInResponse> {
-    return await this.commandBus.execute(
-      new SignInCommand(data.email, data.password),
+  async execute(@Body() data: SignInInput): Promise<SignInOutput> {
+    const result = await this.commandBus.execute<SignInCommand, SignInResult>(
+      new SignInCommand({
+        email: data.email,
+        password: data.password,
+      }),
     );
+    return result.data;
   }
 }

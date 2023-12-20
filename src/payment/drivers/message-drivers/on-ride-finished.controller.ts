@@ -23,7 +23,9 @@ export class OnRideFinishedController {
   })
   async execute(message: any) {
     try {
-      await this.commandBus.execute(new ProcessPaymentCommand(message.rideId));
+      await this.commandBus.execute(
+        new ProcessPaymentCommand({ rideId: message.rideId }),
+      );
     } catch (error) {
       this.logger.error({ message: 'Failed processing message', error });
       return new Nack();

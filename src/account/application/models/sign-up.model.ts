@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-export class SignUpRequest {
+export class SignUpInput {
   @IsString()
   name: string;
 
@@ -15,6 +15,6 @@ export class SignUpRequest {
   carPlate: string;
 }
 
-export class SignUpResponse {
+export class SignUpOutput {
   id: string;
 }

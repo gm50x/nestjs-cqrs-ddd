@@ -9,16 +9,16 @@ export class SignInHandler
 {
   constructor(private readonly accountRepository: AccountRepository) {}
 
-  async execute(command: SignInCommand): Promise<SignInResult> {
-    const account = await this.accountRepository.findByEmail(command.email);
+  async execute({ data }: SignInCommand): Promise<SignInResult> {
+    const account = await this.accountRepository.findByEmail(data.email);
 
     if (!account) {
       throw new UnauthorizedException();
     }
-    const token = account.authenticate(command.password);
+    const token = account.authenticate(data.password);
     await this.accountRepository.save(account);
-    token.decrypt(command.password);
+    token.decrypt(data.password);
     account.commit();
-    return new SignInResult(token.value);
+    return new SignInResult({ access_token: token.value });
   }
 }

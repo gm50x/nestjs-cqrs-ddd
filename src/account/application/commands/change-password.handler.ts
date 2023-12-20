@@ -9,14 +9,14 @@ export class ChangePasswordHandler
 {
   constructor(private readonly accountRepository: AccountRepository) {}
 
-  async execute(command: ChangePasswordCommand): Promise<void> {
-    const account = await this.accountRepository.findByEmail(command.email);
+  async execute({ data }: ChangePasswordCommand): Promise<void> {
+    const account = await this.accountRepository.findByEmail(data.email);
 
     if (!account) {
       throw new UnauthorizedException();
     }
 
-    account.changePassword(command.currentPassword, command.newPassword);
+    account.changePassword(data.currentPassword, data.newPassword);
     await this.accountRepository.save(account);
     account.commit();
   }

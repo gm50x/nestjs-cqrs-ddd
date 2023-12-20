@@ -1,3 +1,5 @@
+import { ProcessPaymentInput } from '../models/process-payment.models';
+
 export class ProcessPaymentCommand {
-  constructor(readonly rideId: string) {}
+  constructor(readonly data: ProcessPaymentInput) {}
 }

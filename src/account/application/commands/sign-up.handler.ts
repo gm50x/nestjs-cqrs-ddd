@@ -13,20 +13,20 @@ export class SignUpHandler
     private readonly accountFactory: AccountFactory,
   ) {}
 
-  async execute(command: SignUpCommand): Promise<SignUpResult> {
+  async execute({ data }: SignUpCommand): Promise<SignUpResult> {
     const existingAccount = await this.accountRepository.findByEmail(
-      command.email,
+      data.email,
     );
     if (existingAccount) {
       throw new ConflictException();
     }
     const account = await this.accountFactory.create(
-      command.name,
-      command.email,
-      command.password,
-      command.carPlate,
+      data.name,
+      data.email,
+      data.password,
+      data.carPlate,
     );
     account.commit();
-    return new SignUpResult(account.id);
+    return new SignUpResult({ id: account.id });
   }
 }

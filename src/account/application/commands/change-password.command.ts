@@ -1,7 +1,5 @@
+import { ChangePasswordInput } from '../models/change-password.model';
+
 export class ChangePasswordCommand {
-  constructor(
-    readonly email: string,
-    readonly currentPassword: string,
-    readonly newPassword: string,
-  ) {}
+  constructor(readonly data: ChangePasswordInput) {}
 }

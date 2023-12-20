@@ -1,11 +1,8 @@
+import { SignUpInput, SignUpOutput } from '../models/sign-up.model';
+
 export class SignUpCommand {
-  constructor(
-    readonly name: string,
-    readonly email: string,
-    readonly password: string,
-    readonly carPlate?: string,
-  ) {}
+  constructor(readonly data: SignUpInput) {}
 }
 export class SignUpResult {
-  constructor(readonly id: string) {}
+  constructor(readonly data: SignUpOutput) {}
 }
