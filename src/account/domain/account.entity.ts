@@ -11,14 +11,14 @@ import { Token, TokenFactory } from './token.value';
 
 export class Account extends Entity {
   constructor(
-    private readonly _id: string,
+    protected readonly _id: string,
     private readonly _name: string,
     private readonly _email: Email,
     private _password: Password,
     private readonly _carPlate?: CarPlate,
     private _token?: Token,
   ) {
-    super();
+    super(_id);
   }
 
   get id() {

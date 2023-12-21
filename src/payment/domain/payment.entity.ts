@@ -2,7 +2,7 @@ import { Entity } from '@gedai/core';
 
 export class Payment extends Entity {
   constructor(
-    readonly id: string,
+    readonly _id: string,
     readonly rideId: string,
     readonly passengerId: string,
     readonly driverId: string,
@@ -12,6 +12,10 @@ export class Payment extends Entity {
     readonly driverEmail: string,
     readonly rideDate: Date,
   ) {
-    super();
+    super(_id);
+  }
+
+  get id() {
+    return this._id;
   }
 }

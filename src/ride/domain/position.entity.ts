@@ -3,11 +3,15 @@ import { Coord } from './coord.value';
 
 export class Position extends Entity {
   constructor(
-    readonly id: string,
+    readonly _id: string,
     readonly rideId: string,
     readonly coord: Coord,
     readonly timestamp: Date,
   ) {
-    super();
+    super(_id);
+  }
+
+  get id() {
+    return this._id;
   }
 }

@@ -17,7 +17,7 @@ export class Ride extends Entity {
   private _status: RideStatus;
 
   constructor(
-    readonly id: string,
+    protected readonly _id: string,
     readonly passengerId: string,
     driverId: string | null,
     readonly from: Coord,
@@ -27,11 +27,15 @@ export class Ride extends Entity {
     fare?: number,
     distance?: number,
   ) {
-    super();
+    super(_id);
     this._status = status;
     this._driverId = driverId;
     this._fare = fare;
     this._distance = distance;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get status() {
