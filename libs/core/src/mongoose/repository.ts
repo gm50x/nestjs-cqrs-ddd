@@ -1,10 +1,11 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { Entity } from '../entity';
 import { EntitySchemaFactory } from '../entity-schema.factory';
 import { Repository } from '../repository';
 import { EntityMongooseSchema } from './entity.schema';
 
+@Injectable()
 export abstract class MongooseRepository<
   TSchema extends EntityMongooseSchema,
   TEntity extends Entity,
