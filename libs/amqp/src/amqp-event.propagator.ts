@@ -1,5 +1,4 @@
 import { DomainEvent } from '@gedai/core';
-import { TracingService } from '@gedai/tracing';
 import {
   Inject,
   Injectable,
@@ -21,7 +20,6 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
   constructor(
     private readonly eventBus: EventBus,
     private readonly amqp: AmqpService,
-    private readonly tracer: TracingService,
     @Inject(MODULE_OPTIONS_TOKEN)
     private readonly options: AmqpModuleOptions,
   ) {}
@@ -51,11 +49,7 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     this.logger.debug(
       `Propagating event ${eventName} with routingKey ${routingKey}`,
     );
-    const traceId = this.tracer.get('traceId');
-    await this.amqp.publish('events', routingKey, eventData, {
-      ..._meta,
-      'x-trace-id': traceId,
-    });
+    await this.amqp.publish('events', routingKey, eventData, { ..._meta });
     this.logger.log(
       `Sucessfully propagated ${eventName} with ${routingKey} to the event bus`,
     );
