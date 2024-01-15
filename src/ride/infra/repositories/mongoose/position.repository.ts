@@ -19,7 +19,7 @@ export class PositionMongooseRepository
   ) {
     super(userModel, userSchemaFactory);
   }
-  async getByRideId(rideId: string) {
+  async findByRideId(rideId: string) {
     return this.find({
       rideId: new Types.ObjectId(rideId),
     });

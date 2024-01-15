@@ -10,14 +10,14 @@ export class StartRideHandler
   constructor(private readonly rideRepository: RideRepository) {}
 
   async execute({ data }: StartRideCommand): Promise<void> {
-    const ride = await this.rideRepository.findOneById(data.rideId);
+    const ride = await this.rideRepository.findById(data.rideId);
     if (!ride) {
       throw new UnprocessableEntityException(
         `Ride ${data.rideId} does not exist`,
       );
     }
     ride.start();
-    await this.rideRepository.save(ride);
+    await this.rideRepository.update(ride);
     ride.commit();
   }
 }

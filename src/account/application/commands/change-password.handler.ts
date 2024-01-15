@@ -17,7 +17,7 @@ export class ChangePasswordHandler
     }
 
     account.changePassword(data.currentPassword, data.newPassword);
-    await this.accountRepository.save(account);
+    await this.accountRepository.update(account);
     account.commit();
   }
 }

@@ -14,7 +14,7 @@ export class UpdatePositionHandler
   ) {}
 
   async execute({ data }: UpdatePositionCommand): Promise<void> {
-    const ride = await this.rideRepository.findOneById(data.rideId);
+    const ride = await this.rideRepository.findById(data.rideId);
     if (!ride) {
       throw new UnprocessableEntityException(
         `Ride ${data.rideId} does not exist`,

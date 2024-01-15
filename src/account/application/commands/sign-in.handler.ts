@@ -16,7 +16,7 @@ export class SignInHandler
       throw new UnauthorizedException();
     }
     const token = account.authenticate(data.password);
-    await this.accountRepository.save(account);
+    await this.accountRepository.update(account);
     token.decrypt(data.password);
     account.commit();
     return new SignInResult({ access_token: token.value });

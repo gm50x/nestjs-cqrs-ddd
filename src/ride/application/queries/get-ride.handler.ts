@@ -14,7 +14,7 @@ export class GetRideHandler
   ) {}
 
   async execute({ data }: GetRideQuery): Promise<GetRideResult> {
-    const ride = await this.rideRepository.findOneById(data.rideId);
+    const ride = await this.rideRepository.findById(data.rideId);
     if (!ride) {
       throw new NotFoundException(`Ride ${data.rideId} does not exist`);
     }

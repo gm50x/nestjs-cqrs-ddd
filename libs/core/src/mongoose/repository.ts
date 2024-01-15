@@ -19,13 +19,13 @@ export abstract class MongooseRepository<
     >,
   ) {}
 
-  async findOneById(id: string): Promise<TEntity> {
+  async findById(id: string): Promise<TEntity> {
     return this.findOne({
       _id: new Types.ObjectId(id),
     });
   }
 
-  async findOneAndReplaceById(id: string, entity: TEntity): Promise<void> {
+  async findAndReplaceById(id: string, entity: TEntity): Promise<void> {
     await this.findOneAndReplace(
       { _id: new Types.ObjectId(id) } as FilterQuery<TSchema>,
       entity,
@@ -52,7 +52,7 @@ export abstract class MongooseRepository<
     await new this.entityModel(schema).save();
   }
 
-  async save(entity: TEntity): Promise<void> {
+  async update(entity: TEntity): Promise<void> {
     const schema = this.entitySchemaFactory.create(entity);
     await this.entityModel.updateOne({ _id: schema._id }, schema);
   }

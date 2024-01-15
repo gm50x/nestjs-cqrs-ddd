@@ -10,7 +10,7 @@ export class GetAccountHandler
   constructor(private readonly accountRepository: AccountRepository) {}
 
   async execute(query: GetAccountQuery): Promise<GetAccountOutput> {
-    const account = await this.accountRepository.findOneById(query.id);
+    const account = await this.accountRepository.findById(query.id);
     if (!account) {
       throw new NotFoundException();
     }

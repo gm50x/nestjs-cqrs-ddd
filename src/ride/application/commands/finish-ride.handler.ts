@@ -15,8 +15,8 @@ export class FinishRideHandler
 
   async execute({ data }: FinishRideCommand): Promise<void> {
     const [ride, positions] = await Promise.all([
-      this.rideRepository.findOneById(data.rideId),
-      this.positionsRepository.getByRideId(data.rideId),
+      this.rideRepository.findById(data.rideId),
+      this.positionsRepository.findByRideId(data.rideId),
     ]);
     if (!ride) {
       throw new UnprocessableEntityException(
@@ -24,7 +24,7 @@ export class FinishRideHandler
       );
     }
     ride.finish(positions);
-    await this.rideRepository.save(ride);
+    await this.rideRepository.update(ride);
     ride.commit();
   }
 }
