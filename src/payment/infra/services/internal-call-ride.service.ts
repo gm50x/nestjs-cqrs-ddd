@@ -11,12 +11,13 @@ export class InterncalCallRideService implements RideService {
   constructor(private readonly queryBus: QueryBus) {}
 
   async getById(id: string): Promise<RideModel> {
-    const ride = await this.queryBus
+    const result = await this.queryBus
       .execute(new GetRideQuery({ rideId: id }))
       .catch(() => null);
-    if (!ride) {
+    if (!result) {
       return;
     }
+    const ride = result.data;
     return {
       id: ride.id,
       date: ride.date,
