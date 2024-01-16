@@ -13,9 +13,6 @@ describe('Rides (Integration Specs)', () => {
   beforeAll(async () => {
     app = await createTestApp();
     await app.init();
-  });
-
-  beforeEach(() => {
     server = app.getHttpServer();
   });
 
