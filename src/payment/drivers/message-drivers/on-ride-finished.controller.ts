@@ -27,6 +27,7 @@ export class OnRideFinishedController {
         new ProcessPaymentCommand({ rideId: message.rideId }),
       );
     } catch (error) {
+      // TODO: should implement a default error handler that will nack all messages and prepare resiliency.
       this.logger.error({ message: 'Failed processing message', error });
       return new Nack();
     }

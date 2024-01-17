@@ -1,3 +1,5 @@
+import { AxiosHttpTracingInterceptor } from '@gedai/tracing/http-tracing-propagation.interceptor';
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
@@ -15,6 +17,7 @@ import { InterncalCallRideService } from './services/internal-call-ride.service'
 @Module({
   imports: [
     CqrsModule,
+    HttpModule.register({}),
     MongooseModule.forFeature([
       {
         name: PaymentSchema.name,
@@ -24,6 +27,7 @@ import { InterncalCallRideService } from './services/internal-call-ride.service'
   ],
   providers: [
     PaymentMongooseSchemaFactory,
+    AxiosHttpTracingInterceptor,
     {
       provide: PaymentRepository,
       useClass: PaymentMongooseRepository,
