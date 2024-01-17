@@ -1,10 +1,9 @@
 import { HttpServer, INestApplication } from '@nestjs/common';
-import { getConnectionToken } from '@nestjs/mongoose';
-import { Connection as MongooseConnection, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import * as request from 'supertest';
 import { getDriverAccount, getPassengerAccount } from './stubs/accounts';
 import { getRequestRide, getRidePositions } from './stubs/rides';
-import { createTestApp } from './utils/configure-test-app';
+import { createTestApp, teardownTestApp } from './utils/configure-test-app';
 
 describe('Rides (Integration Specs)', () => {
   let app: INestApplication;
@@ -17,10 +16,7 @@ describe('Rides (Integration Specs)', () => {
   });
 
   afterAll(async () => {
-    const mongooseConnection =
-      app.get<MongooseConnection>(getConnectionToken());
-    await mongooseConnection.dropDatabase();
-    await app.close();
+    await teardownTestApp(app);
   });
 
   describe('POST /v1/request-ride', () => {

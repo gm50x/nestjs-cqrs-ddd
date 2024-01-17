@@ -9,15 +9,22 @@ import {
   configureValidation,
   configureVersioning,
 } from '@gedai/config';
+import { INestApplication } from '@nestjs/common';
+import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
+import axios from 'axios';
 import { randomUUID } from 'crypto';
+import { Connection as MongooseConnection } from 'mongoose';
 import { AppModule } from '../../src/app.module';
 
-const dbName = randomUUID().split('-').at(0);
-process.env.MONGO_URL = `mongodb://gedai:gedai@localhost:27017/${dbName}?authSource=admin`;
-process.env.AMQP_URL = `amqp://gedai:gedai@localhost:5672`;
+const basicBearer = `gedai:gedai`;
+const virtualHost = randomUUID().split('-').at(0);
+process.env.MONGO_URL = `mongodb://${basicBearer}@localhost:27017/${virtualHost}?authSource=admin`;
+process.env.AMQP_URL = `amqp://${basicBearer}@localhost:5672/${virtualHost}`;
+const rabbitmqURL = `http://${basicBearer}@localhost:15672`;
 
 export async function createTestApp(silentLogger = true) {
+  await axios.put(`${rabbitmqURL}/api/vhosts/${virtualHost}`);
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [AppModule],
   }).compile();
@@ -32,4 +39,13 @@ export async function createTestApp(silentLogger = true) {
   configureVersioning(app);
   configureRoutePrefix(app);
   return app;
+}
+
+export async function teardownTestApp(app: INestApplication) {
+  const mongooseConnection = app.get<MongooseConnection>(getConnectionToken());
+  await Promise.all([
+    axios.delete(`${rabbitmqURL}/api/vhosts/${virtualHost}`),
+    mongooseConnection.dropDatabase(),
+  ]);
+  await app.close();
 }
