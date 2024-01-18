@@ -13,11 +13,38 @@ services:
   mongodb:
     image: mongo:6
     container_name: gedai-mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: 'gedai'
-      MONGO_INITDB_ROOT_PASSWORD: 'gedai'
+    command: mongod --replSet rs0 --bind_ip_all
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: 'gedai'
+    #   MONGO_INITDB_ROOT_PASSWORD: 'gedai'
     ports:
       - 27017:27017
+  mongodb_rs_init:
+    image: mongo:6
+    restart: 'no'
+    depends_on: [mongodb]
+    container_name: gedai-mongodb-rs-init
+    command: >-
+      mongosh --host host.docker.internal:27017 --eval 'rs.initiate({
+        "_id": "rs0",
+        "members": [
+          {
+            "_id":0,
+            "host":"host.docker.internal:27017"
+          }
+        ]
+      });' &&
+  mongodb_user_init:
+    image: mongo:6
+    restart: 'no'
+    depends_on: [mongodb_rs_init]
+    container_name: gedai-mongodb-user-init
+    command: >-
+      mongosh --host host.docker.internal:27017 --eval 'db.createUser({
+        "user":"gedai",
+        "pwd":"gedai",
+        "roles": []
+      });'
   postgresdb:
     image: postgres:16
     container_name: gedai-postgresdb

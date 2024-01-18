@@ -1,7 +1,9 @@
 import { AccountCreatedEvent } from '@gedai/core';
+import { TracingService } from '@gedai/tracing';
 import { Injectable } from '@nestjs/common';
 import { EventPublisher } from '@nestjs/cqrs';
-import { Types } from 'mongoose';
+import { InjectConnection } from '@nestjs/mongoose';
+import { Connection, Types } from 'mongoose';
 import { AccountFactory } from '../../../application/abstractions/account.factory';
 import { AccountRepository } from '../../../application/abstractions/account.repository';
 import { Account } from '../../../domain/account.entity';
@@ -14,7 +16,22 @@ export class AccountMongooseFactory implements AccountFactory {
   constructor(
     private readonly accountRepository: AccountRepository,
     private readonly eventPublisher: EventPublisher,
+    // TODO: create TransactionManager OR UnitOfWork
+    private readonly tracing: TracingService,
+    @InjectConnection() private readonly connection: Connection,
   ) {}
+
+  // @Transactional()
+  // async onModuleInit() {
+  //   console.log('running onModuleInit');
+  //   const account = await this.create(
+  //     'Jack Sparrow',
+  //     'jack@sparrow.com',
+  //     '12345678',
+  //   );
+
+  //   console.log(account);
+  // }
 
   async create(
     name: string,
@@ -30,6 +47,8 @@ export class AccountMongooseFactory implements AccountFactory {
       new Password(password, PasswordFactory.generateSalt(), true),
       carPlate ? new CarPlate(carPlate) : null,
     );
+
+    console.log('running create');
     await this.accountRepository.create(account);
     account.apply(new AccountCreatedEvent(account.id));
     return this.eventPublisher.mergeObjectContext(account);

@@ -1,4 +1,5 @@
 import { MongooseRepository } from '@gedai/core';
+import { TracingService } from '@gedai/tracing';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -16,8 +17,9 @@ export class AccountMongooseRepository
     @InjectModel(AccountSchema.name)
     protected readonly userModel: Model<AccountSchema>,
     protected readonly userSchemaFactory: AccountMongooseSchemaFactory,
+    protected readonly tracing: TracingService,
   ) {
-    super(userModel, userSchemaFactory);
+    super(userModel, userSchemaFactory, tracing);
   }
   async findByEmail(email: string) {
     return this.findOne({ email });

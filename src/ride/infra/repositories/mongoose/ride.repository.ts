@@ -1,4 +1,5 @@
 import { MongooseRepository } from '@gedai/core';
+import { TracingService } from '@gedai/tracing';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -16,8 +17,9 @@ export class RideMongooseRepository
     @InjectModel(RideSchema.name)
     protected readonly userModel: Model<RideSchema>,
     protected readonly userSchemaFactory: RideMongooseSchemaFactory,
+    protected readonly tracing: TracingService,
   ) {
-    super(userModel, userSchemaFactory);
+    super(userModel, userSchemaFactory, tracing);
   }
 
   async getActiveRidesByPassengerId(passengerId: string): Promise<Ride[]> {

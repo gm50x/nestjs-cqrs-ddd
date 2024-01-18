@@ -1,8 +1,9 @@
+import { TracingService } from '@gedai/tracing';
 import { Injectable } from '@nestjs/common';
-import { FilterQuery, Model, Types } from 'mongoose';
+import { ClientSession, FilterQuery, Model, Types } from 'mongoose';
 import { Entity } from '../entity';
 import { EntitySchemaFactory } from '../entity-schema.factory';
-import { Repository } from '../repository';
+import { Repository, RepositoryWriteOptions } from '../repository';
 import { EntityMongooseSchema } from './entity.schema';
 
 @Injectable()
@@ -17,6 +18,7 @@ export abstract class MongooseRepository<
       TSchema,
       TEntity
     >,
+    protected readonly tracing: TracingService,
   ) {}
 
   async findById(id: string): Promise<TEntity> {
@@ -40,14 +42,23 @@ export abstract class MongooseRepository<
     );
   }
 
-  async create(entity: TEntity): Promise<void> {
+  async create(
+    entity: TEntity,
+    options?: RepositoryWriteOptions,
+  ): Promise<void> {
+    const { session: rawSession } = options || {};
+    const session: ClientSession = this.tracing.get('session');
     const schema = this.entitySchemaFactory.create(entity);
-    await new this.entityModel(schema).save();
+    await new this.entityModel(schema).save({ session });
   }
 
-  async update(entity: TEntity): Promise<void> {
+  async update(
+    entity: TEntity,
+    options?: RepositoryWriteOptions,
+  ): Promise<void> {
+    const { session } = options || {};
     const schema = this.entitySchemaFactory.create(entity);
-    await this.entityModel.updateOne({ _id: schema._id }, schema);
+    await this.entityModel.updateOne({ _id: schema._id }, schema, { session });
   }
 
   protected async findOne(
