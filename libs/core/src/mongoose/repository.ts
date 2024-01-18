@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { Entity } from '../entity';
 import { EntitySchemaFactory } from '../entity-schema.factory';
@@ -23,13 +23,6 @@ export abstract class MongooseRepository<
     return this.findOne({
       _id: new Types.ObjectId(id),
     });
-  }
-
-  async findAndReplaceById(id: string, entity: TEntity): Promise<void> {
-    await this.findOneAndReplace(
-      { _id: new Types.ObjectId(id) } as FilterQuery<TSchema>,
-      entity,
-    );
   }
 
   async findAll(): Promise<TEntity[]> {
@@ -69,26 +62,5 @@ export abstract class MongooseRepository<
     }
 
     return this.entitySchemaFactory.createFromSchema(entityDocument as TSchema);
-  }
-
-  protected async findOneAndReplace(
-    entityFilterQuery: FilterQuery<TSchema>,
-    entity: TEntity,
-  ): Promise<void> {
-    const updatedEntityDocument = await this.entityModel
-      .findOneAndReplace(
-        entityFilterQuery,
-        this.entitySchemaFactory.create(entity),
-        {
-          new: true,
-          useFindAndModify: false,
-          lean: true,
-        },
-      )
-      .exec();
-
-    if (!updatedEntityDocument) {
-      throw new NotFoundException('Unable to find the entity to replace.');
-    }
   }
 }
