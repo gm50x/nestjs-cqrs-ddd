@@ -1,4 +1,4 @@
-import { TracingService } from '@gedai/tracing';
+import { ContextService } from '@gedai/context';
 import { INestApplication, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -9,7 +9,7 @@ import {
 import { config, format, transports } from 'winston';
 import { SimpleAnonymizer } from './anonymizer.config';
 
-let tracingService: TracingService;
+let contextService: ContextService;
 
 const { Console } = transports;
 const { combine, timestamp, json } = format;
@@ -31,7 +31,7 @@ const severity = format((info) => {
 
 const trace = format((info) => {
   const errorContext: Map<string, any> = info.error?.context;
-  const traceId = errorContext?.get('traceId') ?? tracingService.get('traceId');
+  const traceId = errorContext?.get('traceId') ?? contextService.get('traceId');
   return { ...info, traceId };
 });
 
@@ -81,7 +81,7 @@ const localFormat = (appName: string) =>
 
 export const configureLogger = (app: INestApplication, silent = false) => {
   const configService = app.get(ConfigService);
-  tracingService = app.get(TracingService);
+  contextService = app.get(ContextService);
 
   const [env, appName, logLevel] = [
     configService.get('NODE_ENV', 'production'),

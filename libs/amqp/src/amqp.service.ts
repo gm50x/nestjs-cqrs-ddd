@@ -1,4 +1,4 @@
-import { TracingService } from '@gedai/tracing';
+import { ContextService } from '@gedai/context';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
@@ -7,7 +7,7 @@ import { randomUUID } from 'crypto';
 export class AmqpService {
   constructor(
     private readonly amqp: AmqpConnection,
-    private readonly tracingService: TracingService,
+    private readonly contextService: ContextService,
   ) {}
 
   async publish(
@@ -16,7 +16,7 @@ export class AmqpService {
     content: unknown,
     headers?: Record<string, string | boolean | number>,
   ) {
-    const traceId = this.tracingService.get('traceId');
+    const traceId = this.contextService.get('traceId');
     await this.amqp.publish(exchange, routingKey, content, {
       headers: {
         ...headers,

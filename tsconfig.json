@@ -20,8 +20,6 @@
     "paths": {
       "@amqp": ["./src/sdk/amqp"],
       "@amqp/*": ["./src/sdk/amqp/*"],
-      "@gedai/tracing": ["libs/tracing/src"],
-      "@gedai/tracing/*": ["libs/tracing/src/*"],
       "@gedai/core": ["libs/core/src"],
       "@gedai/core/*": ["libs/core/src/*"],
       "@gedai/audit": ["libs/audit/src"],
@@ -31,7 +29,9 @@
       "@gedai/config": ["libs/config/src"],
       "@gedai/config/*": ["libs/config/src/*"],
       "@gedai/stub-factory": ["test/stubs"],
-      "@gedai/stub-factory/*": ["test/stubs/*"]
+      "@gedai/stub-factory/*": ["test/stubs/*"],
+      "@gedai/context": ["libs/context/src"],
+      "@gedai/context/*": ["libs/context/src/*"]
     }
   }
 }

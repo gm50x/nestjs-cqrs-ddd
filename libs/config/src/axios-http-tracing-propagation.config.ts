@@ -1,21 +1,21 @@
+import { ContextService } from '@gedai/context';
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { TracingService } from './tracing.service';
 
 @Injectable()
-export class AxiosHttpTracingInterceptor implements OnModuleInit {
+export class AxiosHttpTracingPropagationConfig implements OnModuleInit {
   private logger = new Logger(this.constructor.name);
 
   constructor(
-    private readonly tracing: TracingService,
+    private readonly contextService: ContextService,
     private readonly config: ConfigService,
     private readonly http: HttpService,
   ) {}
 
   private applyTraceId(config: InternalAxiosRequestConfig) {
-    config.headers['x-trace-id'] = this.tracing.get('traceId');
+    config.headers['x-trace-id'] = this.contextService.get('traceId');
   }
 
   private getRequestToLog(config: InternalAxiosRequestConfig) {

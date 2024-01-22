@@ -26,7 +26,8 @@ export class HttpAuditMiddleware implements NestMiddleware {
     };
 
     res.on('finish', () => {
-      this.logger.log({
+      const logLevel = res.statusCode >= 400 ? 'error' : 'log';
+      this.logger[logLevel]({
         message: 'REQUEST AUDIT',
         request: {
           method: req.method,

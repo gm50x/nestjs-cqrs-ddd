@@ -7,15 +7,6 @@
     "webpack": true
   },
   "projects": {
-    "tracing": {
-      "type": "library",
-      "root": "libs/tracing",
-      "entryFile": "index",
-      "sourceRoot": "libs/tracing/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/tracing/tsconfig.lib.json"
-      }
-    },
     "core": {
       "type": "library",
       "root": "libs/core",
@@ -50,6 +41,15 @@
       "sourceRoot": "libs/config/src",
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
+      }
+    },
+    "context": {
+      "type": "library",
+      "root": "libs/context",
+      "entryFile": "index",
+      "sourceRoot": "libs/context/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/context/tsconfig.lib.json"
       }
     }
   }

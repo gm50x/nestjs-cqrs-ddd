@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import {
-  configureAmqpAuditInterceptor,
   configureCORS,
   configureCompression,
   configureExceptionsHandler,
@@ -21,7 +20,7 @@ async function bootstrap() {
     .then(configureCORS)
     .then(configureCompression)
     .then(configureExceptionsHandler)
-    .then(configureAmqpAuditInterceptor)
+    // .then(configureAmqpAuditInterceptor)
     .then(configureOpenAPI)
     .then(configureValidation)
     .then(configureVersioning)
