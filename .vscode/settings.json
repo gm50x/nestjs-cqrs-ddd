@@ -1,4 +1,8 @@
 {
   "jest.jestCommandLine": "npm run test:all -- ",
-  "jestrunner.configPath": "./test/config/jest-all.js"
+  "jestrunner.configPath": "./test/config/jest-all.js",
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "**/node_modules/winston",
+    "**/node_modules/nest-winston"
+  ]
 }
