@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
 import { Subscription } from 'rxjs';
+import { setTimeout } from 'timers/promises';
 import { AmqpEventNameAdapter } from './amqp-event-name.adapter';
 import { AmqpModuleOptions, MODULE_OPTIONS_TOKEN } from './amqp.options';
 import { AmqpService } from './amqp.service';
@@ -15,6 +16,8 @@ import { AmqpService } from './amqp.service';
 @Injectable()
 export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(this.constructor.name);
+  private readonly maxAttempts = 5;
+  private readonly timeBetweenAttemptsInMillis = 5000;
   private subscription: Subscription;
 
   constructor(
@@ -29,7 +32,9 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
       this.logger.debug('Event propagation is disabled');
       return;
     }
-    this.subscription = this.eventBus.subscribe(this.propagate.bind(this));
+    this.subscription = this.eventBus.subscribe(
+      this.propagateWithRetrial.bind(this),
+    );
   }
 
   onModuleDestroy() {
@@ -40,6 +45,7 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     const { _meta, ...eventData } = event;
     const eventName = event.constructor.name;
     const routingKey = AmqpEventNameAdapter.getRoutingKey(event);
+
     if (!_meta.autoPropagated) {
       this.logger.debug(
         `Supressing event propagation as ${eventName}.autoPropagated is set to ${_meta.autoPropagated}`,
@@ -53,5 +59,24 @@ export class AmqpEventPropagator implements OnModuleInit, OnModuleDestroy {
     this.logger.log(
       `Sucessfully propagated ${eventName} with ${routingKey} to the event bus`,
     );
+  }
+
+  private async propagateWithRetrial(event: DomainEvent) {
+    for (let attempt = 1; attempt <= this.maxAttempts; attempt++) {
+      try {
+        return await this.propagate(event);
+      } catch (error) {
+        const isLastAttempt = attempt >= this.maxAttempts;
+        const logFn = isLastAttempt ? 'error' : 'warn';
+        this.logger[logFn]({
+          message: `Failed propagating event`,
+          error,
+          data: event,
+        });
+        if (!isLastAttempt) {
+          await setTimeout(this.timeBetweenAttemptsInMillis);
+        }
+      }
+    }
   }
 }
