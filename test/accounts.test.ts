@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { HttpServer, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { getDriverAccount, getPassengerAccount } from './stubs/accounts';
-import { createTestApp, teardownTestApp } from './utils/configure-test-app';
+import { createTestApp, destroyTestApp } from './utils/configure-test-app';
 
 describe('Accounts (Integration Specs)', () => {
   let app: INestApplication;
@@ -10,12 +10,11 @@ describe('Accounts (Integration Specs)', () => {
 
   beforeAll(async () => {
     app = await createTestApp();
-    await app.init();
     server = app.getHttpServer();
   });
 
   afterAll(async () => {
-    await teardownTestApp(app);
+    await destroyTestApp(app);
   });
 
   describe('POST /v1/sign-up', () => {

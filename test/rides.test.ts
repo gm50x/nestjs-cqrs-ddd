@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import * as request from 'supertest';
 import { getDriverAccount, getPassengerAccount } from './stubs/accounts';
 import { getRequestRide, getRidePositions } from './stubs/rides';
-import { createTestApp, teardownTestApp } from './utils/configure-test-app';
+import { createTestApp, destroyTestApp } from './utils/configure-test-app';
 
 describe('Rides (Integration Specs)', () => {
   let app: INestApplication;
@@ -11,12 +11,11 @@ describe('Rides (Integration Specs)', () => {
 
   beforeAll(async () => {
     app = await createTestApp();
-    await app.init();
     server = app.getHttpServer();
   });
 
   afterAll(async () => {
-    await teardownTestApp(app);
+    await destroyTestApp(app);
   });
 
   describe('POST /v1/request-ride', () => {

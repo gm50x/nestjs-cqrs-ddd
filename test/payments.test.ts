@@ -3,7 +3,7 @@ import * as request from 'supertest';
 import { setTimeout } from 'timers/promises';
 import { getDriverAccount, getPassengerAccount } from './stubs/accounts';
 import { getRequestRide, getRidePositions } from './stubs/rides';
-import { createTestApp, teardownTestApp } from './utils/configure-test-app';
+import { createTestApp, destroyTestApp } from './utils/configure-test-app';
 
 describe('Payment (Integration Specs)', () => {
   let app: INestApplication;
@@ -12,12 +12,11 @@ describe('Payment (Integration Specs)', () => {
 
   beforeAll(async () => {
     app = await createTestApp();
-    await app.init();
     server = app.getHttpServer();
   });
 
   afterAll(async () => {
-    await teardownTestApp(app);
+    await destroyTestApp(app);
   });
 
   describe('onRideFinished', () => {

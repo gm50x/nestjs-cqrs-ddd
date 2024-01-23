@@ -38,10 +38,11 @@ export async function createTestApp(silentLogger = true) {
   configureValidation(app);
   configureVersioning(app);
   configureRoutePrefix(app);
+  await app.init();
   return app;
 }
 
-export async function teardownTestApp(app: INestApplication) {
+export async function destroyTestApp(app: INestApplication) {
   const mongooseConnection = app.get<MongooseConnection>(getConnectionToken());
   await Promise.all([
     axios.delete(`${rabbitmqURL}/api/vhosts/${virtualHost}`),
