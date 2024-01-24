@@ -16,8 +16,25 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: 'gedai'
       MONGO_INITDB_ROOT_PASSWORD: 'gedai'
+    volumes: ['./localstack/mongodb.keyfile:/opt/keyfile']
+    command: 'mongod --replSet rs0 --keyFile /opt/keyfile --bind_ip_all'
     ports:
       - 27017:27017
+  mongodb_init:
+    image: mongo:6
+    container_name: gedai-mongodb-init
+    restart: 'no'
+    depends_on: [mongodb]
+    command: >-
+      mongosh -u gedai -p gedai --host host.docker.internal:27017 --eval 'rs.initiate({
+        "_id":"rs0",
+        "members":[
+          {
+            "_id": 0,
+            "host":"host.docker.internal:27017",
+          }
+        ]
+      })'
   postgresdb:
     image: postgres:16
     container_name: gedai-postgresdb
