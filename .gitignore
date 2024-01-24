@@ -1,3 +1,6 @@
+# keyfile
+**/*.keyfile
+
 # environment
 *.env
 
