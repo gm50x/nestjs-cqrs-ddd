@@ -1,3 +1,4 @@
+import { ContextService } from '@gedai/context';
 import { MongooseRepository } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -13,11 +14,12 @@ export class PositionMongooseRepository
   implements PositionRepository
 {
   constructor(
+    protected readonly contextService: ContextService,
     @InjectModel(PositionSchema.name)
     protected readonly userModel: Model<PositionSchema>,
     protected readonly userSchemaFactory: PositionMongooseSchemaFactory,
   ) {
-    super(userModel, userSchemaFactory);
+    super(contextService, userModel, userSchemaFactory);
   }
   async findByRideId(rideId: string) {
     return this.find({

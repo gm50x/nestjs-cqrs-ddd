@@ -1,3 +1,4 @@
+import { ContextService } from '@gedai/context';
 import { MongooseRepository } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -13,11 +14,12 @@ export class RideMongooseRepository
   implements RideRepository
 {
   constructor(
+    protected readonly contextService: ContextService,
     @InjectModel(RideSchema.name)
     protected readonly userModel: Model<RideSchema>,
     protected readonly userSchemaFactory: RideMongooseSchemaFactory,
   ) {
-    super(userModel, userSchemaFactory);
+    super(contextService, userModel, userSchemaFactory);
   }
 
   async getActiveRidesByPassengerId(passengerId: string): Promise<Ride[]> {

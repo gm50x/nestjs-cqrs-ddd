@@ -1,3 +1,4 @@
+import { Transactional } from '@gedai/core';
 import { UnauthorizedException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AccountRepository } from '../abstractions/account.repository';
@@ -9,6 +10,7 @@ export class ChangePasswordHandler
 {
   constructor(private readonly accountRepository: AccountRepository) {}
 
+  @Transactional()
   async execute({ data }: ChangePasswordCommand): Promise<void> {
     const account = await this.accountRepository.findByEmail(data.email);
 

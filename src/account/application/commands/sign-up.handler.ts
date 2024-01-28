@@ -1,3 +1,4 @@
+import { Transactional } from '@gedai/core';
 import { ConflictException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AccountFactory } from '../abstractions/account.factory';
@@ -13,6 +14,7 @@ export class SignUpHandler
     private readonly accountFactory: AccountFactory,
   ) {}
 
+  @Transactional()
   async execute({ data }: SignUpCommand): Promise<SignUpResult> {
     const existingAccount = await this.accountRepository.findByEmail(
       data.email,

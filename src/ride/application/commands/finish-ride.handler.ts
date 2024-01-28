@@ -1,3 +1,4 @@
+import { Transactional } from '@gedai/core';
 import { UnprocessableEntityException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { PositionRepository } from '../abstractions/position.repository';
@@ -13,6 +14,7 @@ export class FinishRideHandler
     private readonly positionsRepository: PositionRepository,
   ) {}
 
+  @Transactional()
   async execute({ data }: FinishRideCommand): Promise<void> {
     const [ride, positions] = await Promise.all([
       this.rideRepository.findById(data.rideId),

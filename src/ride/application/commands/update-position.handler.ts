@@ -1,3 +1,4 @@
+import { Transactional } from '@gedai/core';
 import { UnprocessableEntityException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { PositionFactory } from '../abstractions/position.factory';
@@ -13,6 +14,7 @@ export class UpdatePositionHandler
     private readonly positionFactory: PositionFactory,
   ) {}
 
+  @Transactional()
   async execute({ data }: UpdatePositionCommand): Promise<void> {
     const ride = await this.rideRepository.findById(data.rideId);
     if (!ride) {

@@ -1,3 +1,4 @@
+import { Transactional } from '@gedai/core';
 import {
   ConflictException,
   UnprocessableEntityException,
@@ -16,6 +17,7 @@ export class AcceptRideHandler
     private readonly rideRepository: RideRepository,
   ) {}
 
+  @Transactional()
   async execute({ data }: AcceptRideCommand): Promise<void> {
     const account = await this.acccountService.getById(data.driverId);
     if (!account) {

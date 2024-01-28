@@ -1,3 +1,4 @@
+import { Transactional } from '@gedai/core';
 import { UnauthorizedException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AccountRepository } from '../abstractions/account.repository';
@@ -9,9 +10,9 @@ export class SignInHandler
 {
   constructor(private readonly accountRepository: AccountRepository) {}
 
+  @Transactional()
   async execute({ data }: SignInCommand): Promise<SignInResult> {
     const account = await this.accountRepository.findByEmail(data.email);
-
     if (!account) {
       throw new UnauthorizedException();
     }

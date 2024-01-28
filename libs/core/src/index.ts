@@ -5,3 +5,4 @@ export * from './events';
 export * from './mongoose/entity.schema';
 export * from './mongoose/repository';
 export * from './repository';
+export * from './transactional.decorator';

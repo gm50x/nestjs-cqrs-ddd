@@ -1,3 +1,4 @@
+import { ContextService } from '@gedai/context';
 import { MongooseRepository } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -13,11 +14,12 @@ export class AccountMongooseRepository
   implements AccountRepository
 {
   constructor(
+    protected readonly contextService: ContextService,
     @InjectModel(AccountSchema.name)
     protected readonly userModel: Model<AccountSchema>,
     protected readonly userSchemaFactory: AccountMongooseSchemaFactory,
   ) {
-    super(userModel, userSchemaFactory);
+    super(contextService, userModel, userSchemaFactory);
   }
   async findByEmail(email: string) {
     return this.findOne({ email });

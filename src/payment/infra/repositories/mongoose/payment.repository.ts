@@ -1,3 +1,4 @@
+import { ContextService } from '@gedai/context';
 import { MongooseRepository } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -13,10 +14,11 @@ export class PaymentMongooseRepository
   implements PaymentRepository
 {
   constructor(
+    protected readonly contextService: ContextService,
     @InjectModel(PaymentSchema.name)
     protected readonly paymentModel: Model<PaymentSchema>,
     protected readonly paymentSchemaFactory: PaymentMongooseSchemaFactory,
   ) {
-    super(paymentModel, paymentSchemaFactory);
+    super(contextService, paymentModel, paymentSchemaFactory);
   }
 }
