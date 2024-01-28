@@ -1,7 +1,10 @@
 version: '3.9'
 services:
   rabbitmq:
-    image: rabbitmq:3-management
+    image: gedai/rabbitmq:3-management-delayed
+    build:
+      context: ./localstack
+      dockerfile: ./Dockerfile.rabbitmq
     container_name: gedai-rabbitmq
     hostname: rabbitmq
     environment:
