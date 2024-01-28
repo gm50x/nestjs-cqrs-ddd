@@ -1,0 +1,5 @@
+FROM mongo:6
+WORKDIR /opt/.keyfile
+RUN openssl rand -base64 768 > keyfile \
+  && chmod 400 keyfile \
+  && chown 999:999 keyfile

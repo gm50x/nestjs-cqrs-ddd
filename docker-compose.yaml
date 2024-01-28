@@ -11,13 +11,15 @@ services:
       - 5672:5672
       - 15672:15672
   mongodb:
-    image: mongo:6
+    image: gedai/mongodbrs:6
+    build:
+      context: ./localstack
+      dockerfile: ./Dockerfile.mongodb
     container_name: gedai-mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: 'gedai'
       MONGO_INITDB_ROOT_PASSWORD: 'gedai'
-    volumes: ['./localstack/mongodb.keyfile:/opt/keyfile']
-    command: 'mongod --replSet rs0 --keyFile /opt/keyfile --bind_ip_all'
+    command: 'mongod --replSet rs0 --keyFile /opt/.keyfile/keyfile --bind_ip_all'
     ports:
       - 27017:27017
   mongodb_init:
