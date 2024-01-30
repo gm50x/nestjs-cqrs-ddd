@@ -1,6 +1,11 @@
-import { ContextOptionsFactory } from '@gedai/context';
-import { ContextModuleOptions } from '@gedai/context/context.options';
-import { Injectable } from '@nestjs/common';
+import {
+  ContextInterceptor,
+  ContextModuleOptions,
+  ContextOptionsFactory,
+  ContextService,
+  MODULE_OPTIONS_TOKEN,
+} from '@gedai/context';
+import { INestApplication, Injectable } from '@nestjs/common';
 import { Message } from 'amqplib';
 import { randomUUID } from 'crypto';
 
@@ -25,3 +30,10 @@ export class ContextConfig implements ContextOptionsFactory {
     };
   }
 }
+
+export const configureContextInterceptor = (app: INestApplication) => {
+  const context = app.get(ContextService);
+  const options = app.get(MODULE_OPTIONS_TOKEN);
+  app.useGlobalInterceptors(new ContextInterceptor(context, options));
+  return app;
+};

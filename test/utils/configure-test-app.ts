@@ -2,6 +2,7 @@ import {
   configureAmqpAuditInterceptor,
   configureCORS,
   configureCompression,
+  configureContextInterceptor,
   configureExceptionsHandler,
   configureLogger,
   configureOpenAPI,
@@ -35,11 +36,13 @@ export async function createTestApp(silentLogger = true) {
   configureCompression(app);
   configureExceptionsHandler(app);
   configureAmqpAuditInterceptor(app);
+  configureContextInterceptor(app);
   configureOpenAPI(app);
   configureValidation(app);
   configureVersioning(app);
   configureRoutePrefix(app);
   configureOutboundHttpTracing(app);
+
   await app.init();
   return app;
 }

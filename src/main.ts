@@ -6,14 +6,15 @@ import {
   configureAmqpAuditInterceptor,
   configureCORS,
   configureCompression,
+  configureContextInterceptor,
   configureExceptionsHandler,
   configureLogger,
   configureOpenAPI,
+  configureOutboundHttpTracing,
   configureRoutePrefix,
   configureValidation,
   configureVersioning,
 } from '@gedai/config';
-import { configureOutboundHttpTracing } from '@gedai/config/outbound-http-tracing.config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -22,6 +23,7 @@ async function bootstrap() {
     .then(configureCORS)
     .then(configureCompression)
     .then(configureExceptionsHandler)
+    .then(configureContextInterceptor)
     .then(configureAmqpAuditInterceptor)
     .then(configureOpenAPI)
     .then(configureValidation)
