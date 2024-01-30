@@ -7,7 +7,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Message } from 'amqplib';
-import { Observable } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable()
 export class AmqpAuditInterceptor implements NestInterceptor {
@@ -22,17 +22,26 @@ export class AmqpAuditInterceptor implements NestInterceptor {
       return next.handle();
     }
     const rpcContext = context.switchToRpc();
-    const data = rpcContext.getData();
+    const rpcData = rpcContext.getData();
     const { content, fields, properties } = rpcContext.getContext<Message>();
-    this.logger.log({
-      message: 'AMQP MESSAGE AUDIT',
-      data: {
-        fields,
-        properties,
-        content: data ?? content.toString('utf8'),
-      },
-    });
-    // TODO: should log after the message gets handled; This will allow signaling if handling was a success or an error;
-    return next.handle();
+    const message = 'AMQP MESSAGE AUDIT';
+    const logData = {
+      fields,
+      properties,
+      content: rpcData ?? content.toString('utf8'),
+    };
+    return next.handle().pipe(
+      tap((result) =>
+        this.logger[result.constructor.name === 'Nack' ? 'warn' : 'log']({
+          message,
+          data: logData,
+          result,
+        }),
+      ),
+      catchError((error) => {
+        this.logger.error({ message, data: logData, error });
+        return throwError(() => error);
+      }),
+    );
   }
 }
