@@ -32,6 +32,7 @@ export class AmqpAuditInterceptor implements NestInterceptor {
         content: data ?? content.toString('utf8'),
       },
     });
+    // TODO: should log after the message gets handled; This will allow signaling if handling was a success or an error;
     return next.handle();
   }
 }
