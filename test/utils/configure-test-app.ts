@@ -5,6 +5,7 @@ import {
   configureExceptionsHandler,
   configureLogger,
   configureOpenAPI,
+  configureOutboundHttpTracing,
   configureRoutePrefix,
   configureValidation,
   configureVersioning,
@@ -38,6 +39,7 @@ export async function createTestApp(silentLogger = true) {
   configureValidation(app);
   configureVersioning(app);
   configureRoutePrefix(app);
+  configureOutboundHttpTracing(app);
   await app.init();
   return app;
 }

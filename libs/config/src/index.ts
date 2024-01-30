@@ -1,6 +1,5 @@
 export * from './amqp-audit.config';
 export * from './amqp.config';
-export * from './axios-http-tracing-propagation.config';
 export * from './compression.config';
 export * from './context.config';
 export * from './cors.config';
@@ -9,6 +8,7 @@ export * from './helmet.config';
 export * from './logger.config';
 export * from './mongoose.config';
 export * from './open-api.config';
+export * from './outbound-http-tracing.config';
 export * from './route-prefix.config';
 export * from './validation.config';
 export * from './versioning.config';

@@ -1,4 +1,3 @@
-import { AxiosHttpTracingPropagationConfig } from '@gedai/config';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -27,7 +26,6 @@ import { InterncalCallRideService } from './services/internal-call-ride.service'
   ],
   providers: [
     PaymentMongooseSchemaFactory,
-    AxiosHttpTracingPropagationConfig,
     {
       provide: PaymentRepository,
       useClass: PaymentMongooseRepository,

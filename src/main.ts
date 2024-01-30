@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import {
+  configureAmqpAuditInterceptor,
   configureCORS,
   configureCompression,
   configureExceptionsHandler,
@@ -12,6 +13,7 @@ import {
   configureValidation,
   configureVersioning,
 } from '@gedai/config';
+import { configureOutboundHttpTracing } from '@gedai/config/outbound-http-tracing.config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -20,11 +22,12 @@ async function bootstrap() {
     .then(configureCORS)
     .then(configureCompression)
     .then(configureExceptionsHandler)
-    // .then(configureAmqpAuditInterceptor)
+    .then(configureAmqpAuditInterceptor)
     .then(configureOpenAPI)
     .then(configureValidation)
     .then(configureVersioning)
-    .then(configureRoutePrefix);
+    .then(configureRoutePrefix)
+    .then(configureOutboundHttpTracing);
 
   const config = app.get(ConfigService);
   const port = config.get('PORT', '3000');
