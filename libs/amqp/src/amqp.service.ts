@@ -3,6 +3,8 @@ import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
+type Headers = Record<string, string | boolean | number>;
+
 @Injectable()
 export class AmqpService {
   constructor(
@@ -10,27 +12,50 @@ export class AmqpService {
     private readonly contextService: ContextService,
   ) {}
 
+  async onModuleInit() {
+    await this.sendToQueue(
+      'dummy',
+      { message: 'Hello, World!' },
+      { Hey: 'Ho', timestamp: new Date().toISOString() },
+    );
+  }
+
+  private factoryHeaders(headers?: Headers) {
+    const traceId = this.contextService.get('traceId');
+    return {
+      ...(headers ?? {}),
+      'x-trace-id': traceId,
+    };
+  }
+
+  private factoryMessageId() {
+    return randomUUID();
+  }
+
   async publish(
     exchange: string,
     routingKey: string,
-    content: unknown,
-    headers?: Record<string, string | boolean | number>,
+    content: object,
+    headers?: Headers,
   ) {
-    const traceId = this.contextService.get('traceId');
     await this.amqp.publish(exchange, routingKey, content, {
-      headers: {
-        ...headers,
-        'x-trace-id': traceId,
-      },
-      messageId: randomUUID(),
+      headers: this.factoryHeaders(headers),
+      messageId: this.factoryMessageId(),
     });
   }
 
-  // async sendToQueue(
-  //   queue: string,
-  //   content: unknown,
-  //   headers?: Record<string, string | boolean | number>,
-  // ) {
-  //   await this.amqp.sendToQueue(queue, content, headers);
-  // }
+  async sendToQueue(
+    queue: string,
+    content: object,
+    headers?: Record<string, string | boolean | number>,
+  ) {
+    await this.amqp.managedChannel.sendToQueue(
+      queue,
+      Buffer.from(JSON.stringify(content)),
+      {
+        headers: this.factoryHeaders(headers),
+        messageId: this.factoryMessageId(),
+      },
+    );
+  }
 }
