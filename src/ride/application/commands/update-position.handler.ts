@@ -23,6 +23,6 @@ export class UpdatePositionHandler
       );
     }
     const position = await this.positionFactory.create(data.rideId, data.coord);
-    position.commit();
+    await position.commit();
   }
 }

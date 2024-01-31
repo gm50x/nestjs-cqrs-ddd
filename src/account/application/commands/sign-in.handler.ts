@@ -19,7 +19,7 @@ export class SignInHandler
     const token = account.authenticate(data.password);
     await this.accountRepository.update(account);
     token.decrypt(data.password);
-    account.commit();
+    await account.commit();
     return new SignInResult({ access_token: token.value });
   }
 }

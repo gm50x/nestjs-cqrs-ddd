@@ -1,6 +1,5 @@
-import { AccountCreatedEvent } from '@gedai/core';
+import { AccountCreatedEvent, PublisherContext } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
-import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import { AccountFactory } from '../../../application/abstractions/account.factory';
 import { AccountRepository } from '../../../application/abstractions/account.repository';
@@ -13,7 +12,7 @@ import { PasswordFactory } from '../../../domain/password.value';
 export class AccountMongooseFactory implements AccountFactory {
   constructor(
     private readonly accountRepository: AccountRepository,
-    private readonly eventPublisher: EventPublisher,
+    private readonly publisherContext: PublisherContext,
   ) {}
 
   async create(
@@ -32,6 +31,6 @@ export class AccountMongooseFactory implements AccountFactory {
     );
     await this.accountRepository.create(account);
     account.apply(new AccountCreatedEvent(account.id));
-    return this.eventPublisher.mergeObjectContext(account);
+    return this.publisherContext.mergeObjectContext(account);
   }
 }

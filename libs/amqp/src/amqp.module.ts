@@ -1,9 +1,9 @@
-import { Global, Module } from '@nestjs/common';
-
+import { PublisherContext } from '@gedai/core';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
-import { AmqpEventPropagator } from './amqp-event.propagator';
+import { AmqpPublisherContext } from './amqp-publisher-context';
 import {
   AmqpModuleOptions,
   ConfigurableModuleClass,
@@ -36,7 +36,13 @@ import { AmqpService } from './amqp.service';
       },
     }),
   ],
-  providers: [AmqpService, AmqpEventPropagator],
-  exports: [AmqpService, MODULE_OPTIONS_TOKEN],
+  providers: [
+    AmqpService,
+    {
+      provide: PublisherContext,
+      useClass: AmqpPublisherContext,
+    },
+  ],
+  exports: [MODULE_OPTIONS_TOKEN, AmqpService, PublisherContext],
 })
 export class AmqpModule extends ConfigurableModuleClass {}

@@ -8,10 +8,9 @@ export class AmqpConfig implements AmqpOptionsFactory {
   constructor(private readonly config: ConfigService) {}
 
   createAmqpOptions(): AmqpModuleOptions {
-    const [appName, url, enableEventPropagation, exchangeEventRoot] = [
+    const [appName, url, exchangeEventRoot] = [
       this.config.get('APP_NAME'),
       this.config.getOrThrow('AMQP_URL'),
-      this.config.get('AMQP_ENABLE_EVENT_PROPAGATION') === 'true',
       this.config.get('AMQP_EXCHANGE_EVENT_ROOT'),
     ];
     const exchanges = [];
@@ -25,7 +24,6 @@ export class AmqpConfig implements AmqpOptionsFactory {
     return {
       url,
       appName,
-      enableEventPropagation,
       exchanges,
     };
   }

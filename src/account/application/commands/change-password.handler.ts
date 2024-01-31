@@ -20,6 +20,6 @@ export class ChangePasswordHandler
 
     account.changePassword(data.currentPassword, data.newPassword);
     await this.accountRepository.update(account);
-    account.commit();
+    await account.commit();
   }
 }

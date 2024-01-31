@@ -1,6 +1,5 @@
-import { PaymentChargedEvent } from '@gedai/core';
+import { PaymentChargedEvent, PublisherContext } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
-import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import { PaymentFactory } from '../../../application/abstractions/payment.factory';
 import { PaymentRepository } from '../../../application/abstractions/payment.repository';
@@ -10,7 +9,7 @@ import { Payment } from '../../../domain/payment.entity';
 export class PaymentMongooseFactory implements PaymentFactory {
   constructor(
     private readonly paymentRepository: PaymentRepository,
-    private readonly eventPublisher: EventPublisher,
+    private readonly publisherContext: PublisherContext,
   ) {}
 
   async create(
@@ -44,6 +43,6 @@ export class PaymentMongooseFactory implements PaymentFactory {
         rideDate,
       ),
     );
-    return this.eventPublisher.mergeObjectContext(payment);
+    return this.publisherContext.mergeObjectContext(payment);
   }
 }

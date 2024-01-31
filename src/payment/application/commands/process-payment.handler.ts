@@ -30,6 +30,6 @@ export class ProcessPaymentHandler
       ride.driver.email,
       ride.date,
     );
-    payment.commit();
+    await payment.commit();
   }
 }

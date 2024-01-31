@@ -1,6 +1,5 @@
-import { EntitySchemaFactory } from '@gedai/core';
+import { EntitySchemaFactory, PublisherContext } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
-import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import { Payment } from '../../../domain/payment.entity';
 import { PaymentSchema } from './payment.schema';
@@ -9,7 +8,7 @@ import { PaymentSchema } from './payment.schema';
 export class PaymentMongooseSchemaFactory
   implements EntitySchemaFactory<PaymentSchema, Payment>
 {
-  constructor(private readonly eventPublisher: EventPublisher) {}
+  constructor(private readonly publisherContext: PublisherContext) {}
   create(entity: Payment): PaymentSchema {
     return {
       _id: new Types.ObjectId(entity.id),
@@ -25,7 +24,7 @@ export class PaymentMongooseSchemaFactory
   }
 
   createFromSchema(entitySchema: PaymentSchema): Payment {
-    return this.eventPublisher.mergeObjectContext(
+    return this.publisherContext.mergeObjectContext(
       new Payment(
         entitySchema._id.toHexString(),
         entitySchema.rideId.toHexString(),

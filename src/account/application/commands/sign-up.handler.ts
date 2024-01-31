@@ -28,7 +28,7 @@ export class SignUpHandler
       data.password,
       data.carPlate,
     );
-    account.commit();
+    await account.commit();
     return new SignUpResult({ id: account.id });
   }
 }

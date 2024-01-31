@@ -1,6 +1,5 @@
-import { PositionUpdatedEvent } from '@gedai/core';
+import { PositionUpdatedEvent, PublisherContext } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
-import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import { PositionFactory } from '../../../application/abstractions/position.factory';
 import { PositionRepository } from '../../../application/abstractions/position.repository';
@@ -12,7 +11,7 @@ import { Position } from '../../../domain/position.entity';
 export class PositionMongooseFactory implements PositionFactory {
   constructor(
     private readonly positionRepository: PositionRepository,
-    private readonly eventPublisher: EventPublisher,
+    private readonly publisherContext: PublisherContext,
   ) {}
 
   async create(rideId: string, coord: CoordType): Promise<Position> {
@@ -30,6 +29,6 @@ export class PositionMongooseFactory implements PositionFactory {
         position.coord.long,
       ),
     );
-    return this.eventPublisher.mergeObjectContext(position);
+    return this.publisherContext.mergeObjectContext(position);
   }
 }

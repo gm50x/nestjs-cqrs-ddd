@@ -40,7 +40,7 @@ export class RequestRideHandler
       data.from,
       data.to,
     );
-    ride.commit();
+    await ride.commit();
     return new RequestRideResult({ id: ride.id });
   }
 }

@@ -46,6 +46,6 @@ export class AcceptRideHandler
     }
     ride.accept(data.driverId);
     await this.rideRepository.update(ride);
-    ride.commit();
+    await ride.commit();
   }
 }

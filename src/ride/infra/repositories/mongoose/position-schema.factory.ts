@@ -1,6 +1,5 @@
-import { EntitySchemaFactory } from '@gedai/core';
+import { EntitySchemaFactory, PublisherContext } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
-import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import { Coord } from '../../../domain/coord.value';
 import { Position } from '../../../domain/position.entity';
@@ -10,7 +9,7 @@ import { PositionSchema } from './position.schema';
 export class PositionMongooseSchemaFactory
   implements EntitySchemaFactory<PositionSchema, Position>
 {
-  constructor(private readonly eventPublisher: EventPublisher) {}
+  constructor(private readonly publisherContext: PublisherContext) {}
   create(entity: Position): PositionSchema {
     return {
       _id: new Types.ObjectId(entity.id),
@@ -24,7 +23,7 @@ export class PositionMongooseSchemaFactory
   }
 
   createFromSchema(entitySchema: PositionSchema): Position {
-    return this.eventPublisher.mergeObjectContext(
+    return this.publisherContext.mergeObjectContext(
       new Position(
         entitySchema._id.toHexString(),
         entitySchema.rideId.toHexString(),

@@ -27,6 +27,6 @@ export class FinishRideHandler
     }
     ride.finish(positions);
     await this.rideRepository.update(ride);
-    ride.commit();
+    await ride.commit();
   }
 }

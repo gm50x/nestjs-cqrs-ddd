@@ -8,7 +8,6 @@ export type AmqpModuleOptions = {
   url: string;
   appName?: string;
   heartbeatIntervalInSeconds?: number;
-  enableEventPropagation?: boolean;
   exchanges?: RabbitMQExchangeConfig[];
   queues?: RabbitMQQueueConfig[];
 };

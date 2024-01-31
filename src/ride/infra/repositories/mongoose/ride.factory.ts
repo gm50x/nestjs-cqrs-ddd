@@ -1,6 +1,5 @@
-import { RideRequestedEvent } from '@gedai/core';
+import { PublisherContext, RideRequestedEvent } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
-import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import {
   Coord as CoordType,
@@ -15,7 +14,7 @@ import { Ride } from '../../../domain/ride.entity';
 export class RideMongooseFactory implements RideFactory {
   constructor(
     private readonly rideRepository: RideRepository,
-    private readonly eventPublisher: EventPublisher,
+    private readonly publisherContext: PublisherContext,
   ) {}
 
   async create(
@@ -34,6 +33,6 @@ export class RideMongooseFactory implements RideFactory {
     );
     await this.rideRepository.create(ride);
     ride.apply(new RideRequestedEvent(ride.id));
-    return this.eventPublisher.mergeObjectContext(ride);
+    return this.publisherContext.mergeObjectContext(ride);
   }
 }

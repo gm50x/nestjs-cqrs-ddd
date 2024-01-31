@@ -1,6 +1,5 @@
-import { EntitySchemaFactory } from '@gedai/core';
+import { EntitySchemaFactory, PublisherContext } from '@gedai/core';
 import { Injectable } from '@nestjs/common';
-import { EventPublisher } from '@nestjs/cqrs';
 import { Types } from 'mongoose';
 import { Account } from '../../../domain/account.entity';
 import { CarPlate } from '../../../domain/car-plate.value';
@@ -13,7 +12,8 @@ import { AccountSchema } from './account.schema';
 export class AccountMongooseSchemaFactory
   implements EntitySchemaFactory<AccountSchema, Account>
 {
-  constructor(private readonly eventPublisher: EventPublisher) {}
+  constructor(private readonly publisherContext: PublisherContext) {}
+
   create(entity: Account): AccountSchema {
     const token = entity.token
       ? {
@@ -43,7 +43,7 @@ export class AccountMongooseSchemaFactory
     const carPlate = entitySchema.carPlate
       ? new CarPlate(entitySchema.carPlate)
       : null;
-    return this.eventPublisher.mergeObjectContext(
+    return this.publisherContext.mergeObjectContext(
       new Account(
         entitySchema._id.toHexString(),
         entitySchema.name,

@@ -20,6 +20,6 @@ export class StartRideHandler
     }
     ride.start();
     await this.rideRepository.update(ride);
-    ride.commit();
+    await ride.commit();
   }
 }
