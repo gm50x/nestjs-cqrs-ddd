@@ -12,14 +12,6 @@ export class AmqpService {
     private readonly contextService: ContextService,
   ) {}
 
-  async onModuleInit() {
-    await this.sendToQueue(
-      'dummy',
-      { message: 'Hello, World!' },
-      { Hey: 'Ho', timestamp: new Date().toISOString() },
-    );
-  }
-
   private factoryHeaders(headers?: Headers) {
     const traceId = this.contextService.get('traceId');
     return {
