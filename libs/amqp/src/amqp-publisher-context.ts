@@ -2,7 +2,7 @@ import { AggregateRoot, DomainEvent, PublisherContext } from '@gedai/core';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Constructor } from '@nestjs/cqrs';
-import { AmqpEventNameAdapterNew } from './amqp-event-name.adapter';
+import { AmqpEventNameAdapter } from './amqp-event-name.adapter';
 import { AmqpService } from './amqp.service';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class AmqpPublisherContext implements PublisherContext {
       events.map((x) =>
         this.amqp.publish(
           eventBusName,
-          AmqpEventNameAdapterNew.getRoutingKey(x),
+          AmqpEventNameAdapter.getRoutingKey(x),
           x,
           // TODO: headers for event
         ),

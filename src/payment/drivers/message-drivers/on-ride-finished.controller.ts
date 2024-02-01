@@ -1,4 +1,4 @@
-import { AmqpEventNameAdapterNew } from '@gedai/amqp/amqp-event-name.adapter';
+import { AmqpEventNameAdapter } from '@gedai/amqp/amqp-event-name.adapter';
 import { RideFinishedEvent } from '@gedai/core';
 import { Nack, RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Controller, Logger } from '@nestjs/common';
@@ -11,7 +11,7 @@ export class OnRideFinishedController {
   constructor(private readonly commandBus: CommandBus) {}
   @RabbitSubscribe({
     exchange: 'events',
-    routingKey: AmqpEventNameAdapterNew.getRoutingKey(RideFinishedEvent),
+    routingKey: AmqpEventNameAdapter.getRoutingKey(RideFinishedEvent),
     queue: 'process-payments',
     createQueueIfNotExists: true,
     // queueOptions: {
