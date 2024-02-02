@@ -32,7 +32,7 @@ export class AmqpAuditInterceptor implements NestInterceptor {
     };
     return next.handle().pipe(
       tap((result) =>
-        this.logger[result.constructor.name === 'Nack' ? 'error' : 'log']({
+        this.logger.log({
           message,
           data: logData,
           result,
