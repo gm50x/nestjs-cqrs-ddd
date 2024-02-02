@@ -4,6 +4,7 @@ import {
   ExecutionContext,
   Inject,
   Injectable,
+  Logger,
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
@@ -12,6 +13,8 @@ import { ContextService } from './context.service';
 
 @Injectable()
 export class ContextInterceptor implements NestInterceptor {
+  private readonly logger = new Logger(this.constructor.name);
+
   constructor(
     private readonly context: ContextService,
     @Inject(MODULE_OPTIONS_TOKEN)
@@ -30,6 +33,7 @@ export class ContextInterceptor implements NestInterceptor {
     if (ignoredContextTypesWithMiddlewares.includes(contextType)) {
       return next.handle();
     }
+    this.logger.debug('Setting up context storage');
     const { interceptorSetup } = this.options;
     const store = this.context.getStore();
     interceptorSetup(store, executionContext);
@@ -40,9 +44,14 @@ export class ContextInterceptor implements NestInterceptor {
           .pipe()
           .subscribe({
             next: (d) => subscriber.next(d),
-            complete: () => subscriber.complete(),
+            complete: () => {
+              this.context.destroy();
+              return subscriber.complete();
+            },
             error: (e) => {
-              e.context = store;
+              e.context = new Map(store);
+              this.context.destroy();
+              this.logger.debug('Context cleared');
               return subscriber.error(e);
             },
           }),

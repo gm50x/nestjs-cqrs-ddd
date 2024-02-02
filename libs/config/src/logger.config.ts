@@ -32,6 +32,7 @@ const severity = format((info) => {
 const trace = format((info) => {
   const errorContext: Map<string, any> = info.error?.context;
   const traceId = errorContext?.get('traceId') ?? contextService.get('traceId');
+  errorContext?.clear();
   return { ...info, traceId };
 });
 

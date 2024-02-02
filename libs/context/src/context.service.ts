@@ -9,6 +9,11 @@ export class ContextService {
     return this.context.getStore() || new Map<string, any>();
   }
 
+  destroy() {
+    const store = this.context.getStore();
+    store?.clear();
+  }
+
   get<T>(key: string): T {
     const store = this.context.getStore();
     return store?.get(key);
