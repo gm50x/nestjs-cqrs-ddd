@@ -5,6 +5,17 @@ import { NextFunction, Request, Response } from 'express';
 export class HttpAuditMiddleware implements NestMiddleware {
   private logger = new Logger(this.constructor.name);
 
+  private getLogLevel(res: Response) {
+    const statusCode = res.statusCode;
+    if (statusCode >= 500) {
+      return 'error';
+    }
+    if (statusCode >= 400) {
+      return 'warn';
+    }
+    return 'log';
+  }
+
   use(req: Request, res: Response, next: NextFunction) {
     let responseBody = null;
     const originalSend = res.send;
@@ -26,7 +37,7 @@ export class HttpAuditMiddleware implements NestMiddleware {
     };
 
     res.on('finish', () => {
-      const logLevel = res.statusCode >= 400 ? 'error' : 'log';
+      const logLevel = this.getLogLevel(res);
       this.logger[logLevel]({
         message: 'REQUEST AUDIT',
         request: {
