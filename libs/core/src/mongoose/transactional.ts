@@ -11,6 +11,7 @@ export function MongooseTransactional() {
     _propertyKey: string,
     descriptor: PropertyDescriptor,
   ) => {
+    // TODO: abstract this away with the use of a TransactionManager.
     injectContext(target, '__context');
     injectConnection(target, '__connection');
     const originalMethod = descriptor.value;
