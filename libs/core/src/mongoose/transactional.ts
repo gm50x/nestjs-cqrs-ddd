@@ -27,6 +27,8 @@ export function MongooseTransactional() {
       } catch (error) {
         await session.abortTransaction();
         throw error;
+      } finally {
+        await session.endSession();
       }
     };
   };
