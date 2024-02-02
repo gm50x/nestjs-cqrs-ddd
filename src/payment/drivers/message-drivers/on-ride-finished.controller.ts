@@ -1,35 +1,40 @@
 import { AmqpEventNameAdapter } from '@gedai/amqp/amqp-event-name.adapter';
 import { RideFinishedEvent } from '@gedai/core';
-import { Nack, RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
-import { Controller, Logger } from '@nestjs/common';
+import {
+  RabbitSubscribe,
+  defaultNackErrorHandler,
+} from '@golevelup/nestjs-rabbitmq';
+import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ProcessPaymentCommand } from '../../application/commands/process-payment.command';
+import { ProcessPaymentCommand } from 'src/payment/application/commands/process-payment.command';
 
-@Controller()
-export class OnRideFinishedController {
-  private readonly logger = new Logger(this.constructor.name);
-  constructor(private readonly commandBus: CommandBus) {}
-  @RabbitSubscribe({
-    exchange: 'events',
-    routingKey: AmqpEventNameAdapter.getRoutingKey(RideFinishedEvent),
-    queue: 'process-payments',
+const Bind = (exchange: string, routingKey: string, queue: string) =>
+  RabbitSubscribe({
+    exchange,
+    routingKey,
+    queue,
     createQueueIfNotExists: true,
+    errorHandler: defaultNackErrorHandler,
     // queueOptions: {
     //   deadLetterExchange: 'payments.dlx',
     //   deadLetterRoutingKey: `${AmqpEventNameAdapter.getRoutingKey(
     //     RideFinishedEvent,
     //   )}`,
     // },
-  })
+  });
+
+@Controller()
+export class OnRideFinishedController {
+  constructor(private readonly commandBus: CommandBus) {}
+
+  @Bind(
+    'events',
+    AmqpEventNameAdapter.getRoutingKey(RideFinishedEvent),
+    'process-payments',
+  )
   async execute(message: any) {
-    try {
-      await this.commandBus.execute(
-        new ProcessPaymentCommand({ rideId: message.rideId }),
-      );
-    } catch (error) {
-      // TODO: should implement a default error handler that will nack all messages and prepare resiliency.
-      this.logger.error({ message: 'Failed processing message', error });
-      return new Nack();
-    }
+    await this.commandBus.execute(
+      new ProcessPaymentCommand({ rideId: message.rideId }),
+    );
   }
 }
