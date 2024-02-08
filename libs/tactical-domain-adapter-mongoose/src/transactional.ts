@@ -3,7 +3,7 @@ import { Inject } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 
-export function MongooseTransactional() {
+export function Transactional() {
   const injectContext = Inject(ContextService);
   const injectConnection = Inject(getConnectionToken());
   return (

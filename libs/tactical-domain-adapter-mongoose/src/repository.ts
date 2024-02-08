@@ -1,9 +1,11 @@
 import { ContextService } from '@gedai/async-context';
+import {
+  Entity,
+  EntitySchemaFactory,
+  Repository,
+} from '@gedai/tactical-domain';
 import { Injectable } from '@nestjs/common';
 import { ClientSession, FilterQuery, Model, Types } from 'mongoose';
-import { Entity } from '../entity';
-import { EntitySchemaFactory } from '../entity-schema.factory';
-import { Repository } from '../repository';
 import { EntityMongooseSchema } from './entity.schema';
 
 @Injectable()

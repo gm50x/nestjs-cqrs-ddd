@@ -18,20 +18,54 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@amqp": ["./src/sdk/amqp"],
-      "@amqp/*": ["./src/sdk/amqp/*"],
-      "@gedai/tactical-domain": ["libs/tactical-domain/src"],
-      "@gedai/tactical-domain/*": ["libs/tactical-domain/src/*"],
-      "@gedai/audit": ["libs/audit/src"],
-      "@gedai/audit/*": ["libs/audit/src/*"],
-      "@gedai/amqp": ["libs/amqp/src"],
-      "@gedai/amqp/*": ["libs/amqp/src/*"],
-      "@gedai/config": ["libs/config/src"],
-      "@gedai/config/*": ["libs/config/src/*"],
-      "@gedai/stub-factory": ["test/stubs"],
-      "@gedai/stub-factory/*": ["test/stubs/*"],
-      "@gedai/async-context": ["libs/async-context/src"],
-      "@gedai/async-context/*": ["libs/async-context/src/*"]
+      "@amqp": [
+        "./src/sdk/amqp"
+      ],
+      "@amqp/*": [
+        "./src/sdk/amqp/*"
+      ],
+      "@gedai/tactical-domain": [
+        "libs/tactical-domain/src"
+      ],
+      "@gedai/tactical-domain/*": [
+        "libs/tactical-domain/src/*"
+      ],
+      "@gedai/audit": [
+        "libs/audit/src"
+      ],
+      "@gedai/audit/*": [
+        "libs/audit/src/*"
+      ],
+      "@gedai/amqp": [
+        "libs/amqp/src"
+      ],
+      "@gedai/amqp/*": [
+        "libs/amqp/src/*"
+      ],
+      "@gedai/config": [
+        "libs/config/src"
+      ],
+      "@gedai/config/*": [
+        "libs/config/src/*"
+      ],
+      "@gedai/stub-factory": [
+        "test/stubs"
+      ],
+      "@gedai/stub-factory/*": [
+        "test/stubs/*"
+      ],
+      "@gedai/async-context": [
+        "libs/async-context/src"
+      ],
+      "@gedai/async-context/*": [
+        "libs/async-context/src/*"
+      ],
+      "@gedai/tactical-domain-adapter-mongoose": [
+        "libs/tactical-domain-adapter-mongoose/src"
+      ],
+      "@gedai/tactical-domain-adapter-mongoose/*": [
+        "libs/tactical-domain-adapter-mongoose/src/*"
+      ]
     }
   }
 }

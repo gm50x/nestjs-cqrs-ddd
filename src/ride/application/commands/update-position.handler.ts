@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/tactical-domain';
+import { Transactional } from '@gedai/tactical-domain-adapter-mongoose';
 import { UnprocessableEntityException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { PositionFactory } from '../abstractions/position.factory';

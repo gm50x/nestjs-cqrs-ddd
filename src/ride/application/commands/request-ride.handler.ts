@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/tactical-domain';
+import { Transactional } from '@gedai/tactical-domain-adapter-mongoose';
 import {
   ConflictException,
   UnprocessableEntityException,

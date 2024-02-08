@@ -51,6 +51,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/async-context/tsconfig.lib.json"
       }
+    },
+    "tactical-domain-adapter-mongoose": {
+      "type": "library",
+      "root": "libs/tactical-domain-adapter-mongoose",
+      "entryFile": "index",
+      "sourceRoot": "libs/tactical-domain-adapter-mongoose/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/tactical-domain-adapter-mongoose/tsconfig.lib.json"
+      }
     }
   }
 }
