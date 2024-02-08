@@ -45,13 +45,13 @@ export abstract class MongooseRepository<
   }
 
   async create(entity: TEntity): Promise<void> {
-    const session = this.context.get<ClientSession>('mongodbSession');
+    const session = this.context.get<ClientSession>('__mongodbSession');
     const schema = this.entitySchemaFactory.create(entity);
     await new this.entityModel(schema).save({ session });
   }
 
   async update(entity: TEntity): Promise<void> {
-    const session = this.context.get<ClientSession>('mongodbSession');
+    const session = this.context.get<ClientSession>('__mongodbSession');
     const schema = this.entitySchemaFactory.create(entity);
     await this.entityModel.updateOne({ _id: schema._id }, schema, { session });
   }
