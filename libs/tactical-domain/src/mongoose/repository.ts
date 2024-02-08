@@ -1,4 +1,4 @@
-import { ContextService } from '@gedai/context';
+import { ContextService } from '@gedai/async-context';
 import { Injectable } from '@nestjs/common';
 import { ClientSession, FilterQuery, Model, Types } from 'mongoose';
 import { Entity } from '../entity';

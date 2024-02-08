@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/core';
+import { Transactional } from '@gedai/tactical-domain';
 import { UnprocessableEntityException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RideRepository } from '../abstractions/ride.repository';

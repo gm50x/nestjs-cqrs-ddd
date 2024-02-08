@@ -1,4 +1,4 @@
-import { DomainEvent } from '@gedai/core';
+import { DomainEvent } from '@gedai/tactical-domain';
 import { Type } from '@nestjs/common';
 
 export class AmqpEventNameAdapter {

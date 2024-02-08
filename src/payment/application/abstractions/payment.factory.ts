@@ -1,4 +1,4 @@
-import { EntityFactory } from '@gedai/core';
+import { EntityFactory } from '@gedai/tactical-domain';
 import { Payment } from '../../domain/payment.entity';
 
 export abstract class PaymentFactory implements EntityFactory<Payment> {

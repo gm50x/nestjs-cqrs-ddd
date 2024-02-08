@@ -1,4 +1,4 @@
-import { Repository } from '@gedai/core';
+import { Repository } from '@gedai/tactical-domain';
 import { Payment } from '../../domain/payment.entity';
 
 export abstract class PaymentRepository implements Repository<Payment> {

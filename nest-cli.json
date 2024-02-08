@@ -7,13 +7,13 @@
     "webpack": true
   },
   "projects": {
-    "core": {
+    "tactical-domain": {
       "type": "library",
-      "root": "libs/core",
+      "root": "libs/tactical-domain",
       "entryFile": "index",
-      "sourceRoot": "libs/core/src",
+      "sourceRoot": "libs/tactical-domain/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/core/tsconfig.lib.json"
+        "tsConfigPath": "libs/tactical-domain/tsconfig.lib.json"
       }
     },
     "audit": {
@@ -43,13 +43,13 @@
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
     },
-    "context": {
+    "async-context": {
       "type": "library",
-      "root": "libs/context",
+      "root": "libs/async-context",
       "entryFile": "index",
-      "sourceRoot": "libs/context/src",
+      "sourceRoot": "libs/async-context/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/context/tsconfig.lib.json"
+        "tsConfigPath": "libs/async-context/tsconfig.lib.json"
       }
     }
   }

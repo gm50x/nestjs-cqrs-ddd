@@ -1,5 +1,5 @@
 import { AmqpEventNameAdapter } from '@gedai/amqp/amqp-event-name.adapter';
-import { RideFinishedEvent } from '@gedai/core';
+import { RideFinishedEvent } from '@gedai/tactical-domain';
 import {
   RabbitSubscribe,
   defaultNackErrorHandler,

@@ -1,4 +1,8 @@
-import { AggregateRoot, DomainEvent, PublisherContext } from '@gedai/core';
+import {
+  AggregateRoot,
+  DomainEvent,
+  PublisherContext,
+} from '@gedai/tactical-domain';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Constructor } from '@nestjs/cqrs';

@@ -1,4 +1,4 @@
-import { ContextService } from '@gedai/context';
+import { ContextService } from '@gedai/async-context';
 import { Inject } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';

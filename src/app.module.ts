@@ -1,7 +1,7 @@
 import { AmqpModule } from '@gedai/amqp';
+import { ContextModule } from '@gedai/async-context';
 import { AuditModule } from '@gedai/audit';
 import { AmqpConfig, ContextConfig, MongooseConfig } from '@gedai/config';
-import { ContextModule } from '@gedai/context';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';

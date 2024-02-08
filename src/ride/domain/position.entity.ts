@@ -1,4 +1,4 @@
-import { Entity } from '@gedai/core';
+import { Entity } from '@gedai/tactical-domain';
 import { Coord } from './coord.value';
 
 export class Position extends Entity {

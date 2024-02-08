@@ -1,4 +1,4 @@
-import { ContextService } from '@gedai/context';
+import { ContextService } from '@gedai/async-context';
 import { INestApplication } from '@nestjs/common';
 import * as http from 'http';
 import * as https from 'https';

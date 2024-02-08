@@ -4,7 +4,7 @@ import {
   ContextOptionsFactory,
   ContextService,
   MODULE_OPTIONS_TOKEN,
-} from '@gedai/context';
+} from '@gedai/async-context';
 import { INestApplication, Injectable } from '@nestjs/common';
 import { Message } from 'amqplib';
 import { randomUUID } from 'crypto';

@@ -1,4 +1,4 @@
-import { Repository } from '@gedai/core';
+import { Repository } from '@gedai/tactical-domain';
 
 import { Ride } from '../../domain/ride.entity';
 

@@ -1,4 +1,4 @@
-import { Entity } from '@gedai/core';
+import { Entity } from '@gedai/tactical-domain';
 
 export class Payment extends Entity {
   constructor(

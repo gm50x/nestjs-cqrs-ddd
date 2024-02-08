@@ -1,4 +1,4 @@
-import { ContextService } from '@gedai/context';
+import { ContextService } from '@gedai/async-context';
 import { INestApplication, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {

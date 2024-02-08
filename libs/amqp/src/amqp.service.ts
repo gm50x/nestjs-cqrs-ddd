@@ -1,4 +1,4 @@
-import { ContextService } from '@gedai/context';
+import { ContextService } from '@gedai/async-context';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';

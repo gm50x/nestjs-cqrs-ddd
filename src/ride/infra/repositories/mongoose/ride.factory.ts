@@ -1,4 +1,4 @@
-import { PublisherContext, RideRequestedEvent } from '@gedai/core';
+import { PublisherContext, RideRequestedEvent } from '@gedai/tactical-domain';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import {

@@ -1,4 +1,4 @@
-import { EntityMongooseSchema } from '@gedai/core';
+import { EntityMongooseSchema } from '@gedai/tactical-domain';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { CoordSchema } from './ride.schema';

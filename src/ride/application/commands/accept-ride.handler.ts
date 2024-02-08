@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/core';
+import { Transactional } from '@gedai/tactical-domain';
 import {
   ConflictException,
   UnprocessableEntityException,

@@ -1,5 +1,5 @@
-import { ContextService } from '@gedai/context';
-import { MongooseRepository } from '@gedai/core';
+import { ContextService } from '@gedai/async-context';
+import { MongooseRepository } from '@gedai/tactical-domain';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
