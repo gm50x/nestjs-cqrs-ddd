@@ -1,4 +1,5 @@
-import { PaymentChargedEvent, PublisherContext } from '@gedai/tactical-domain';
+import { PaymentChargedEvent } from '@gedai/events';
+import { PublisherContext } from '@gedai/tactical-domain';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { PaymentFactory } from '../../../application/abstractions/payment.factory';

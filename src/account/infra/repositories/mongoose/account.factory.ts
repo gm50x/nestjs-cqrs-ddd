@@ -1,4 +1,5 @@
-import { AccountCreatedEvent, PublisherContext } from '@gedai/tactical-domain';
+import { AccountCreatedEvent } from '@gedai/events';
+import { PublisherContext } from '@gedai/tactical-domain';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { AccountFactory } from '../../../application/abstractions/account.factory';

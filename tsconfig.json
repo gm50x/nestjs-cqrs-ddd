@@ -65,6 +65,12 @@
       ],
       "@gedai/tactical-domain-adapter-mongoose/*": [
         "libs/tactical-domain-adapter-mongoose/src/*"
+      ],
+      "@gedai/events": [
+        "libs/events/src"
+      ],
+      "@gedai/events/*": [
+        "libs/events/src/*"
       ]
     }
   }

@@ -1,5 +1,5 @@
 import { Constructor } from '@nestjs/cqrs';
-import { DomainEvent } from './events';
+import { DomainEvent } from './domain-event';
 
 export abstract class AggregateRoot {
   private readonly events: DomainEvent[] = [];

@@ -1,9 +1,9 @@
 import {
-  Entity,
   RideAcceptedEvent,
   RideFinishedEvent,
   RideStartedEvent,
-} from '@gedai/tactical-domain';
+} from '@gedai/events';
+import { Entity } from '@gedai/tactical-domain';
 import { Coord } from './coord.value';
 import { DistanceCalculator } from './distance-calculator.ds';
 import { FareCalculatorFactory } from './fare-calculator.ds';
