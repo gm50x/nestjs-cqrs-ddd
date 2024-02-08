@@ -9,11 +9,6 @@ export class AcceptRideController {
 
   @Post('accept-ride')
   async execute(@Body() data: AcceptRideInput): Promise<void> {
-    await this.commandBus.execute(
-      new AcceptRideCommand({
-        driverId: data.driverId,
-        rideId: data.rideId,
-      }),
-    );
+    await this.commandBus.execute(new AcceptRideCommand(data));
   }
 }

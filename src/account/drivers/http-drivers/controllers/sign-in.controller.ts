@@ -16,10 +16,7 @@ export class SignInController {
   @Post('sign-in')
   async execute(@Body() data: SignInInput): Promise<SignInOutput> {
     const result = await this.commandBus.execute<SignInCommand, SignInResult>(
-      new SignInCommand({
-        email: data.email,
-        password: data.password,
-      }),
+      new SignInCommand(data),
     );
     return result.data;
   }

@@ -9,12 +9,6 @@ export class ChangePasswordController {
 
   @Post('change-password')
   async execute(@Body() data: ChangePasswordInput): Promise<void> {
-    return await this.commandBus.execute(
-      new ChangePasswordCommand({
-        email: data.email,
-        currentPassword: data.currentPassword,
-        newPassword: data.newPassword,
-      }),
-    );
+    return await this.commandBus.execute(new ChangePasswordCommand(data));
   }
 }

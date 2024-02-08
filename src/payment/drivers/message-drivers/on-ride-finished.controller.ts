@@ -6,7 +6,7 @@ import {
 } from '@golevelup/nestjs-rabbitmq';
 import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { ProcessPaymentCommand } from 'src/payment/application/commands/process-payment.command';
+import { ProcessPaymentCommand } from '../../application/commands/process-payment.command';
 
 const Bind = (exchange: string, routingKey: string, queue: string) =>
   RabbitSubscribe({

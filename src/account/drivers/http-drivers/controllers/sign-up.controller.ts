@@ -16,12 +16,7 @@ export class SignUpController {
   @Post('sign-up')
   async execute(@Body() data: SignUpInput): Promise<SignUpOutput> {
     const result = await this.commandBus.execute<SignUpCommand, SignUpResult>(
-      new SignUpCommand({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        carPlate: data.carPlate,
-      }),
+      new SignUpCommand(data),
     );
     return result.data;
   }

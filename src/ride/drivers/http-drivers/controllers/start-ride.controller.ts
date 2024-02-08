@@ -9,8 +9,6 @@ export class StartRideController {
 
   @Post('start-ride')
   async execute(@Body() data: StartRideInput): Promise<void> {
-    await this.commandBus.execute(
-      new StartRideCommand({ rideId: data.rideId }),
-    );
+    await this.commandBus.execute(new StartRideCommand(data));
   }
 }

@@ -9,11 +9,6 @@ export class UpdatePositionController {
 
   @Post('update-position')
   async execute(@Body() data: UpdatePositionInput): Promise<void> {
-    await this.commandBus.execute(
-      new UpdatePositionCommand({
-        rideId: data.rideId,
-        coord: data.coord,
-      }),
-    );
+    await this.commandBus.execute(new UpdatePositionCommand(data));
   }
 }

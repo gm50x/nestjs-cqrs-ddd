@@ -18,13 +18,7 @@ export class RequestRideController {
     const result = await this.commandBus.execute<
       RequestRideCommand,
       RequestRideResult
-    >(
-      new RequestRideCommand({
-        passengerId: data.passengerId,
-        from: data.from,
-        to: data.to,
-      }),
-    );
+    >(new RequestRideCommand(data));
     return result.data;
   }
 }
