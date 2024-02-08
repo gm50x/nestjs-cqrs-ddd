@@ -21,7 +21,7 @@ describe('Payment (Integration Specs)', () => {
 
   describe('onRideFinished', () => {
     it.todo(
-      'should charge passenger' /* async () => {
+      'should process payment' /* async () => {
         const passenger = getPassengerAccount();
         const driver = getDriverAccount();
         const createPassengerResponse = await request(server)
@@ -51,7 +51,7 @@ describe('Payment (Integration Specs)', () => {
       }*/,
     );
 
-    it('should charge passenger', async () => {
+    it('should process payment', async () => {
       const passenger = getPassengerAccount();
       const driver = getDriverAccount();
       const createPassengerResponse = await request(server)

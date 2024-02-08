@@ -24,7 +24,7 @@ const Bind = (exchange: string, routingKey: string, queue: string) =>
   });
 
 @Controller()
-export class OnRideFinishedController {
+export class ProcessPaymentController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @Bind(
