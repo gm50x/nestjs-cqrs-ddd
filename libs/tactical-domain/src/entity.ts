@@ -1,4 +1,3 @@
-// import { AggregateRoot as AggregateRootFromNest } from '@nestjs/cqrs';
 import { AggregateRoot } from './aggregate-root';
 
 export abstract class Entity extends AggregateRoot {

@@ -1,4 +1,4 @@
-import { ContextService } from '@gedai/async-context';
+import { AsyncContextService } from '@gedai/async-context';
 import { MongooseRepository } from '@gedai/tactical-domain-adapter-mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -14,7 +14,7 @@ export class PositionMongooseRepository
   implements PositionRepository
 {
   constructor(
-    protected readonly contextService: ContextService,
+    protected readonly contextService: AsyncContextService,
     @InjectModel(PositionSchema.name)
     protected readonly userModel: Model<PositionSchema>,
     protected readonly userSchemaFactory: PositionMongooseSchemaFactory,

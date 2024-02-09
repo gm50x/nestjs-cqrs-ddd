@@ -1,4 +1,4 @@
-import { ContextService } from '@gedai/async-context';
+import { AsyncContextService } from '@gedai/async-context';
 import { INestApplication, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -9,7 +9,7 @@ import {
 import { config, format, transports } from 'winston';
 import { SimpleAnonymizer } from './anonymizer.config';
 
-let contextService: ContextService;
+let contextService: AsyncContextService;
 
 const { Console } = transports;
 const { combine, timestamp, json } = format;
@@ -82,7 +82,7 @@ const localFormat = (appName: string) =>
 
 export const configureLogger = (app: INestApplication, silent = false) => {
   const configService = app.get(ConfigService);
-  contextService = app.get(ContextService);
+  contextService = app.get(AsyncContextService);
 
   const [env, appName, logLevel] = [
     configService.get('NODE_ENV', 'production'),

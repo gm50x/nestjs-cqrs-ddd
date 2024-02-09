@@ -1,11 +1,11 @@
-import { ContextService } from '@gedai/async-context';
+import { AsyncContextService } from '@gedai/async-context';
 import { Inject } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 
 // TODO: this decorator should work with other transaction types like typeorm, knex, prisma...
 export function Transactional() {
-  const injectContext = Inject(ContextService);
+  const injectContext = Inject(AsyncContextService);
   const injectConnection = Inject(getConnectionToken());
   return (
     target: any,
@@ -17,7 +17,7 @@ export function Transactional() {
     injectConnection(target, '__connection');
     const originalMethod = descriptor.value;
     descriptor.value = async function (...args: any[]) {
-      const context: ContextService = this.__context;
+      const context: AsyncContextService = this.__context;
       const connection: Connection = this.__connection;
       const session = await connection.startSession();
       session.startTransaction();

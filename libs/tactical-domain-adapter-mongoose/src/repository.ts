@@ -1,4 +1,4 @@
-import { ContextService } from '@gedai/async-context';
+import { AsyncContextService } from '@gedai/async-context';
 import {
   Entity,
   EntitySchemaFactory,
@@ -15,7 +15,7 @@ export abstract class MongooseRepository<
 > implements Repository<TEntity>
 {
   constructor(
-    protected readonly context: ContextService,
+    protected readonly context: AsyncContextService,
     protected readonly entityModel: Model<TSchema>,
     protected readonly entitySchemaFactory: EntitySchemaFactory<
       TSchema,

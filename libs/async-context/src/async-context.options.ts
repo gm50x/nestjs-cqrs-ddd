@@ -1,23 +1,23 @@
 import { ConfigurableModuleBuilder, ExecutionContext } from '@nestjs/common';
 import { Request } from 'express';
 
-export type ContextMiddlewareSetup = (
+export type AsyncContextMiddlewareSetup = (
   store: Map<string, any>,
   req: Request,
 ) => void;
 
-export type ContextInterceptorSetup = (
+export type AsyncContextInterceptorSetup = (
   store: Map<string, any>,
   executionContext: ExecutionContext,
 ) => void;
 
-export type ContextModuleOptions = {
-  middlewareSetup: ContextMiddlewareSetup;
-  interceptorSetup: ContextInterceptorSetup;
+export type AsyncContextModuleOptions = {
+  middlewareSetup?: AsyncContextMiddlewareSetup;
+  interceptorSetup?: AsyncContextInterceptorSetup;
 };
 
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =
-  new ConfigurableModuleBuilder<ContextModuleOptions>()
+  new ConfigurableModuleBuilder<AsyncContextModuleOptions>()
     .setClassMethodName('forRoot')
     .setFactoryMethodName('setupWith')
     .build();
