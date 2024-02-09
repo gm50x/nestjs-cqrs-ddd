@@ -10,8 +10,4 @@ export class Position extends Entity {
   ) {
     super(_id);
   }
-
-  get id() {
-    return this._id;
-  }
 }

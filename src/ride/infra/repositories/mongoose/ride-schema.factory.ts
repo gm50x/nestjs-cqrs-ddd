@@ -11,6 +11,7 @@ export class RideMongooseSchemaFactory
   implements EntitySchemaFactory<RideSchema, Ride>
 {
   constructor(private readonly publisherContext: PublisherContext) {}
+
   create(entity: Ride): RideSchema {
     return {
       _id: new Types.ObjectId(entity.id),

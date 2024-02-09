@@ -14,8 +14,4 @@ export class Payment extends Entity {
   ) {
     super(_id);
   }
-
-  get id() {
-    return this._id;
-  }
 }

@@ -34,10 +34,6 @@ export class Ride extends Entity {
     this._distance = distance;
   }
 
-  get id() {
-    return this._id;
-  }
-
   get status() {
     return this._status;
   }
