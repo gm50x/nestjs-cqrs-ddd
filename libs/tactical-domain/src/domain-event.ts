@@ -1,1 +1,1 @@
-export abstract class DomainEvent {}
+export abstract class DomainEvent /* NOSONAR */ {}

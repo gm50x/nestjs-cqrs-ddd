@@ -109,7 +109,7 @@
       "^@gedai/config(|/.*)$": "<rootDir>/libs/config/src/$1",
       "^@gedai/stub-factory(|/.*)$": "<rootDir>/test/stubs/$1",
       "^@gedai/async-context(|/.*)$": "<rootDir>/libs/async-context/src/$1",
-      "^@gedai/tactical-domain-adapter-mongoose(|/.*)$": "<rootDir>/libs/tactical-domain-adapter-mongoose/src/$1",
+      "^@gedai/tactical-domain-adapters(|/.*)$": "<rootDir>/libs/tactical-domain-adapters/src/$1",
       "^@gedai/events(|/.*)$": "<rootDir>/libs/events/src/$1",
       "^@gedai/transactional(|/.*)$": "<rootDir>/libs/transactional/src/$1"
     }
