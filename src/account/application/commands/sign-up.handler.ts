@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/tactical-domain-adapter-mongoose';
+import { Transactional } from '@gedai/transactional';
 import { ConflictException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AccountFactory } from '../abstractions/account.factory';

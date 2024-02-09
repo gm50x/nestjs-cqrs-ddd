@@ -71,6 +71,12 @@
       ],
       "@gedai/events/*": [
         "libs/events/src/*"
+      ],
+      "@gedai/transactional": [
+        "libs/transactional/src"
+      ],
+      "@gedai/transactional/*": [
+        "libs/transactional/src/*"
       ]
     }
   }

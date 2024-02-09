@@ -3,9 +3,7 @@ import { Inject } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 
-// TODO: this decorator should be in @gedai/tactical-domain
-// It should have a module attached with the adapter that will
-// Deal with this particularities of mongoose
+// TODO: this decorator should work with other transaction types like typeorm, knex, prisma...
 export function Transactional() {
   const injectContext = Inject(ContextService);
   const injectConnection = Inject(getConnectionToken());

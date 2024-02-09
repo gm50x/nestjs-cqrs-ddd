@@ -69,6 +69,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/events/tsconfig.lib.json"
       }
+    },
+    "transactional": {
+      "type": "library",
+      "root": "libs/transactional",
+      "entryFile": "index",
+      "sourceRoot": "libs/transactional/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/transactional/tsconfig.lib.json"
+      }
     }
   }
 }

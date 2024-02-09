@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/tactical-domain-adapter-mongoose';
+import { Transactional } from '@gedai/transactional';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { PaymentFactory } from '../abstractions/payment.factory';
 import { PaymentGateway } from '../abstractions/payment.gateway';
