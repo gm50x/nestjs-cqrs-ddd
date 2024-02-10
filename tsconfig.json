@@ -32,10 +32,6 @@
       "@gedai/stub-factory/*": ["test/stubs/*"],
       "@gedai/async-context": ["libs/async-context/src"],
       "@gedai/async-context/*": ["libs/async-context/src/*"],
-      "@gedai/tactical-domain-adapters": ["libs/tactical-domain-adapters/src"],
-      "@gedai/tactical-domain-adapters/*": [
-        "libs/tactical-domain-adapters/src/*"
-      ],
       "@gedai/events": ["libs/events/src"],
       "@gedai/events/*": ["libs/events/src/*"],
       "@gedai/transactional": ["libs/transactional/src"],
