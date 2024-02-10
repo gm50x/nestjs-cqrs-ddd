@@ -1,5 +1,5 @@
-import { AsyncContextService } from '@gedai/async-context';
 import { MongooseRepository } from '@gedai/tactical-domain-adapters';
+import { TransactionManager } from '@gedai/transactional';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -14,12 +14,12 @@ export class PositionMongooseRepository
   implements PositionRepository
 {
   constructor(
-    protected readonly contextService: AsyncContextService,
+    protected readonly transactionManager: TransactionManager,
     @InjectModel(PositionSchema.name)
     protected readonly userModel: Model<PositionSchema>,
     protected readonly userSchemaFactory: PositionMongooseSchemaFactory,
   ) {
-    super(contextService, userModel, userSchemaFactory);
+    super(transactionManager, userModel, userSchemaFactory);
   }
   async findByRideId(rideId: string) {
     return this.find({

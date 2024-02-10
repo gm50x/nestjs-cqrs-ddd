@@ -1,5 +1,5 @@
-import { AsyncContextService } from '@gedai/async-context';
 import { MongooseRepository } from '@gedai/tactical-domain-adapters';
+import { TransactionManager } from '@gedai/transactional';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -14,11 +14,11 @@ export class PaymentMongooseRepository
   implements PaymentRepository
 {
   constructor(
-    protected readonly contextService: AsyncContextService,
+    protected readonly transactionManager: TransactionManager,
     @InjectModel(PaymentSchema.name)
     protected readonly paymentModel: Model<PaymentSchema>,
     protected readonly paymentSchemaFactory: PaymentMongooseSchemaFactory,
   ) {
-    super(contextService, paymentModel, paymentSchemaFactory);
+    super(transactionManager, paymentModel, paymentSchemaFactory);
   }
 }
