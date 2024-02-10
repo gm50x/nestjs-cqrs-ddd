@@ -1,4 +1,4 @@
-import { AsyncContextService } from '@gedai/async-context';
+import { ContextifyService } from '@gedai/contextify';
 import { Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { ClientSession, Connection } from 'mongoose';
@@ -8,7 +8,7 @@ export class TransactionManager {
   private key = '__mongodbSession';
   constructor(
     @InjectConnection() readonly connection: Connection,
-    private readonly context: AsyncContextService,
+    private readonly context: ContextifyService,
   ) {}
 
   async beginTransaction() {

@@ -6,12 +6,12 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 
-export type AsyncContextMiddlewareSetup = (
+export type ContextifyMiddlewareSetup = (
   store: Map<string, any>,
   req: Request,
 ) => void;
 
-export type AsyncContextInterceptorSetup = (
+export type ContextifyInterceptorSetup = (
   store: Map<string, any>,
   executionContext: ExecutionContext,
 ) => void;
@@ -26,20 +26,20 @@ export type Plugin = {
   exports?: ModuleMetadataExports;
 };
 
-export type AsyncContextModuleExtraOptions = {
+export type ContextifyModuleExtraOptions = {
   plugins: Plugin[];
 };
 
-export type AsyncContextModuleOptions = {
-  middlewareSetup?: AsyncContextMiddlewareSetup;
-  interceptorSetup?: AsyncContextInterceptorSetup;
+export type ContextifyModuleOptions = {
+  middlewareSetup?: ContextifyMiddlewareSetup;
+  interceptorSetup?: ContextifyInterceptorSetup;
 };
 
 function ensureArray(value: unknown) {
   return Array.isArray(value) ? value : [];
 }
 
-function createModuleMetadata(extras: AsyncContextModuleExtraOptions) {
+function createModuleMetadata(extras: ContextifyModuleExtraOptions) {
   const { plugins = [] } = extras;
   const initial = {
     imports: [] as ModuleMetadataImports,
@@ -67,10 +67,10 @@ function createModuleMetadata(extras: AsyncContextModuleExtraOptions) {
 }
 
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =
-  new ConfigurableModuleBuilder<AsyncContextModuleOptions>()
+  new ConfigurableModuleBuilder<ContextifyModuleOptions>()
     .setClassMethodName('forRoot')
     .setFactoryMethodName('setupWith')
-    .setExtras(null, (definitions, extras: AsyncContextModuleExtraOptions) => {
+    .setExtras(null, (definitions, extras: ContextifyModuleExtraOptions) => {
       const { exports, imports, providers } = createModuleMetadata(extras);
       return {
         ...definitions,

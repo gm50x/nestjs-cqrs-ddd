@@ -1,7 +1,7 @@
 import { AmqpModule } from '@gedai/amqp';
-import { AsyncContextModule } from '@gedai/async-context';
 import { AuditModule } from '@gedai/audit';
 import { AmqpConfig, ContextConfig, MongooseConfig } from '@gedai/config';
+import { ContextifyModule } from '@gedai/contextify';
 import { TransactionalPlugin } from '@gedai/transactional';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -15,7 +15,7 @@ import { RideModule } from './ride/ride.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     CqrsModule,
-    AsyncContextModule.forRootAsync({
+    ContextifyModule.forRootAsync({
       useClass: ContextConfig,
       plugins: [TransactionalPlugin],
     }),

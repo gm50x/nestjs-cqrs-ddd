@@ -43,13 +43,13 @@
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
     },
-    "async-context": {
+    "contextify": {
       "type": "library",
-      "root": "libs/async-context",
+      "root": "libs/contextify",
       "entryFile": "index",
-      "sourceRoot": "libs/async-context/src",
+      "sourceRoot": "libs/contextify/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/async-context/tsconfig.lib.json"
+        "tsConfigPath": "libs/contextify/tsconfig.lib.json"
       }
     },
     "events": {

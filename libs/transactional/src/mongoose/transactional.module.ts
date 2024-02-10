@@ -1,4 +1,4 @@
-import { Plugin } from '@gedai/async-context';
+import { Plugin } from '@gedai/contextify';
 import { Global, Module } from '@nestjs/common';
 import { TransactionManager } from './transaction.manager';
 

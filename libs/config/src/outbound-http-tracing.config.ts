@@ -1,4 +1,4 @@
-import { AsyncContextService } from '@gedai/async-context';
+import { ContextifyService } from '@gedai/contextify';
 import { INestApplication } from '@nestjs/common';
 import * as http from 'http';
 import * as https from 'https';
@@ -7,7 +7,7 @@ function mountInterceptor(
   app: INestApplication,
   module: typeof http | typeof https,
 ) {
-  const context = app.get(AsyncContextService);
+  const context = app.get(ContextifyService);
   const withTraceId = (target: typeof module.get | typeof module.request) =>
     function (...args: any[]) {
       const traceId = context.get('traceId');

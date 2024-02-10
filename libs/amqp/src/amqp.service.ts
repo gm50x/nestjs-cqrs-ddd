@@ -1,4 +1,4 @@
-import { AsyncContextService } from '@gedai/async-context';
+import { ContextifyService } from '@gedai/contextify';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
@@ -9,7 +9,7 @@ type Headers = Record<string, string | boolean | number>;
 export class AmqpService {
   constructor(
     private readonly amqp: AmqpConnection,
-    private readonly contextService: AsyncContextService,
+    private readonly contextService: ContextifyService,
   ) {}
 
   private factoryHeaders(headers?: Headers) {

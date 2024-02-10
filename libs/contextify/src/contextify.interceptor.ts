@@ -8,19 +8,19 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import {
-  AsyncContextModuleOptions,
+  ContextifyModuleOptions,
   MODULE_OPTIONS_TOKEN,
-} from './async-context.options';
-import { AsyncContextService } from './async-context.service';
+} from './contextify.options';
+import { ContextifyService } from './contextify.service';
 
 @Injectable()
-export class AsyncContextInterceptor implements NestInterceptor {
+export class ContextifyInterceptor implements NestInterceptor {
   private readonly logger = new Logger(this.constructor.name);
 
   constructor(
-    private readonly context: AsyncContextService,
+    private readonly context: ContextifyService,
     @Inject(MODULE_OPTIONS_TOKEN)
-    private readonly options: AsyncContextModuleOptions,
+    private readonly options: ContextifyModuleOptions,
   ) {}
 
   intercept(

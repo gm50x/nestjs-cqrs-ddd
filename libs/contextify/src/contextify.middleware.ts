@@ -1,18 +1,18 @@
 import { Inject, Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import {
-  AsyncContextModuleOptions,
+  ContextifyModuleOptions,
   MODULE_OPTIONS_TOKEN,
-} from './async-context.options';
-import { AsyncContextService } from './async-context.service';
+} from './contextify.options';
+import { ContextifyService } from './contextify.service';
 
 @Injectable()
-export class AsyncContextMiddleware implements NestMiddleware {
+export class ContextifyMiddleware implements NestMiddleware {
   private readonly logger = new Logger(this.constructor.name);
   constructor(
-    private readonly context: AsyncContextService,
+    private readonly context: ContextifyService,
     @Inject(MODULE_OPTIONS_TOKEN)
-    private readonly options: AsyncContextModuleOptions,
+    private readonly options: ContextifyModuleOptions,
   ) {}
 
   use(req: Request, res: Response, next: NextFunction) {

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AsyncLocalStorage } from 'async_hooks';
 
 @Injectable()
-export class AsyncContextService {
+export class ContextifyService {
   private readonly context = new AsyncLocalStorage<Map<string, any>>();
 
   isActive() {

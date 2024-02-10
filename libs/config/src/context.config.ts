@@ -1,17 +1,17 @@
 import {
-  AsyncContextInterceptor,
-  AsyncContextModuleOptions,
-  AsyncContextOptionsFactory,
-  AsyncContextService,
+  ContextifyInterceptor,
+  ContextifyModuleOptions,
+  ContextifyOptionsFactory,
+  ContextifyService,
   MODULE_OPTIONS_TOKEN,
-} from '@gedai/async-context';
+} from '@gedai/contextify';
 import { INestApplication, Injectable } from '@nestjs/common';
 import { Message } from 'amqplib';
 import { randomUUID } from 'crypto';
 
 @Injectable()
-export class ContextConfig implements AsyncContextOptionsFactory {
-  setupWith(): AsyncContextModuleOptions | Promise<AsyncContextModuleOptions> {
+export class ContextConfig implements ContextifyOptionsFactory {
+  setupWith(): ContextifyModuleOptions | Promise<ContextifyModuleOptions> {
     return {
       interceptorSetup: (store, context) => {
         const rpcContext = context.switchToRpc();
@@ -32,8 +32,8 @@ export class ContextConfig implements AsyncContextOptionsFactory {
 }
 
 export const configureContextInterceptor = (app: INestApplication) => {
-  const context = app.get(AsyncContextService);
+  const context = app.get(ContextifyService);
   const options = app.get(MODULE_OPTIONS_TOKEN);
-  app.useGlobalInterceptors(new AsyncContextInterceptor(context, options));
+  app.useGlobalInterceptors(new ContextifyInterceptor(context, options));
   return app;
 };
