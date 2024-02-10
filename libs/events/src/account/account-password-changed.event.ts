@@ -1,6 +1,6 @@
-import { DomainEvent } from '@gedai/tactical-domain';
+import { IntegrationEvent } from '@gedai/tactical-domain';
 
-export class AccountPasswordChangedEvent extends DomainEvent {
+export class AccountPasswordChangedEvent extends IntegrationEvent {
   constructor(readonly accountId: string) {
     super();
   }

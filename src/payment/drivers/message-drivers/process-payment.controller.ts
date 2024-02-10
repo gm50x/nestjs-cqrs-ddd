@@ -1,4 +1,4 @@
-import { AmqpEventNameAdapter } from '@gedai/amqp/amqp-event-name.adapter';
+import { routingKeyOf } from '@gedai/amqp/amqp-event-name.adapter';
 import { RideFinishedEvent } from '@gedai/events';
 import {
   RabbitSubscribe,
@@ -27,11 +27,7 @@ const Bind = (exchange: string, routingKey: string, queue: string) =>
 export class ProcessPaymentController {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @Bind(
-    'events',
-    AmqpEventNameAdapter.getRoutingKey(RideFinishedEvent),
-    'process-payments',
-  )
+  @Bind('events', routingKeyOf(RideFinishedEvent), 'process-payments')
   async execute(message: any) {
     await this.commandBus.execute(
       new ProcessPaymentCommand({ rideId: message.rideId }),
