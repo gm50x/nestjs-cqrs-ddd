@@ -19,7 +19,6 @@ export class ProcessPaymentHandler
   async execute({ data }: ProcessPaymentCommand): Promise<void> {
     const ride = await this.rideService.getById(data.rideId);
     await this.paymentGateway.charge(ride.passenger.id, ride.fare);
-    // TODO: consider failures
     const payment = await this.paymentFactory.create(
       ride.id,
       ride.passenger.id,
