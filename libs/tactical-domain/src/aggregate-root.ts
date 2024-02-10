@@ -1,15 +1,15 @@
 import { Constructor } from '@nestjs/cqrs';
-import { DomainEvent } from './domain-event';
+import { AggregateEvent } from './domain-event';
 
 export abstract class AggregateRoot {
-  private readonly events: DomainEvent[] = [];
+  private readonly events: AggregateEvent[] = [];
 
   private resetEvents() {
     this.events.length = 0;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected async publishAll(events: DomainEvent[]) {
+  protected async publishAll(events: AggregateEvent[]) {
     throw new Error('Publisher Context has not been merged');
   }
 
@@ -33,7 +33,7 @@ export abstract class AggregateRoot {
    * Applies the event, that is, adds it to the current state
    * @param events the events to apply
    */
-  async apply(...events: DomainEvent[]) {
+  async apply(...events: AggregateEvent[]) {
     this.events.push(...events);
   }
 }

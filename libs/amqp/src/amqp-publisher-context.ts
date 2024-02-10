@@ -1,6 +1,6 @@
 import {
+  AggregateEvent,
   AggregateRoot,
-  DomainEvent,
   PublisherContext,
 } from '@gedai/tactical-domain';
 import { Injectable, Logger } from '@nestjs/common';
@@ -18,7 +18,7 @@ export class AmqpPublisherContext implements PublisherContext {
     private readonly config: ConfigService,
   ) {}
 
-  private async publishAll(events: DomainEvent[]) {
+  private async publishAll(events: AggregateEvent[]) {
     this.logger.debug(`Publishing ${events.length} to the event bus`);
     const eventBusName = this.config.get('AMQP_EXCHANGE_EVENT_ROOT');
     await Promise.all(
