@@ -5,6 +5,10 @@ import { AsyncLocalStorage } from 'async_hooks';
 export class AsyncContextService {
   private readonly context = new AsyncLocalStorage<Map<string, any>>();
 
+  isActive() {
+    return Boolean(this.context.getStore());
+  }
+
   getStore(): Map<string, any> {
     return this.context.getStore() || new Map<string, any>();
   }

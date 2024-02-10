@@ -1,6 +1,5 @@
 import {
   CallHandler,
-  ContextType,
   ExecutionContext,
   Inject,
   Injectable,
@@ -28,12 +27,7 @@ export class AsyncContextInterceptor implements NestInterceptor {
     executionContext: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
-    const contextType = executionContext.getType<ContextType>();
-    const ignoredContextTypesWithMiddlewares: ContextType[] = [
-      'http',
-      // TODO: add other context types to allow tracing when used (eg.: graphql, ws over http)
-    ];
-    if (ignoredContextTypesWithMiddlewares.includes(contextType)) {
+    if (this.context.isActive()) {
       return next.handle();
     }
     this.logger.debug('Setting up context storage');
