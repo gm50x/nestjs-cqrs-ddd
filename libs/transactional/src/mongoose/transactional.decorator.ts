@@ -12,6 +12,9 @@ export function Transactional() {
     const originalMethod = descriptor.value;
     descriptor.value = async function (...args: any[]) {
       const transactionManager: TransactionManager = this.__transactionManager;
+      if (!transactionManager) {
+        return originalMethod.apply(this, args);
+      }
       await transactionManager.beginTransaction();
       try {
         const result = await originalMethod.apply(this, args);
