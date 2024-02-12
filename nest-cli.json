@@ -69,6 +69,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/transactional/tsconfig.lib.json"
       }
+    },
+    "amqp-resiliency": {
+      "type": "library",
+      "root": "libs/amqp-resiliency",
+      "entryFile": "index",
+      "sourceRoot": "libs/amqp-resiliency/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/amqp-resiliency/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import { AmqpModule } from '@gedai/amqp';
+import { createResiliencyPlugin } from '@gedai/amqp-resiliency';
 import { AuditModule } from '@gedai/audit';
 import { AmqpConfig, ContextConfig, MongooseConfig } from '@gedai/config';
 import { ContextifyModule } from '@gedai/contextify';
@@ -21,7 +22,10 @@ import { RideModule } from './ride/ride.module';
     }),
     AuditModule,
     MongooseModule.forRootAsync({ useClass: MongooseConfig }),
-    AmqpModule.forRootAsync({ useClass: AmqpConfig }),
+    AmqpModule.forRootAsync({
+      useClass: AmqpConfig,
+      plugins: [createResiliencyPlugin()],
+    }),
     AccountModule,
     RideModule,
     PaymentModule,
