@@ -20,13 +20,11 @@ function Retriable(maxAttempts = 3, delayInMillis = 5000) {
         await originalMethod.apply(this, args);
       } catch (error) {
         const [content, message] = args; // The message is the second argument to the method, the content is the first
-        const retryCount = message.properties.headers?.retryCount || 0;
+        const attemptCount = message.properties.headers?.attemptCount || 1;
 
-        if (retryCount < maxAttempts) {
+        if (attemptCount < maxAttempts) {
           Logger.error(
-            `Error: ${error.message}, requeueing message. Retry Count: ${
-              retryCount + 1
-            }`,
+            `Error: ${error.message}, requeueing message. Attempt Count: ${attemptCount}`,
           );
 
           const amqp: AmqpService = this.__amqp;
@@ -38,15 +36,15 @@ function Retriable(maxAttempts = 3, delayInMillis = 5000) {
               ...message.properties,
               headers: {
                 ...message.properties.headers,
-                retryCount: retryCount + 1,
-                'x-delay': delayInMillis * retryCount,
+                attemptCount: attemptCount + 1,
+                'x-delay': delayInMillis * attemptCount,
               },
             },
           );
         } else {
           // TODO: send to dlq
           Logger.error(
-            `Maximum retry count reached. Message will be discarded.`,
+            `Maximum attempt count reached. Message will be discarded.`,
           );
         }
         throw error;
