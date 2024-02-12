@@ -16,13 +16,15 @@ export type ContextifyInterceptorSetup = (
   executionContext: ExecutionContext,
 ) => void;
 
+type ModuleMetadataControllers = ModuleMetadata['controllers'];
 type ModuleMetadataImports = ModuleMetadata['imports'];
 type ModuleMetadataExports = ModuleMetadata['exports'];
 
 export type Plugin = {
   name: string;
-  imports?: ModuleMetadataImports;
   providers?: Provider[];
+  controllers?: ModuleMetadataControllers;
+  imports?: ModuleMetadataImports;
   exports?: ModuleMetadataExports;
 };
 
