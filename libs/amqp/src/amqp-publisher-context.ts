@@ -6,8 +6,8 @@ import {
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Constructor } from '@nestjs/cqrs';
-import { routingKeyOf } from './amqp-event-name.adapter';
 import { AmqpService } from './amqp.service';
+import { routingKeyOf } from './amqp.utils';
 
 @Injectable()
 export class AmqpPublisherContext implements PublisherContext {

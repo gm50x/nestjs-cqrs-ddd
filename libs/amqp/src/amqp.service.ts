@@ -1,9 +1,8 @@
 import { ContextifyService } from '@gedai/contextify';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
+import { MessageProperties } from 'amqplib';
 import { randomUUID } from 'crypto';
-
-type Headers = Record<string, string | boolean | number>;
 
 @Injectable()
 export class AmqpService {
@@ -12,7 +11,7 @@ export class AmqpService {
     private readonly contextService: ContextifyService,
   ) {}
 
-  private factoryHeaders(headers?: Headers) {
+  private factoryHeaders(headers?: MessageProperties['headers']) {
     const traceId = this.contextService.get('traceId');
     return {
       ...(headers ?? {}),
@@ -20,33 +19,35 @@ export class AmqpService {
     };
   }
 
-  private factoryMessageId() {
-    return randomUUID();
+  private factoryMessageId(id: any) {
+    return id ?? randomUUID();
   }
 
   async publish(
     exchange: string,
     routingKey: string,
     content: object,
-    headers?: Headers,
+    properties?: MessageProperties,
   ) {
     await this.amqp.publish(exchange, routingKey, content, {
-      headers: this.factoryHeaders(headers),
-      messageId: this.factoryMessageId(),
+      ...properties,
+      headers: this.factoryHeaders(properties.headers),
+      messageId: this.factoryMessageId(properties.messageId),
     });
   }
 
   async sendToQueue(
     queue: string,
     content: object,
-    headers?: Record<string, string | boolean | number>,
+    properties?: MessageProperties,
   ) {
     await this.amqp.managedChannel.sendToQueue(
       queue,
       Buffer.from(JSON.stringify(content)),
       {
-        headers: this.factoryHeaders(headers),
-        messageId: this.factoryMessageId(),
+        ...properties,
+        headers: this.factoryHeaders(properties.headers),
+        messageId: this.factoryMessageId(properties.messageId),
       },
     );
   }

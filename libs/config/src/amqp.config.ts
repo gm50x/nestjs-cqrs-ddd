@@ -1,5 +1,6 @@
 import { AmqpOptionsFactory } from '@gedai/amqp/amqp.factory';
 import { AmqpModuleOptions } from '@gedai/amqp/amqp.options';
+import { RabbitMQExchangeConfig } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -13,12 +14,15 @@ export class AmqpConfig implements AmqpOptionsFactory {
       this.config.getOrThrow('AMQP_URL'),
       this.config.get('AMQP_EXCHANGE_EVENT_ROOT'),
     ];
-    const exchanges = [];
+    const exchanges: RabbitMQExchangeConfig[] = [];
     if (exchangeEventRoot) {
       exchanges.push({
         createExchangeIfNotExists: true,
         name: exchangeEventRoot,
-        type: 'topic',
+        type: 'x-delayed-message',
+        options: {
+          arguments: { 'x-delayed-type': 'topic' },
+        },
       });
     }
     return {
