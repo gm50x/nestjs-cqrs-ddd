@@ -5,7 +5,7 @@ import {
 import { Inject, Logger, applyDecorators } from '@nestjs/common';
 import { AmqpService } from './amqp.service';
 
-function Retriable(maxRetries = 3, delayInMillis = 5000) {
+function Retriable(maxAttempts = 3, delayInMillis = 5000) {
   const injectAmqp = Inject(AmqpService);
   return function (
     target: any,
@@ -22,7 +22,7 @@ function Retriable(maxRetries = 3, delayInMillis = 5000) {
         const [content, message] = args; // The message is the second argument to the method, the content is the first
         const retryCount = message.properties.headers?.retryCount || 0;
 
-        if (retryCount < maxRetries) {
+        if (retryCount < maxAttempts) {
           Logger.error(
             `Error: ${error.message}, requeueing message. Retry Count: ${
               retryCount + 1
@@ -61,7 +61,7 @@ type AmqpBindOptions = {
   exchange: string;
   routingKey: string;
   queue: string;
-  maxRetries?: number;
+  maxAttempts?: number;
   delayInMillis?: number;
 };
 
@@ -69,11 +69,11 @@ export const AmqpBind = ({
   exchange,
   routingKey,
   queue,
-  maxRetries = 3,
+  maxAttempts = 3,
   delayInMillis = 5000,
 }: AmqpBindOptions) =>
   applyDecorators(
-    Retriable(maxRetries, delayInMillis),
+    Retriable(maxAttempts, delayInMillis),
     RabbitSubscribe({
       exchange,
       routingKey,

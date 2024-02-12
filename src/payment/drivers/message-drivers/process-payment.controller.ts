@@ -12,7 +12,7 @@ export class ProcessPaymentController {
     exchange: 'events',
     routingKey: routingKeyOf(RideFinishedEvent),
     queue: 'process-payments',
-    maxRetries: 3,
+    maxAttempts: 3,
     delayInMillis: 10000,
   })
   async execute(message: any) {
