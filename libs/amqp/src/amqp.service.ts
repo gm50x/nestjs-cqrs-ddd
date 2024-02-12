@@ -31,8 +31,8 @@ export class AmqpService {
   ) {
     await this.amqp.publish(exchange, routingKey, content, {
       ...properties,
-      headers: this.factoryHeaders(properties.headers),
-      messageId: this.factoryMessageId(properties.messageId),
+      headers: this.factoryHeaders(properties?.headers),
+      messageId: this.factoryMessageId(properties?.messageId),
     });
   }
 
