@@ -24,7 +24,7 @@ export class AmqpAuditInterceptor implements NestInterceptor {
     const rpcContext = context.switchToRpc();
     const rpcData = rpcContext.getData();
     const { content, fields, properties } = rpcContext.getContext<Message>();
-    const message = 'AMQP MESSAGE AUDIT';
+    const message = `AMQP MESSAGE AUDIT [${fields.deliveryTag}]`;
     const logData = {
       fields,
       properties,

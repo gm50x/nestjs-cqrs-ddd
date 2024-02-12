@@ -1,6 +1,7 @@
 import { ContextifyService } from '@gedai/contextify';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
+import { MessageProperties } from 'amqplib';
 import { randomUUID } from 'crypto';
 
 type Headers = Record<string, string | boolean | number>;
@@ -28,10 +29,11 @@ export class AmqpService {
     exchange: string,
     routingKey: string,
     content: object,
-    headers?: Headers,
+    properties?: MessageProperties,
   ) {
     await this.amqp.publish(exchange, routingKey, content, {
-      headers: this.factoryHeaders(headers),
+      ...properties,
+      headers: this.factoryHeaders(properties.headers),
       messageId: this.factoryMessageId(),
     });
   }
@@ -39,13 +41,14 @@ export class AmqpService {
   async sendToQueue(
     queue: string,
     content: object,
-    headers?: Record<string, string | boolean | number>,
+    properties?: MessageProperties,
   ) {
     await this.amqp.managedChannel.sendToQueue(
       queue,
       Buffer.from(JSON.stringify(content)),
       {
-        headers: this.factoryHeaders(headers),
+        ...properties,
+        headers: this.factoryHeaders(properties.headers),
         messageId: this.factoryMessageId(),
       },
     );

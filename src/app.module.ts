@@ -24,7 +24,9 @@ import { RideModule } from './ride/ride.module';
     MongooseModule.forRootAsync({ useClass: MongooseConfig }),
     AmqpModule.forRootAsync({
       useClass: AmqpConfig,
-      plugins: [createResiliencyPlugin()],
+      plugins: [
+        createResiliencyPlugin({ name: 'Foo', servicePrefix: 'gummy.bear' }),
+      ],
     }),
     AccountModule,
     RideModule,

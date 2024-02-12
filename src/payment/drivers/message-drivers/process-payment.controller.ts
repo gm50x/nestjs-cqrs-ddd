@@ -13,6 +13,7 @@ export class ProcessPaymentController {
     exchange: 'events',
     routingKey: routingKeyOf(RideFinishedEvent),
     queue: 'process-payments',
+    servicePrefix: 'gummy.bear',
   })
   async execute(message: any) {
     await this.commandBus.execute(

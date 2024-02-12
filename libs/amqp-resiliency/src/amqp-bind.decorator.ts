@@ -3,13 +3,19 @@ import {
   defaultNackErrorHandler,
 } from '@golevelup/nestjs-rabbitmq';
 
-type BindingOptions = {
+export type BindingOptions = {
   exchange: string;
-  routingKey: string;
   queue: string;
+  servicePrefix?: string;
+  routingKey?: string;
 };
 
-export const Bind = ({ exchange, queue, routingKey }: BindingOptions) =>
+export const Bind = ({
+  exchange,
+  queue,
+  routingKey = '',
+  servicePrefix,
+}: BindingOptions) =>
   RabbitSubscribe({
     exchange,
     routingKey,
@@ -17,12 +23,9 @@ export const Bind = ({ exchange, queue, routingKey }: BindingOptions) =>
     createQueueIfNotExists: true,
     errorHandler: defaultNackErrorHandler,
     queueOptions: {
-      deadLetterExchange: 'resiliency.dlx',
+      deadLetterRoutingKey: `${routingKey}.rejected`,
+      deadLetterExchange: servicePrefix
+        ? `${servicePrefix}.resiliency.dlx`
+        : 'resiliency.dlx',
     },
-    // queueOptions: {
-    //   deadLetterExchange: 'payments.dlx',
-    //   deadLetterRoutingKey: `${AmqpEventNameAdapter.getRoutingKey(
-    //     RideFinishedEvent,
-    //   )}`,
-    // },
   });
