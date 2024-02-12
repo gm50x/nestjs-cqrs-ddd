@@ -24,7 +24,7 @@
     "test:all:cov": "jest --config ./test/config/jest-all.js --coverage"
   },
   "dependencies": {
-    "@golevelup/nestjs-rabbitmq": "^4.1.0",
+    "@golevelup/nestjs-rabbitmq": "^5.0.0",
     "@nestjs/axios": "^3.0.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
