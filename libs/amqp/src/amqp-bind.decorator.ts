@@ -63,7 +63,7 @@ type AmqpBindOptions = {
   delayInMillis?: number;
 };
 
-export const AmqpBindSimpleRetrial = ({
+export const AmqpBindWithSimpleRetrial = ({
   exchange,
   routingKey,
   queue,

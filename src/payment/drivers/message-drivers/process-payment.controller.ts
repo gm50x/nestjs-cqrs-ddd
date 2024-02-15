@@ -1,4 +1,4 @@
-import { AmqpBindSimpleRetrial, routingKeyOf } from '@gedai/amqp';
+import { AmqpBindWithSimpleRetrial, routingKeyOf } from '@gedai/amqp';
 import { RideFinishedEvent } from '@gedai/events';
 import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
@@ -8,7 +8,7 @@ import { ProcessPaymentCommand } from '../../application/commands/process-paymen
 export class ProcessPaymentController {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @AmqpBindSimpleRetrial({
+  @AmqpBindWithSimpleRetrial({
     exchange: 'events',
     routingKey: routingKeyOf(RideFinishedEvent),
     queue: 'process-payments',
