@@ -1,15 +1,6 @@
 import { Type } from 'class-transformer';
-import { IsDefined, IsString, Max, Min, ValidateNested } from 'class-validator';
-
-export class Coord {
-  @Min(-90)
-  @Max(90)
-  lat: number;
-
-  @Min(-180)
-  @Max(180)
-  long: number;
-}
+import { IsDefined, IsString, ValidateNested } from 'class-validator';
+import { Coord } from './ride.dto';
 
 export class RequestRideInput {
   @IsString()

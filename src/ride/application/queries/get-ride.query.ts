@@ -1,4 +1,4 @@
-import { GetRideInput, GetRideOutput } from '../models/get-ride.model';
+import { GetRideInput, GetRideOutput } from '../dtos/get-ride.dto';
 
 export class GetRideQuery {
   constructor(readonly data: GetRideInput) {}

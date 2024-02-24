@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import { GetRideOutput } from '../../../application/models/get-ride.model';
+import { GetRideOutput } from '../../../application/dtos/get-ride.dto';
 import {
   GetRideQuery,
   GetRideResult,

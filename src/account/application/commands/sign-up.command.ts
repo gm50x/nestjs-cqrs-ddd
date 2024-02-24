@@ -1,4 +1,4 @@
-import { SignUpInput, SignUpOutput } from '../models/sign-up.model';
+import { SignUpInput, SignUpOutput } from '../dtos/sign-up.dto';
 
 export class SignUpCommand {
   constructor(readonly data: SignUpInput) {}

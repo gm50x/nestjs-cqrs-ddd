@@ -1,7 +1,4 @@
-import {
-  RequestRideInput,
-  RequestRideOutput,
-} from '../models/request-ride.model';
+import { RequestRideInput, RequestRideOutput } from '../dtos/request-ride.dto';
 
 export class RequestRideCommand {
   constructor(readonly data: RequestRideInput) {}

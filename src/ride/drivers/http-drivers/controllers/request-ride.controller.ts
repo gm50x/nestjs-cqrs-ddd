@@ -7,7 +7,7 @@ import {
 import {
   RequestRideInput,
   RequestRideOutput,
-} from '../../../application/models/request-ride.model';
+} from '../../../application/dtos/request-ride.dto';
 
 @Controller({ version: '1' })
 export class RequestRideController {

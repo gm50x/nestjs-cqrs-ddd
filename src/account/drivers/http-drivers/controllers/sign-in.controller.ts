@@ -7,7 +7,7 @@ import {
 import {
   SignInInput,
   SignInOutput,
-} from '../../../application/models/sign-in.model';
+} from '../../../application/dtos/sign-in.dto';
 
 @Controller({ version: '1' })
 export class SignInController {

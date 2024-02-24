@@ -1,4 +1,4 @@
-import { UpdatePositionInput } from '../models/update-position.model';
+import { UpdatePositionInput } from '../dtos/update-position.dto';
 
 export class UpdatePositionCommand {
   constructor(readonly data: UpdatePositionInput) {}

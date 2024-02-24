@@ -1,4 +1,4 @@
-import { ProcessPaymentInput } from '../models/process-payment.models';
+import { ProcessPaymentInput } from '../dtos/process-payment.dto';
 
 export class ProcessPaymentCommand {
   constructor(readonly data: ProcessPaymentInput) {}

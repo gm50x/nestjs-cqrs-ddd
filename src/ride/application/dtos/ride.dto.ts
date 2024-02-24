@@ -1,12 +1,16 @@
-import { IsString } from 'class-validator';
-import { Coord } from './request-ride.model';
+import { Max, Min } from 'class-validator';
 
-export class GetRideInput {
-  @IsString()
-  rideId: string;
+export class Coord {
+  @Min(-90)
+  @Max(90)
+  lat: number;
+
+  @Min(-180)
+  @Max(180)
+  long: number;
 }
 
-export class GetRideOutput {
+export class Ride {
   id: string;
   date: Date;
   status: string;

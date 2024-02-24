@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ChangePasswordCommand } from '../../../application/commands/change-password.command';
-import { ChangePasswordInput } from '../../../application/models/change-password.model';
+import { ChangePasswordInput } from '../../../application/dtos/change-password.dto';
 
 @Controller({ version: '1' })
 export class ChangePasswordController {
