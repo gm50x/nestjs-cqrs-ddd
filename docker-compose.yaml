@@ -46,10 +46,10 @@ services:
   mongodb_init:
     image: mongo:6
     container_name: gedai-mongodb-init
-    restart: 'no'
+    restart: 'on-failure'
     depends_on: [mongodb]
     command: >-
-      sh -c "sleep 5 && mongosh -u gedai -p gedai --host mongodb:27017 --eval 'rs.initiate({
+      sh -c "sleep 10 && mongosh -u gedai -p gedai --host mongodb:27017 --eval 'rs.initiate({
         \"_id\":\"rs0\",
         "members":[
           {
@@ -57,7 +57,7 @@ services:
             \"host\":\"localhost:27017\",
           }
         ]
-      })'"
+      })' && if [ $(mongosh -u gedai -p gedai --quiet --host mongodb:27017 --eval 'rs.status().ok') -eq 1 ]; then exit 0; else exit 1; fi"
   # kong_postgresdb:
   #   image: postgres:16
   #   container_name: gedai-kong-postgresdb
