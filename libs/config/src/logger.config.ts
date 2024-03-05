@@ -38,12 +38,11 @@ const trace = format((info) => {
 
 const sensitive = format((info) => {
   const anonymized = SimpleAnonymizer.maskFields(info, [
-    'password',
-    'access_token',
-    'client_secret',
     'authorization',
-    'apiKey',
-    'x-api-key',
+    'password',
+    /access.*token/,
+    /client.*secret/,
+    /.*api.*key/,
   ]);
   return anonymized;
 });

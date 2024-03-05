@@ -4,14 +4,16 @@ export class SimpleAnonymizer {
     return { ...obj, ...properties };
   }
 
-  static maskFields<T extends object>(obj: T, fields: string[]): T {
-    const fieldsToMask = fields.map((x) => x.toLowerCase());
+  static maskFields<T extends object>(obj: T, fields: (string | RegExp)[]): T {
+    const fieldsToMask = fields.map((x) =>
+      typeof x === 'string' ? new RegExp(x.toLowerCase(), 'i') : x,
+    );
     const clone = this.createClone(obj);
     const result = this.applyMaskToFields(clone, fieldsToMask);
     return result;
   }
 
-  private static applyMaskToFields(obj: any, fields: string[]) {
+  private static applyMaskToFields(obj: any, fields: RegExp[]) {
     if (typeof obj !== 'object' || obj === null) {
       return obj;
     }
@@ -25,7 +27,7 @@ export class SimpleAnonymizer {
         if (typeof obj[key] === 'object' && obj[key] !== null) {
           obj[key] = this.applyMaskToFields(obj[key], fields);
           // TODO: make this work with RegEx
-        } else if (fields.includes(key.toLowerCase())) {
+        } else if (fields.some((x) => x.test(key))) {
           obj[key] = '*****';
         }
       }
@@ -36,9 +38,6 @@ export class SimpleAnonymizer {
 }
 
 export class PropertiesAnonymizer {
-  static instance = new PropertiesAnonymizer();
-  private constructor() {}
-
   anonymizeDataStructure(data: object, properties: string[]) {
     const clone = this.ensureArray(this.cloneDataStructure(data));
     clone.forEach((obj) =>
