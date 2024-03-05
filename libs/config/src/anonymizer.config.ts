@@ -1,19 +1,17 @@
 export class SimpleAnonymizer {
-  static instance = new SimpleAnonymizer();
-
-  private createClone(obj: any) {
+  private static createClone(obj: any) {
     const properties = JSON.parse(JSON.stringify(obj));
     return { ...obj, ...properties };
   }
 
-  maskFields<T extends object>(obj: T, fields: string[]): T {
+  static maskFields<T extends object>(obj: T, fields: string[]): T {
     const fieldsToMask = fields.map((x) => x.toLowerCase());
     const clone = this.createClone(obj);
     const result = this.applyMaskToFields(clone, fieldsToMask);
     return result;
   }
 
-  private applyMaskToFields(obj: any, fields: string[]) {
+  private static applyMaskToFields(obj: any, fields: string[]) {
     if (typeof obj !== 'object' || obj === null) {
       return obj;
     }
