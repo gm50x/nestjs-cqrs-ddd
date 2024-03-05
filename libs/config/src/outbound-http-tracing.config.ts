@@ -24,11 +24,7 @@ function mountInterceptor(
 }
 
 export function configureOutboundHttpTracing(app: INestApplication) {
-  const modules = new Map<string, typeof http | typeof https>()
-    .set('http', http)
-    .set('https', https);
-
-  for (const module of modules.values()) {
+  for (const module of [http, https]) {
     mountInterceptor(app, module);
   }
   return app;
