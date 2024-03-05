@@ -58,43 +58,43 @@ services:
           }
         ]
       })'"
-  kong_postgresdb:
-    image: postgres:16
-    container_name: gedai-kong-postgresdb
-    environment:
-      POSTGRES_DB: kong
-      POSTGRES_USER: kong
-      POSTGRES_PASSWORD: kong
-  kong_init:
-    image: kong/kong-gateway:3.6.0.0
-    container_name: gedai-kong-init
-    depends_on: [kong_postgresdb]
-    restart: on-failure
-    environment:
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: gedai-kong-postgresdb
-      KONG_PG_PASSWORD: kong
-      KONG_PASSWORD: kong
-    command: 'kong migrations bootstrap'
-  kong_gateway:
-    image: kong/kong-gateway:3.6.0.0
-    container_name: gedai-kong
-    depends_on: [kong_init]
-    restart: on-failure
-    environment:
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: gedai-kong-postgresdb
-      KONG_PG_PASSWORD: kong
-      KONG_PASSWORD: kong
-      KONG_LICENSE_DATA: ''
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001
-      KONG_ADMIN_GUI_URL: http://localhost:8002
-    ports:
-      - 8000:8000 # Gateway Proxy
-      - 8443:8443
-      - 8001:8001 # Managment API
-      - 8444:8444
-      - 8002:8002 # Management UI
-      - 8445:8445
-      - 8003:8003
-      - 8004:8004
+  # kong_postgresdb:
+  #   image: postgres:16
+  #   container_name: gedai-kong-postgresdb
+  #   environment:
+  #     POSTGRES_DB: kong
+  #     POSTGRES_USER: kong
+  #     POSTGRES_PASSWORD: kong
+  # kong_init:
+  #   image: kong/kong-gateway:3.6.0.0
+  #   container_name: gedai-kong-init
+  #   depends_on: [kong_postgresdb]
+  #   restart: on-failure
+  #   environment:
+  #     KONG_DATABASE: postgres
+  #     KONG_PG_HOST: gedai-kong-postgresdb
+  #     KONG_PG_PASSWORD: kong
+  #     KONG_PASSWORD: kong
+  #   command: 'kong migrations bootstrap'
+  # kong_gateway:
+  #   image: kong/kong-gateway:3.6.0.0
+  #   container_name: gedai-kong
+  #   depends_on: [kong_init]
+  #   restart: on-failure
+  #   environment:
+  #     KONG_DATABASE: postgres
+  #     KONG_PG_HOST: gedai-kong-postgresdb
+  #     KONG_PG_PASSWORD: kong
+  #     KONG_PASSWORD: kong
+  #     KONG_LICENSE_DATA: ''
+  #     KONG_ADMIN_LISTEN: 0.0.0.0:8001
+  #     KONG_ADMIN_GUI_URL: http://localhost:8002
+  #   ports:
+  #     - 8000:8000 # Gateway Proxy
+  #     - 8443:8443
+  #     - 8001:8001 # Managment API
+  #     - 8444:8444
+  #     - 8002:8002 # Management UI
+  #     - 8445:8445
+  #     - 8003:8003
+  #     - 8004:8004

@@ -90,7 +90,7 @@ export const configureLogger = (app: INestApplication, silent = false) => {
     configService.get('LOG_LEVEL', 'info'),
   ];
 
-  const useLocalFormat = env === 'development';
+  const useLocalFormat = ['development', 'testing'].includes(env);
 
   const loggerConfig: WinstonModuleOptions = {
     silent,

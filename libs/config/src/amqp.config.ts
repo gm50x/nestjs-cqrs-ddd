@@ -19,10 +19,12 @@ export class AmqpConfig implements AmqpOptionsFactory {
       exchanges.push({
         createExchangeIfNotExists: true,
         name: exchangeEventRoot,
-        type: 'x-delayed-message',
-        options: {
-          arguments: { 'x-delayed-type': 'topic' },
-        },
+        type: 'topic',
+        // TODO: find a way to make x-delayed-message work
+        // type: 'x-delayed-message',
+        // options: {
+        //   arguments: { 'x-delayed-type': 'topic' },
+        // },
       });
     }
     return {
