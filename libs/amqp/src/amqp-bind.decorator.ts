@@ -5,8 +5,6 @@ import {
 import { Inject, Logger, applyDecorators } from '@nestjs/common';
 import { AmqpService } from './amqp.service';
 
-// TODO: make this work
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Retriable(maxAttempts = 3, delayInMillis = 5000) {
   const injectAmqp = Inject(AmqpService);
   return function (
@@ -73,7 +71,6 @@ export const AmqpBind = ({
   delayInMillis = 5000,
 }: AmqpBindOptions) =>
   applyDecorators(
-    // Retriable(maxAttempts, delayInMillis),
     RabbitSubscribe({
       exchange,
       routingKey,
@@ -81,4 +78,5 @@ export const AmqpBind = ({
       createQueueIfNotExists: true,
       errorHandler: defaultNackErrorHandler,
     }),
+    Retriable(maxAttempts, delayInMillis),
   );
