@@ -71,6 +71,7 @@ export const AmqpBind = ({
   delayInMillis = 5000,
 }: AmqpBindOptions) =>
   applyDecorators(
+    Retriable(maxAttempts, delayInMillis),
     RabbitSubscribe({
       exchange,
       routingKey,
@@ -78,5 +79,4 @@ export const AmqpBind = ({
       createQueueIfNotExists: true,
       errorHandler: defaultNackErrorHandler,
     }),
-    Retriable(maxAttempts, delayInMillis),
   );
