@@ -7,13 +7,13 @@
     "webpack": true
   },
   "projects": {
-    "tactical-domain": {
+    "tactical-design": {
       "type": "library",
-      "root": "libs/tactical-domain",
+      "root": "libs/tactical-design",
       "entryFile": "index",
-      "sourceRoot": "libs/tactical-domain/src",
+      "sourceRoot": "libs/tactical-design/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/tactical-domain/tsconfig.lib.json"
+        "tsConfigPath": "libs/tactical-design/tsconfig.lib.json"
       }
     },
     "audit": {

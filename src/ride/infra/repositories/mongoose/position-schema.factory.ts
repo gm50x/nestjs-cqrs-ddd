@@ -1,4 +1,4 @@
-import { EntitySchemaFactory, PublisherContext } from '@gedai/tactical-domain';
+import { EntitySchemaFactory, PublisherContext } from '@gedai/tactical-design';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { Coord } from '../../../domain/coord.value';

@@ -3,7 +3,7 @@ import {
   RideFinishedEvent,
   RideStartedEvent,
 } from '@gedai/events';
-import { Entity } from '@gedai/tactical-domain';
+import { Entity } from '@gedai/tactical-design';
 import { Coord } from './coord.value';
 import { DistanceCalculator } from './distance-calculator.ds';
 import { FareCalculatorFactory } from './fare-calculator.ds';

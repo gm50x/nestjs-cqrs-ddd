@@ -2,7 +2,7 @@ import {
   AccountAuthenticatedEvent,
   AccountPasswordChangedEvent,
 } from '@gedai/events';
-import { Entity } from '@gedai/tactical-domain';
+import { Entity } from '@gedai/tactical-design';
 import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { CarPlate } from './car-plate.value';
 import { Email } from './email.value';

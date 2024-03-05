@@ -20,8 +20,8 @@
     "paths": {
       "@amqp": ["./src/sdk/amqp"],
       "@amqp/*": ["./src/sdk/amqp/*"],
-      "@gedai/tactical-domain": ["libs/tactical-domain/src"],
-      "@gedai/tactical-domain/*": ["libs/tactical-domain/src/*"],
+      "@gedai/tactical-design": ["libs/tactical-design/src"],
+      "@gedai/tactical-design/*": ["libs/tactical-design/src/*"],
       "@gedai/audit": ["libs/audit/src"],
       "@gedai/audit/*": ["libs/audit/src/*"],
       "@gedai/amqp": ["libs/amqp/src"],

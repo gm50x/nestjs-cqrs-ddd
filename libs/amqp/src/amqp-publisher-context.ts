@@ -2,7 +2,7 @@ import {
   AggregateEvent,
   AggregateRoot,
   PublisherContext,
-} from '@gedai/tactical-domain';
+} from '@gedai/tactical-design';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Constructor } from '@nestjs/cqrs';

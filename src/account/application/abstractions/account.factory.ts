@@ -1,4 +1,4 @@
-import { EntityFactory } from '@gedai/tactical-domain';
+import { EntityFactory } from '@gedai/tactical-design';
 import { Account } from '../../domain/account.entity';
 
 export abstract class AccountFactory implements EntityFactory<Account> {

@@ -1,4 +1,4 @@
-import { EntityFactory } from '@gedai/tactical-domain';
+import { EntityFactory } from '@gedai/tactical-design';
 import { Position } from '../../domain/position.entity';
 import { Coord } from './ride.factory';
 

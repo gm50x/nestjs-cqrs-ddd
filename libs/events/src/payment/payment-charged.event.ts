@@ -1,4 +1,4 @@
-import { IntegrationEvent } from '@gedai/tactical-domain';
+import { IntegrationEvent } from '@gedai/tactical-design';
 
 export class PaymentChargedEvent extends IntegrationEvent {
   constructor(

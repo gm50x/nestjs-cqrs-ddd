@@ -103,7 +103,7 @@
       "<rootDir>/test/"
     ],
     "moduleNameMapper": {
-      "^@gedai/tactical-domain(|/.*)$": "<rootDir>/libs/tactical-domain/src/$1",
+      "^@gedai/tactical-design(|/.*)$": "<rootDir>/libs/tactical-design/src/$1",
       "^@gedai/audit(|/.*)$": "<rootDir>/libs/audit/src/$1",
       "^@gedai/amqp(|/.*)$": "<rootDir>/libs/amqp/src/$1",
       "^@gedai/config(|/.*)$": "<rootDir>/libs/config/src/$1",

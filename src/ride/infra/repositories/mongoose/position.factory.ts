@@ -1,5 +1,5 @@
 import { PositionUpdatedEvent } from '@gedai/events';
-import { PublisherContext } from '@gedai/tactical-domain';
+import { PublisherContext } from '@gedai/tactical-design';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { PositionFactory } from '../../../application/abstractions/position.factory';

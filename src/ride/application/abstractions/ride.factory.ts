@@ -1,4 +1,4 @@
-import { EntityFactory } from '@gedai/tactical-domain';
+import { EntityFactory } from '@gedai/tactical-design';
 import { Ride } from '../../domain/ride.entity';
 
 export type Coord = {

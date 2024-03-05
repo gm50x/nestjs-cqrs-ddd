@@ -1,4 +1,4 @@
-import { IntegrationEvent } from '@gedai/tactical-domain';
+import { IntegrationEvent } from '@gedai/tactical-design';
 import { Type } from '@nestjs/common';
 
 export function routingKeyOf(

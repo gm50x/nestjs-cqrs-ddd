@@ -1,4 +1,4 @@
-import { PublisherContext } from '@gedai/tactical-domain';
+import { PublisherContext } from '@gedai/tactical-design';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
