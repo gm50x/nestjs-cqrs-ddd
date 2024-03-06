@@ -12,8 +12,6 @@ export class ProcessPaymentController {
     exchange: 'events',
     routingKey: routingKeyOf(RideFinishedEvent),
     queue: 'process-payments',
-    maxAttempts: 3,
-    delayInMillis: 10000,
   })
   async execute(message: any) {
     await this.commandBus.execute(
