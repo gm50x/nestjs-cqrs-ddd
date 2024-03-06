@@ -24,6 +24,9 @@ const virtualHost = randomUUID().split('-').at(0);
 process.env.MONGO_URL = `mongodb://${basicBearer}@localhost:27017/${virtualHost}?authSource=admin`;
 process.env.AMQP_URL = `amqp://${basicBearer}@localhost:5672/${virtualHost}`;
 process.env.NODE_ENV = 'testing';
+process.env.APP_NAME = 'test-nestjs-cqrs-ddd';
+process.env.AMQP_EXCHANGE_EVENT_ROOT = 'events';
+
 const rabbitmqURL = `http://${basicBearer}@localhost:15672`;
 
 export async function createTestApp(silentLogger = true) {

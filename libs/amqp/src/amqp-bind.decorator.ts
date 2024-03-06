@@ -5,6 +5,7 @@ import {
 import { Inject, Logger, applyDecorators } from '@nestjs/common';
 import { AmqpService } from './amqp.service';
 
+// TODO: make this work with a retrial queue and exchange
 function Retriable(maxAttempts = 3, delayInMillis = 5000) {
   const injectAmqp = Inject(AmqpService);
   return function (
