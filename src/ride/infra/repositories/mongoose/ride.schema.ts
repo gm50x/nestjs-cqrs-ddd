@@ -1,4 +1,4 @@
-import { EntityMongooseSchema } from '@gedai/tactical-design';
+import { EntityMongooseSchema } from '@gedai/tactical-design-mongoose';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { RideStatusValues } from '../../../domain/ride-status.value';

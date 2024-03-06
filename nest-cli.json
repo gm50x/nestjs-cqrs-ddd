@@ -69,6 +69,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/transactional/tsconfig.lib.json"
       }
+    },
+    "tactical-design-mongoose": {
+      "type": "library",
+      "root": "libs/tactical-design-mongoose",
+      "entryFile": "index",
+      "sourceRoot": "libs/tactical-design-mongoose/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/tactical-design-mongoose/tsconfig.lib.json"
+      }
     }
   }
 }

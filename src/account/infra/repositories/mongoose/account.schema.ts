@@ -1,4 +1,4 @@
-import { EntityMongooseSchema } from '@gedai/tactical-design';
+import { EntityMongooseSchema } from '@gedai/tactical-design-mongoose';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { PasswordAlgorithm } from '../../../domain/password.value';
 import { TokenAlgorithm } from '../../../domain/token.value';
