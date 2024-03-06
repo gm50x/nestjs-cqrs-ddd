@@ -15,21 +15,18 @@ import { INestApplication } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import axios from 'axios';
-import { randomUUID } from 'crypto';
 import { Connection as MongooseConnection } from 'mongoose';
 import { AppModule } from '../../src/app.module';
+import { env, rabbitmqURL, virtualHost } from './environment';
 
-const basicBearer = `gedai:gedai`;
-const virtualHost = randomUUID().split('-').at(0);
-process.env.MONGO_URL = `mongodb://${basicBearer}@localhost:27017/${virtualHost}?authSource=admin`;
-process.env.AMQP_URL = `amqp://${basicBearer}@localhost:5672/${virtualHost}`;
-process.env.NODE_ENV = 'testing';
-process.env.APP_NAME = 'test-nestjs-cqrs-ddd';
-process.env.AMQP_EXCHANGE_EVENT_ROOT = 'events';
+Object.entries(env).forEach(([key, value]) => (process.env[key] = value));
 
-const rabbitmqURL = `http://${basicBearer}@localhost:15672`;
+type TestOptions = {
+  silentLogger?: boolean;
+};
 
-export async function createTestApp(silentLogger = true) {
+export async function createTestApp(options?: TestOptions) {
+  const { silentLogger = true } = options ?? {};
   await axios.put(`${rabbitmqURL}/api/vhosts/${virtualHost}`);
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [AppModule],
