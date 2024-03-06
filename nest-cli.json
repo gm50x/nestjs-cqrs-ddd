@@ -61,13 +61,13 @@
         "tsConfigPath": "libs/events/tsconfig.lib.json"
       }
     },
-    "transactional": {
+    "transactional-mongoose": {
       "type": "library",
-      "root": "libs/transactional",
+      "root": "libs/transactional-mongoose",
       "entryFile": "index",
-      "sourceRoot": "libs/transactional/src",
+      "sourceRoot": "libs/transactional-mongoose/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/transactional/tsconfig.lib.json"
+        "tsConfigPath": "libs/transactional-mongoose/tsconfig.lib.json"
       }
     },
     "tactical-design-mongoose": {

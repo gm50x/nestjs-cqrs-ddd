@@ -2,7 +2,7 @@ import { AmqpModule } from '@gedai/amqp';
 import { AuditModule } from '@gedai/audit';
 import { AmqpConfig, ContextConfig, MongooseConfig } from '@gedai/config';
 import { ContextifyModule } from '@gedai/contextify';
-import { TransactionalPlugin } from '@gedai/transactional';
+import { TransactionalPlugin } from '@gedai/transactional-mongoose';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
