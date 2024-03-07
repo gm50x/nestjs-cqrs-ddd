@@ -24,11 +24,11 @@ export class SimpleAnonymizer {
 
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
-        if (typeof obj[key] === 'object' && obj[key] !== null) {
+        if (fields.some((x) => x.test(key))) {
+          obj[key] = '*****';
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
           obj[key] = this.applyMaskToFields(obj[key], fields);
           // TODO: make this work with RegEx
-        } else if (fields.some((x) => x.test(key))) {
-          obj[key] = '*****';
         }
       }
     }
