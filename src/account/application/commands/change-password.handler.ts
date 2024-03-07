@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/transactional-mongoose';
+import { Transactional } from '@gedai/transactional';
 import { UnauthorizedException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AccountRepository } from '../abstractions/account.repository';

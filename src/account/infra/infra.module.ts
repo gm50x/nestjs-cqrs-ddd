@@ -1,3 +1,5 @@
+import { TransactionalModule } from '@gedai/transactional';
+import { MongooseTransactionManager } from '@gedai/transactional-mongoose';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule, SchemaFactory } from '@nestjs/mongoose';
@@ -17,6 +19,9 @@ import { AccountSchema } from './repositories/mongoose/account.schema';
         schema: SchemaFactory.createForClass(AccountSchema),
       },
     ]),
+    TransactionalModule.forRoot({
+      TransactionManagerAdapter: MongooseTransactionManager,
+    }),
   ],
   providers: [
     AccountMongooseSchemaFactory,

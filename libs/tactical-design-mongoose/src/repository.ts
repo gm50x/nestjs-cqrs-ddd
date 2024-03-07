@@ -3,9 +3,9 @@ import {
   EntitySchemaFactory,
   Repository,
 } from '@gedai/tactical-design';
-import { TransactionManager } from '@gedai/transactional-mongoose';
+import { TransactionManager } from '@gedai/transactional';
 import { Injectable } from '@nestjs/common';
-import { FilterQuery, Model, Types } from 'mongoose';
+import { ClientSession, FilterQuery, Model, Types } from 'mongoose';
 import { EntityMongooseSchema } from './entity.schema';
 
 @Injectable()
@@ -45,13 +45,13 @@ export abstract class MongooseRepository<
   }
 
   async create(entity: TEntity): Promise<void> {
-    const session = this.transactionManager.getRunningTransactionOrDefault();
+    const session = this.getSession();
     const schema = this.entitySchemaFactory.create(entity);
     await new this.entityModel(schema).save({ session });
   }
 
   async update(entity: TEntity): Promise<void> {
-    const session = this.transactionManager.getRunningTransactionOrDefault();
+    const session = this.getSession();
     const schema = this.entitySchemaFactory.create(entity);
     await this.entityModel.updateOne({ _id: schema._id }, schema, { session });
   }
@@ -68,5 +68,10 @@ export abstract class MongooseRepository<
     }
 
     return this.entitySchemaFactory.createFromSchema(entityDocument as TSchema);
+  }
+
+  protected getSession(): ClientSession | undefined {
+    return this.transactionManager.getRunningTransactionOrDefault()
+      ?.hostTransaction;
   }
 }
