@@ -40,9 +40,9 @@ const sensitive = format((info) => {
   const anonymized = SimpleAnonymizer.maskFields(info, [
     'authorization',
     'password',
-    /access.*token/,
-    /client.*secret/,
-    /.*api.*key/,
+    /access.*token/i,
+    /client.*secret/i,
+    /.*api.*key/i,
   ]);
   return anonymized;
 });
