@@ -21,10 +21,6 @@ export class SignUpController {
       new SignUpCommand(data),
     );
 
-    this.logger.log({
-      message: 'Hello',
-      clientSecret: { key: '123', value: '123' },
-    });
     return result.data;
   }
 }
