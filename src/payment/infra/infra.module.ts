@@ -1,5 +1,3 @@
-import { TransactionalModule } from '@gedai/transactional';
-import { MongooseTransactionManager } from '@gedai/transactional-mongoose';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -25,9 +23,6 @@ import { InterncalCallRideService } from './services/internal-call-ride.service'
         schema: SchemaFactory.createForClass(PaymentSchema),
       },
     ]),
-    TransactionalModule.forRoot({
-      TransactionManagerAdapter: MongooseTransactionManager,
-    }),
   ],
   providers: [
     PaymentMongooseSchemaFactory,

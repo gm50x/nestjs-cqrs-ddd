@@ -28,7 +28,6 @@ export class MongooseTransactionManager extends TransactionManager {
     protected readonly context: ContextifyService,
     @InjectConnection() protected readonly connection: Connection,
   ) {
-    console.log('----- instantiated constructor -----');
     super(context);
   }
 

@@ -2,27 +2,25 @@ import { Plugin } from '@gedai/contextify';
 import { TransactionalModule } from '@gedai/transactional';
 import { MongooseTransactionManager } from './mongoose-transaction.manager';
 
-export const MongooseTransactionalPlugin: Plugin = {
-  name: 'Transactional',
-  imports: [
-    TransactionalModule.forRoot({
+type Options = {
+  isGlobal?: boolean;
+};
+
+export class MongooseTransactionalModule {
+  static forRoot(options?: Options) {
+    const { isGlobal = false } = options || {};
+    return TransactionalModule.forRoot({
+      isGlobal,
       TransactionManagerAdapter: MongooseTransactionManager,
+    });
+  }
+}
+
+export const MongooseTransactionalPlugin: Plugin = {
+  name: 'MongooseTransactional',
+  imports: [
+    MongooseTransactionalModule.forRoot({
+      isGlobal: true,
     }),
   ],
 };
-
-// @Module({
-//   imports: [
-//     TransactionalModule.forRoot({
-//       // TODO: why are we needing to cast this?
-//       TransactionManagerAdapter: MongooseTransactionManager as any,
-//     }),
-//   ],
-//   providers: [
-//     {
-//       provide:
-//     }
-//   ],
-//   exports: [TransactionManager],
-// })
-// export class MongooseTransactionPlugin {}

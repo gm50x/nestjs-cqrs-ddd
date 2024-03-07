@@ -3,6 +3,7 @@ import { TransactionManager } from './transaction.manager';
 
 export type TransactionalModuleOptions = object;
 export type TransactionalModuleExtraOptions = {
+  isGlobal?: boolean;
   TransactionManagerAdapter: Type<TransactionManager>;
 };
 
@@ -11,13 +12,19 @@ const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =
     .setClassMethodName('forRoot')
     .setFactoryMethodName('createTransactionalOptions')
     .setExtras(null, (definitions, extras: TransactionalModuleExtraOptions) => {
+      const { TransactionManagerAdapter, isGlobal = true } = extras;
       return {
         ...definitions,
+        global: isGlobal,
         providers: [
           ...(definitions.providers || []),
           {
             provide: TransactionManager,
-            useClass: extras.TransactionManagerAdapter,
+            useClass: TransactionManagerAdapter,
+          },
+          {
+            provide: 'TRANSACTION_ADAPTER_NAME',
+            useValue: TransactionManagerAdapter.name,
           },
         ],
         exports: [...(definitions.exports || []), TransactionManager],

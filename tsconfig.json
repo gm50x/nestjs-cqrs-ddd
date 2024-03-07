@@ -39,7 +39,9 @@
       "@gedai/tactical-design-mongoose": ["libs/tactical-design-mongoose/src"],
       "@gedai/tactical-design-mongoose/*": [
         "libs/tactical-design-mongoose/src/*"
-      ]
+      ],
+      "@gedai/transactional": ["libs/transactional/src"],
+      "@gedai/transactional/*": ["libs/transactional/src/*"]
     }
   }
 }

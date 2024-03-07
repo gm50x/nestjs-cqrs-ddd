@@ -2,6 +2,7 @@ import { AmqpModule } from '@gedai/amqp';
 import { AuditModule } from '@gedai/audit';
 import { AmqpConfig, ContextConfig, MongooseConfig } from '@gedai/config';
 import { ContextifyModule } from '@gedai/contextify';
+import { MongooseTransactionalPlugin } from '@gedai/transactional-mongoose';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -16,7 +17,7 @@ import { RideModule } from './ride/ride.module';
     CqrsModule,
     ContextifyModule.forRootAsync({
       useClass: ContextConfig,
-      // plugins: [MongooseTransactionalPlugin],
+      plugins: [MongooseTransactionalPlugin],
     }),
     AuditModule,
     MongooseModule.forRootAsync({ useClass: MongooseConfig }),
