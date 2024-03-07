@@ -1,3 +1,5 @@
+import { TransactionalModule } from '@gedai/transactional';
+import { MongooseTransactionManager } from '@gedai/transactional-mongoose';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { InfraModule } from '../infra/infra.module';
@@ -9,7 +11,13 @@ import { UpdatePositionHandler } from './commands/update-position.handler';
 import { GetRideHandler } from './queries/get-ride.handler';
 
 @Module({
-  imports: [CqrsModule, InfraModule],
+  imports: [
+    CqrsModule,
+    InfraModule,
+    TransactionalModule.forRoot({
+      TransactionManagerAdapter: MongooseTransactionManager,
+    }),
+  ],
   providers: [
     AcceptRideHandler,
     FinishRideHandler,
