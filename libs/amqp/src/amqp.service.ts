@@ -24,19 +24,6 @@ export class AmqpService {
     });
   }
 
-  async publishBuffer(
-    exchange: string,
-    routingKey: string,
-    content: Buffer,
-    properties?: MessageProperties,
-  ) {
-    await this.amqp.managedChannel.publish(exchange, routingKey, content, {
-      ...properties,
-      headers: this.factoryHeaders(properties?.headers),
-      messageId: this.factoryMessageId(properties?.messageId),
-    });
-  }
-
   async sendToQueue(
     queue: string,
     content: object,
