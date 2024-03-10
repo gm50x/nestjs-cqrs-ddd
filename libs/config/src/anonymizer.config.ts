@@ -28,7 +28,6 @@ export class SimpleAnonymizer {
           obj[key] = '*****';
         } else if (typeof obj[key] === 'object' && obj[key] !== null) {
           obj[key] = this.applyMaskToFields(obj[key], fields);
-          // TODO: make this work with RegEx
         }
       }
     }
@@ -36,76 +35,76 @@ export class SimpleAnonymizer {
     return obj;
   }
 }
+// TODO: future implementation would allow passing a specific property on object for anonymizing
+// export class PropertiesAnonymizer {
+//   anonymizeDataStructure(data: object, properties: string[]) {
+//     const clone = this.ensureArray(this.cloneDataStructure(data));
+//     clone.forEach((obj) =>
+//       properties.forEach((property) => this.anonymizeProperty(obj, property)),
+//     );
 
-export class PropertiesAnonymizer {
-  anonymizeDataStructure(data: object, properties: string[]) {
-    const clone = this.ensureArray(this.cloneDataStructure(data));
-    clone.forEach((obj) =>
-      properties.forEach((property) => this.anonymizeProperty(obj, property)),
-    );
+//     return clone;
+//   }
 
-    return clone;
-  }
+//   private ensureArray<T = unknown>(data: T): T[] {
+//     return Array.isArray(data) ? data : [data];
+//   }
 
-  private ensureArray<T = unknown>(data: T): T[] {
-    return Array.isArray(data) ? data : [data];
-  }
+//   private cloneDataStructure<T = unknown>(data: T): T {
+//     return JSON.parse(JSON.stringify(data));
+//   }
 
-  private cloneDataStructure<T = unknown>(data: T): T {
-    return JSON.parse(JSON.stringify(data));
-  }
+//   private mutatePropertyValue(key: string) {
+//     return (target: unknown) => {
+//       const value = target[key];
 
-  private mutatePropertyValue(key: string) {
-    return (target: unknown) => {
-      const value = target[key];
+//       if (value === undefined) {
+//         return;
+//       }
 
-      if (value === undefined) {
-        return;
-      }
+//       const isArray = Array.isArray(value);
+//       const valueType = typeof value;
+//       const isObject = valueType === 'object';
 
-      const isArray = Array.isArray(value);
-      const valueType = typeof value;
-      const isObject = valueType === 'object';
+//       const mask = '*****';
+//       if (isArray) {
+//         target[key] = Array[`${mask}`];
+//       } else if (isObject) {
+//         target[key] = `Object{${mask}}`;
+//       } else {
+//         target[key] = `${valueType}(${mask})`;
+//       }
+//     };
+//   }
 
-      const mask = '*****';
-      if (isArray) {
-        target[key] = Array[`${mask}`];
-      } else if (isObject) {
-        target[key] = `Object{${mask}}`;
-      } else {
-        target[key] = `${valueType}(${mask})`;
-      }
-    };
-  }
+//   private anonymizeProperty(
+//     targetObject: unknown,
+//     dotNotationProperty: string,
+//   ) {
+//     const keys = dotNotationProperty.split('.');
+//     let currentObject = targetObject;
 
-  private anonymizeProperty(
-    targetObject: unknown,
-    dotNotationProperty: string,
-  ) {
-    const keys = dotNotationProperty.split('.');
-    let currentObject = targetObject;
+//     const keysLength = keys.slice(0, -1).length;
+//     for (let i = 0; i < keysLength; i++) {
+//       const key = keys[i];
+//       currentObject = currentObject[key];
 
-    const keysLength = keys.slice(0, -1).length;
-    for (let i = 0; i < keysLength; i++) {
-      const key = keys[i];
-      currentObject = currentObject[key];
+//       if (Array.isArray(currentObject)) {
+//         const remainingKeys = keys.slice(i + 1).join('.');
+//         currentObject.forEach((x) => this.anonymizeProperty(x, remainingKeys));
+//         return;
+//       }
 
-      if (Array.isArray(currentObject)) {
-        const remainingKeys = keys.slice(i + 1).join('.');
-        currentObject.forEach((x) => this.anonymizeProperty(x, remainingKeys));
-        return;
-      }
+//       const ignoreInvalidPropertyPath =
+//         typeof currentObject !== 'object' || currentObject === null;
 
-      const ignoreInvalidPropertyPath =
-        typeof currentObject !== 'object' || currentObject === null;
+//       if (ignoreInvalidPropertyPath) {
+//         return;
+//       }
+//     }
 
-      if (ignoreInvalidPropertyPath) {
-        return;
-      }
-    }
-
-    const key = keys.at(-1);
-    const target = this.ensureArray(currentObject);
-    target.forEach(this.mutatePropertyValue(key));
-  }
-}
+//     const key = keys.at(-1);
+//     const target = this.ensureArray(currentObject);
+//     target.forEach(this.mutatePropertyValue(key));
+//   }
+// }
