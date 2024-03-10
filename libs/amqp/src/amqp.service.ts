@@ -11,18 +11,6 @@ export class AmqpService {
     private readonly contextService: ContextifyService,
   ) {}
 
-  private factoryHeaders(headers?: MessageProperties['headers']) {
-    const traceId = this.contextService.get('traceId');
-    return {
-      ...(headers ?? {}),
-      'x-trace-id': (headers || {})['x-trace-id'] ?? traceId,
-    };
-  }
-
-  private factoryMessageId(id: any) {
-    return id ?? randomUUID();
-  }
-
   async publish(
     exchange: string,
     routingKey: string,
@@ -67,5 +55,17 @@ export class AmqpService {
 
   get connection(): AmqpConnection {
     return this.amqp;
+  }
+
+  private factoryHeaders(headers?: MessageProperties['headers']) {
+    const traceId = this.contextService.get('traceId');
+    return {
+      ...(headers ?? {}),
+      'x-trace-id': (headers || {})['x-trace-id'] ?? traceId,
+    };
+  }
+
+  private factoryMessageId(id: any) {
+    return id ?? randomUUID();
   }
 }

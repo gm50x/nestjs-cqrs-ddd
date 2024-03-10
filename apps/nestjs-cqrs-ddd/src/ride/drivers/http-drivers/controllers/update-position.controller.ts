@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { UpdatePositionCommand } from '../../../../ride/application/commands/update-position.command';
+import { UpdatePositionCommand } from '../../../application/commands/update-position.command';
 import { UpdatePositionInput } from '../../../application/dtos/update-position.dto';
 
 @Controller({ version: '1' })

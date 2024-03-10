@@ -48,7 +48,7 @@ export class ContextifyInterceptor implements NestInterceptor {
             error: (e) => {
               e.context = new Map(store);
               this.context.destroy();
-              this.logger.debug('Context cleared');
+              this.logger.debug('Context was cleared');
               return subscriber.error(e);
             },
           }),

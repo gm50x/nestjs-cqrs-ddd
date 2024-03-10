@@ -1,5 +1,4 @@
-import { AmqpOptionsFactory } from '@gedai/amqp/amqp.factory';
-import { AmqpModuleOptions } from '@gedai/amqp/amqp.options';
+import { AmqpModuleOptions, AmqpOptionsFactory } from '@gedai/amqp';
 import { RabbitMQExchangeConfig } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -20,11 +19,6 @@ export class AmqpConfig implements AmqpOptionsFactory {
         createExchangeIfNotExists: true,
         name: exchangeEventRoot,
         type: 'topic',
-        // TODO: find a way to make x-delayed-message work
-        // type: 'x-delayed-message',
-        // options: {
-        //   arguments: { 'x-delayed-type': 'topic' },
-        // },
       });
     }
     return {

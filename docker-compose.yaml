@@ -1,23 +1,23 @@
 version: '3.9'
 services:
-  # app:
-  #   image: gedai/app
-  #   build:
-  #     context: .
-  #   container_name: gedai-app
-  #   environment:
-  #     NODE_ENV: 'development'
-  #     PORT: '3000'
-  #     LOG_LEVEL: 'debug'
-  #     APP_NAME: 'dummy-world-service'
-  #     APP_DESCRIPTION: 'Dummy Service World'
-  #     APP_VERSION: '1.0.0'
-  #     ROUTE_PREFIX: ''
-  #     MONGO_URL: 'mongodb://gedai:gedai@host.docker.internal:27017/nestjs-cqrs-ddd?authSource=admin'
-  #     AMQP_URL: 'amqp://gedai:gedai@host.docker.internal:5672'
-  #     AMQP_EXCHANGE_EVENT_ROOT: 'events'
-  #   ports:
-  #     - 3000:3000
+  amqp-resiliency:
+    image: gedai/amqp-resiliency
+    build:
+      context: .
+      args:
+        target: 'amqp-resiliency'
+    container_name: 'gedai-amqp-resiliency'
+    environment:
+      NODE_ENV: 'development'
+      PORT: '3001'
+      LOG_LEVEL: 'debug'
+      APP_NAME: 'amqp-resiliency'
+      APP_DESCRIPTION: 'AMQP Resiliency Service'
+      APP_VERSION: '1.0.0'
+      ROUTE_PREFIX: ''
+      AMQP_URL: 'amqp://gedai:gedai@host.docker.internal:5672'
+    ports:
+      - 3001:3001
   rabbitmq:
     image: gedai/rabbitmq:3-management-delayed
     build:

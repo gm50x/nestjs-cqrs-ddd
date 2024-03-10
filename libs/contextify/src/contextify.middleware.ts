@@ -23,7 +23,7 @@ export class ContextifyMiddleware implements NestMiddleware {
     this.context.run(store, async () => next());
     res.on('finish', () => {
       this.context.destroy();
-      this.logger.debug('Context cleared');
+      this.logger.debug('Context was cleared');
     });
   }
 }

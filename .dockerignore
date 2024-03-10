@@ -1,0 +1,12 @@
+.docs
+.vscode
+coverage*
+dist
+localstack
+*.env*
+.eslint
+.prettierrc
+*Docker*
+*docker*
+README*
+*secret*

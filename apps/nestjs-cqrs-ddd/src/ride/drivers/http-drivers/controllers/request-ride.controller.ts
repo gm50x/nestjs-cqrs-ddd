@@ -3,7 +3,7 @@ import { CommandBus } from '@nestjs/cqrs';
 import {
   RequestRideCommand,
   RequestRideResult,
-} from '../../../../ride/application/commands/request-ride.command';
+} from '../../../application/commands/request-ride.command';
 import {
   RequestRideInput,
   RequestRideOutput,
