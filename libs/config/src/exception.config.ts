@@ -42,7 +42,7 @@ class LogExceptionFilter
   catch(exception: any, host: ArgumentsHost) {
     try {
       this.log(exception);
-    } finally {
+    } catch {
       super.catch(exception, host);
     }
   }

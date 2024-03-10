@@ -10,6 +10,7 @@ export type AmqpModuleOptions = {
   heartbeatIntervalInSeconds?: number;
   exchanges?: RabbitMQExchangeConfig[];
   queues?: RabbitMQQueueConfig[];
+  // TODO: add resiliency config here
 };
 
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =

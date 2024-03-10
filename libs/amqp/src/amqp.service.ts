@@ -15,7 +15,7 @@ export class AmqpService {
     const traceId = this.contextService.get('traceId');
     return {
       ...(headers ?? {}),
-      'x-trace-id': traceId,
+      'x-trace-id': (headers || {})['x-trace-id'] ?? traceId,
     };
   }
 
@@ -36,19 +36,36 @@ export class AmqpService {
     });
   }
 
+  async publishBuffer(
+    exchange: string,
+    routingKey: string,
+    content: Buffer,
+    properties?: MessageProperties,
+  ) {
+    await this.amqp.managedChannel.publish(exchange, routingKey, content, {
+      ...properties,
+      headers: this.factoryHeaders(properties?.headers),
+      messageId: this.factoryMessageId(properties?.messageId),
+    });
+  }
+
   async sendToQueue(
     queue: string,
     content: object,
     properties?: MessageProperties,
   ) {
-    await this.amqp.managedChannel.sendToQueue(
-      queue,
-      Buffer.from(JSON.stringify(content)),
-      {
-        ...properties,
-        headers: this.factoryHeaders(properties.headers),
-        messageId: this.factoryMessageId(properties.messageId),
-      },
-    );
+    const targetContent =
+      content instanceof Buffer
+        ? content
+        : Buffer.from(JSON.stringify(content));
+    await this.amqp.managedChannel.sendToQueue(queue, targetContent, {
+      ...properties,
+      headers: this.factoryHeaders(properties.headers),
+      messageId: this.factoryMessageId(properties.messageId),
+    });
+  }
+
+  get connection(): AmqpConnection {
+    return this.amqp;
   }
 }
