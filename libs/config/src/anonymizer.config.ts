@@ -1,3 +1,4 @@
+/** TODO: add unit tests */
 export class SimpleAnonymizer {
   private static createClone(obj: any) {
     const properties = JSON.parse(JSON.stringify(obj));
