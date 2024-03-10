@@ -1,8 +1,7 @@
-# keyfile
+# secrets
 **/*.keyfile
-
-# environment
 *.env
+*.npmrc
 
 # generated docs
 .docs
