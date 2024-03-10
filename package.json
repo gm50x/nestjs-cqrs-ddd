@@ -111,7 +111,7 @@
       "^@gedai/test-factory(|/.*)$": "<rootDir>/test/$1",
       "^@gedai/stub-factory(|/.*)$": "<rootDir>/test/stubs/$1",
       "^@gedai/contextify(|/.*)$": "<rootDir>/libs/contextify/src/$1",
-      "^@gedai/events(|/.*)$": "<rootDir>/libs/events/src/$1",
+      "^@gedai/strategic-design(|/.*)$": "<rootDir>/libs/strategic-design/src/$1",
       "^@gedai/transactional-mongoose(|/.*)$": "<rootDir>/libs/transactional-mongoose/src/$1",
       "^@gedai/tactical-design-mongoose(|/.*)$": "<rootDir>/libs/tactical-design-mongoose/src/$1",
       "^@gedai/transactional(|/.*)$": "<rootDir>/libs/transactional/src/$1"

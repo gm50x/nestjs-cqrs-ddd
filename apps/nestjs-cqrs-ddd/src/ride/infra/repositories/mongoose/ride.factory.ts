@@ -1,4 +1,4 @@
-import { RideRequestedEvent } from '@gedai/events';
+import { RideRequestedEvent } from '@gedai/strategic-design';
 import { PublisherContext } from '@gedai/tactical-design';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';

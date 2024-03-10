@@ -2,7 +2,7 @@ import {
   RideAcceptedEvent,
   RideFinishedEvent,
   RideStartedEvent,
-} from '@gedai/events';
+} from '@gedai/strategic-design';
 import { Entity } from '@gedai/tactical-design';
 import { Coord } from './coord.value';
 import { DistanceCalculator } from './distance-calculator.ds';

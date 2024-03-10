@@ -1,5 +1,5 @@
 import { AmqpBind, routingKeyOf } from '@gedai/amqp';
-import { RideFinishedEvent } from '@gedai/events';
+import { RideFinishedEvent } from '@gedai/strategic-design';
 import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ProcessPaymentCommand } from '../../application/commands/process-payment.command';

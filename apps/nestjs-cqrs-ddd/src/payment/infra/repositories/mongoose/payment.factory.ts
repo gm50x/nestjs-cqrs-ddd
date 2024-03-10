@@ -1,4 +1,4 @@
-import { PaymentChargedEvent } from '@gedai/events';
+import { PaymentChargedEvent } from '@gedai/strategic-design';
 import { PublisherContext } from '@gedai/tactical-design';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';

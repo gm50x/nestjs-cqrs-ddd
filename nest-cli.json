@@ -53,13 +53,13 @@
         "tsConfigPath": "libs/contextify/tsconfig.lib.json"
       }
     },
-    "events": {
+    "strategic-design": {
       "type": "library",
-      "root": "libs/events",
+      "root": "libs/strategic-design",
       "entryFile": "index",
-      "sourceRoot": "libs/events/src",
+      "sourceRoot": "libs/strategic-design/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/events/tsconfig.lib.json"
+        "tsConfigPath": "libs/strategic-design/tsconfig.lib.json"
       }
     },
     "transactional-mongoose": {
