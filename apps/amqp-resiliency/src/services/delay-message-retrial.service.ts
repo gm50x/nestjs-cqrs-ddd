@@ -1,8 +1,7 @@
 import { AmqpService } from '@gedai/amqp';
-import { QueueNames } from '@gedai/amqp/amqp.enums';
 import { Injectable, Logger } from '@nestjs/common';
 import { Message } from 'amqplib';
-import { ExchangeNames, Suffixes } from '../models/amqp.enums';
+import { ExchangeNames, QueueNames, Suffixes } from '../models/amqp.enums';
 
 /** TODO: THIS SHOULD COME FROM OPTIONS */
 const REQUEUE_DELAY_DURATIONS = [

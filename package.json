@@ -108,6 +108,7 @@
       "^@gedai/audit(|/.*)$": "<rootDir>/libs/audit/src/$1",
       "^@gedai/amqp(|/.*)$": "<rootDir>/libs/amqp/src/$1",
       "^@gedai/config(|/.*)$": "<rootDir>/libs/config/src/$1",
+      "^@gedai/test-factory(|/.*)$": "<rootDir>/test/$1",
       "^@gedai/stub-factory(|/.*)$": "<rootDir>/test/stubs/$1",
       "^@gedai/contextify(|/.*)$": "<rootDir>/libs/contextify/src/$1",
       "^@gedai/events(|/.*)$": "<rootDir>/libs/events/src/$1",

@@ -42,8 +42,10 @@ class LogExceptionFilter
   catch(exception: any, host: ArgumentsHost) {
     try {
       this.log(exception);
-    } catch {
-      super.catch(exception, host);
+    } finally {
+      if (host.getType() === 'http') {
+        super.catch(exception, host);
+      }
     }
   }
 }

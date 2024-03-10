@@ -1,8 +1,12 @@
 import { faker } from '@faker-js/faker';
+import {
+  getDriverAccount,
+  getPassengerAccount,
+} from '@gedai/stub-factory/nestjs-cqrs-ddd/accounts';
+import { destroyTestApp } from '@gedai/test-factory';
 import { HttpServer, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { getDriverAccount, getPassengerAccount } from './stubs/accounts';
-import { createTestApp, destroyTestApp } from './utils/configure-test-app';
+import { createTestApp } from './utils/create-test-app';
 
 describe('Accounts (Integration Specs)', () => {
   let app: INestApplication;

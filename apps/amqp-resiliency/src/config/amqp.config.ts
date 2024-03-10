@@ -1,7 +1,7 @@
 import { AmqpModuleOptions, AmqpOptionsFactory } from '@gedai/amqp';
-import { ExchangeNames, QueueNames } from '@gedai/amqp/amqp.enums';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { ExchangeNames, QueueNames } from '../models/amqp.enums';
 
 @Injectable()
 export class AmqpConfig implements AmqpOptionsFactory {

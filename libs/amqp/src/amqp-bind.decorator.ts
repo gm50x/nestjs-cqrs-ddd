@@ -3,7 +3,6 @@ import {
   defaultNackErrorHandler,
 } from '@golevelup/nestjs-rabbitmq';
 import { applyDecorators } from '@nestjs/common';
-import { ExchangeNames } from './amqp.enums';
 
 type AmqpBindOptions = {
   exchange: string;
@@ -18,7 +17,7 @@ export const AmqpBind = ({ exchange, routingKey, queue }: AmqpBindOptions) =>
       routingKey,
       queue,
       createQueueIfNotExists: true,
-      queueOptions: { deadLetterExchange: ExchangeNames.Error },
+      queueOptions: { deadLetterExchange: 'error' },
       errorHandler: defaultNackErrorHandler,
     }),
   );

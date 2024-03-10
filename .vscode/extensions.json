@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "firsttris.vscode-jest-runner",
     "orta.vscode-jest",
     "dbaeumer.vscode-eslint",
     "wix.vscode-import-cost",

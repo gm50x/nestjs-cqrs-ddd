@@ -61,7 +61,7 @@ export class AmqpService {
     const traceId = this.contextService.get('traceId');
     return {
       ...(headers ?? {}),
-      'x-trace-id': (headers || {})['x-trace-id'] ?? traceId,
+      'x-trace-id': headers?.['x-trace-id'] ?? traceId,
     };
   }
 

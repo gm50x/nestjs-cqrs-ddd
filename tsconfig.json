@@ -18,72 +18,32 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@amqp": [
-        "./src/sdk/amqp"
-      ],
-      "@amqp/*": [
-        "./src/sdk/amqp/*"
-      ],
-      "@gedai/tactical-design": [
-        "libs/tactical-design/src"
-      ],
-      "@gedai/tactical-design/*": [
-        "libs/tactical-design/src/*"
-      ],
-      "@gedai/audit": [
-        "libs/audit/src"
-      ],
-      "@gedai/audit/*": [
-        "libs/audit/src/*"
-      ],
-      "@gedai/amqp": [
-        "libs/amqp/src"
-      ],
-      "@gedai/amqp/*": [
-        "libs/amqp/src/*"
-      ],
-      "@gedai/config": [
-        "libs/config/src"
-      ],
-      "@gedai/config/*": [
-        "libs/config/src/*"
-      ],
-      "@gedai/stub-factory": [
-        "test/stubs"
-      ],
-      "@gedai/stub-factory/*": [
-        "test/stubs/*"
-      ],
-      "@gedai/contextify": [
-        "libs/contextify/src"
-      ],
-      "@gedai/contextify/*": [
-        "libs/contextify/src/*"
-      ],
-      "@gedai/events": [
-        "libs/events/src"
-      ],
-      "@gedai/events/*": [
-        "libs/events/src/*"
-      ],
-      "@gedai/transactional-mongoose": [
-        "libs/transactional-mongoose/src"
-      ],
-      "@gedai/transactional-mongoose/*": [
-        "libs/transactional-mongoose/src/*"
-      ],
-      "@gedai/tactical-design-mongoose": [
-        "libs/tactical-design-mongoose/src"
-      ],
+      "@amqp": ["./src/sdk/amqp"],
+      "@amqp/*": ["./src/sdk/amqp/*"],
+      "@gedai/tactical-design": ["libs/tactical-design/src"],
+      "@gedai/tactical-design/*": ["libs/tactical-design/src/*"],
+      "@gedai/audit": ["libs/audit/src"],
+      "@gedai/audit/*": ["libs/audit/src/*"],
+      "@gedai/amqp": ["libs/amqp/src"],
+      "@gedai/amqp/*": ["libs/amqp/src/*"],
+      "@gedai/config": ["libs/config/src"],
+      "@gedai/config/*": ["libs/config/src/*"],
+      "@gedai/test-factory": ["test"],
+      "@gedai/test-factory/*": ["test/*"],
+      "@gedai/stub-factory": ["test/stubs"],
+      "@gedai/stub-factory/*": ["test/stubs/*"],
+      "@gedai/contextify": ["libs/contextify/src"],
+      "@gedai/contextify/*": ["libs/contextify/src/*"],
+      "@gedai/events": ["libs/events/src"],
+      "@gedai/events/*": ["libs/events/src/*"],
+      "@gedai/transactional-mongoose": ["libs/transactional-mongoose/src"],
+      "@gedai/transactional-mongoose/*": ["libs/transactional-mongoose/src/*"],
+      "@gedai/tactical-design-mongoose": ["libs/tactical-design-mongoose/src"],
       "@gedai/tactical-design-mongoose/*": [
         "libs/tactical-design-mongoose/src/*"
       ],
-      "@gedai/transactional": [
-        "libs/transactional/src"
-      ],
-      "@gedai/transactional/*": [
-        "libs/transactional/src/*"
-      ]
+      "@gedai/transactional": ["libs/transactional/src"],
+      "@gedai/transactional/*": ["libs/transactional/src/*"]
     }
   }
 }

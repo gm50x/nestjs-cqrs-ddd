@@ -21,7 +21,7 @@ import { AmqpService } from './amqp.service';
           exchanges: options.exchanges ?? [],
           queues: options.queues ?? [],
           enableControllerDiscovery: true,
-          connectionInitOptions: { wait: true },
+          connectionInitOptions: { wait: false },
           connectionManagerOptions: {
             heartbeatIntervalInSeconds:
               options.heartbeatIntervalInSeconds ?? 60,

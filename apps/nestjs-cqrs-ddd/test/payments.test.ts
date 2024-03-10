@@ -1,9 +1,16 @@
+import {
+  getDriverAccount,
+  getPassengerAccount,
+} from '@gedai/stub-factory/nestjs-cqrs-ddd/accounts';
+import {
+  getRequestRide,
+  getRidePositions,
+} from '@gedai/stub-factory/nestjs-cqrs-ddd/rides';
+import { destroyTestApp } from '@gedai/test-factory';
 import { HttpServer, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { setTimeout } from 'timers/promises';
-import { getDriverAccount, getPassengerAccount } from './stubs/accounts';
-import { getRequestRide, getRidePositions } from './stubs/rides';
-import { createTestApp, destroyTestApp } from './utils/configure-test-app';
+import { createTestApp } from './utils/create-test-app';
 
 describe('Payment (Integration Specs)', () => {
   let app: INestApplication;

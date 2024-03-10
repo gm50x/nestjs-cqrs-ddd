@@ -7,6 +7,7 @@ services:
       args:
         target: 'amqp-resiliency'
     container_name: 'gedai-amqp-resiliency'
+    restart: 'on-failure'
     environment:
       NODE_ENV: 'development'
       PORT: '3001'

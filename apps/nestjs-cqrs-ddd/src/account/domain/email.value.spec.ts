@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { getPassengerAccount } from '@gedai/stub-factory/accounts';
+import { getPassengerAccount } from '@gedai/stub-factory/nestjs-cqrs-ddd/accounts';
 import { Email } from './email.value';
 
 describe('Email', () => {
