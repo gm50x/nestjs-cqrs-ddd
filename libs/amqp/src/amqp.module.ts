@@ -23,6 +23,7 @@ import { AmqpService } from './amqp.service';
           enableControllerDiscovery: true,
           connectionInitOptions: { wait: false },
           connectionManagerOptions: {
+            reconnectTimeInSeconds: options.reconnectInSeconds ?? 10,
             heartbeatIntervalInSeconds:
               options.heartbeatIntervalInSeconds ?? 60,
             connectionOptions: {

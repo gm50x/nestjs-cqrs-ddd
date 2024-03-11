@@ -1,6 +1,6 @@
 /** TODO: add unit tests */
 export class SimpleAnonymizer {
-  private static createClone(obj: any) {
+  private static createClone(obj: object) {
     const properties = JSON.parse(JSON.stringify(obj));
     return { ...obj, ...properties };
   }
