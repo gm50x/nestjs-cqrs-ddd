@@ -16,15 +16,13 @@ export class ContextConfig implements ContextifyOptionsFactory {
       interceptorSetup: (store, context) => {
         const rpcContext = context.switchToRpc();
         const { properties } = rpcContext.getContext<Message>();
-        const getTraceIdOrCreateNew = () => {
-          try {
-            return store.get('traceId') || properties?.headers['x-trace-id'];
-          } catch {
-            return randomUUID();
-          }
-        };
-        const traceId = getTraceIdOrCreateNew();
-        store.set('traceId', traceId);
+
+        store.set(
+          'traceId',
+          store.get('traceId') ||
+            properties?.headers?.['x-trace-id'] ||
+            randomUUID(),
+        );
       },
       middlewareSetup: (store, req) => {
         const traceId =
