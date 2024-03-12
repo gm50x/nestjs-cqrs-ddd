@@ -1,18 +1,26 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { randomInt } from 'crypto';
 import { PaymentGateway } from '../../application/abstractions/payment.gateway';
 
 @Injectable()
 export class DummyPaymentGateway implements PaymentGateway {
+  private readonly logger = new Logger(this.constructor.name);
+
   constructor(private readonly http: HttpService) {}
+
+  private takeAChangeOnFailure() {
+    if (randomInt(100) < 10) {
+      throw new Error('Forced error!');
+    }
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async charge(passengerId: string, amount: number): Promise<void> {
-    // await this.http.axiosRef.post(
-    //   'https://01hg1d15mxthgh0bf62m8rhq5m10-776b64ae3f3024f65491.requestinspector.com',
-    //   { passengerId, amount, message: 'Charging Passenger' },
-    //   { headers: { yay: 'oh' } },
-    // );
+    this.takeAChangeOnFailure();
+    this.logger.log(
+      `Passenger ${passengerId} was charged ${amount} with success!`,
+    );
     return Promise.resolve();
   }
 }

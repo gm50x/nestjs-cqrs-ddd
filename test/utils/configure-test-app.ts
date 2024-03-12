@@ -16,6 +16,7 @@ import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import axios from 'axios';
 import { Connection as MongooseConnection } from 'mongoose';
+import { setTimeout } from 'timers/promises';
 import { environment, rabbitmqURL, virtualHost } from './environment';
 
 export type TestOptions = {
@@ -52,11 +53,14 @@ export async function createTestApp(
   return app;
 }
 
+const gracefulClosePeriod = () => setTimeout(250);
+
 export async function destroyTestApp(app: INestApplication) {
-  const mongooseConnection = app.get<MongooseConnection>(getConnectionToken());
-  await Promise.all([
-    axios.delete(`${rabbitmqURL}/api/vhosts/${virtualHost}`),
-    mongooseConnection.dropDatabase(),
-  ]);
+  const mongooseConnection = await app
+    .resolve<MongooseConnection>(getConnectionToken())
+    .catch(() => null);
+  await mongooseConnection?.dropDatabase();
+  await axios.delete(`${rabbitmqURL}/api/vhosts/${virtualHost}`);
+  await gracefulClosePeriod();
   await app.close();
 }

@@ -18,7 +18,7 @@ export class InterncalCallRideService implements RideService {
     if (!result) {
       return;
     }
-    const ride = result.data;
+    const { data: ride } = result;
     return {
       id: ride.id,
       date: ride.date,
