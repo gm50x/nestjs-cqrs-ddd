@@ -114,7 +114,8 @@
       "^@gedai/strategic-design(|/.*)$": "<rootDir>/libs/strategic-design/src/$1",
       "^@gedai/transactional-mongoose(|/.*)$": "<rootDir>/libs/transactional-mongoose/src/$1",
       "^@gedai/tactical-design-mongoose(|/.*)$": "<rootDir>/libs/tactical-design-mongoose/src/$1",
-      "^@gedai/transactional(|/.*)$": "<rootDir>/libs/transactional/src/$1"
+      "^@gedai/transactional(|/.*)$": "<rootDir>/libs/transactional/src/$1",
+      "^@gedai/tactical-design-amqp(|/.*)$": "<rootDir>/libs/tactical-design-amqp/src/$1"
     }
   }
 }

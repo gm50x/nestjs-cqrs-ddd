@@ -1,9 +1,10 @@
+import { configureAmqpAuditInterceptor } from '@gedai/amqp';
 import {
-  configureAmqpAuditInterceptor,
   configureCORS,
   configureCompression,
   configureContextInterceptor,
   configureExceptionsHandler,
+  configureHttpAuditInterceptor,
   configureLogger,
   configureOpenAPI,
   configureOutboundHttpTracing,
@@ -41,6 +42,7 @@ export async function createTestApp(
   configureCORS(app);
   configureCompression(app);
   configureExceptionsHandler(app);
+  configureHttpAuditInterceptor(app);
   configureAmqpAuditInterceptor(app);
   configureContextInterceptor(app);
   configureOpenAPI(app);

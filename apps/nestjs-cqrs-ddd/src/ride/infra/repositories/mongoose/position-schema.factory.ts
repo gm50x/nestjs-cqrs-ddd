@@ -1,4 +1,5 @@
 import { EntitySchemaFactory, PublisherContext } from '@gedai/tactical-design';
+import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { Coord } from '../../../domain/coord.value';
@@ -9,7 +10,10 @@ import { PositionSchema } from './position.schema';
 export class PositionMongooseSchemaFactory
   implements EntitySchemaFactory<PositionSchema, Position>
 {
-  constructor(private readonly publisherContext: PublisherContext) {}
+  constructor(
+    @InjectPublisherContext()
+    private readonly publisherContext: PublisherContext,
+  ) {}
   create(entity: Position): PositionSchema {
     return {
       _id: new Types.ObjectId(entity.id),

@@ -1,13 +1,10 @@
-import { Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
-
+import { configureAmqpAuditInterceptor } from '@gedai/amqp';
 import {
-  configureAmqpAuditInterceptor,
   configureCORS,
   configureCompression,
   configureContextInterceptor,
   configureExceptionsHandler,
+  configureHttpAuditInterceptor,
   configureLogger,
   configureOpenAPI,
   configureOutboundHttpTracing,
@@ -15,6 +12,9 @@ import {
   configureValidation,
   configureVersioning,
 } from '@gedai/config';
+import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -24,6 +24,7 @@ async function bootstrap() {
     .then(configureCompression)
     .then(configureExceptionsHandler)
     .then(configureContextInterceptor)
+    .then(configureHttpAuditInterceptor)
     .then(configureAmqpAuditInterceptor)
     .then(configureOpenAPI)
     .then(configureValidation)

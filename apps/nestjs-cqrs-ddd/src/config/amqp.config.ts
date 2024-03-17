@@ -1,4 +1,12 @@
-import { AmqpModuleOptions, AmqpOptionsFactory } from '@gedai/amqp';
+import {
+  AmqpModuleOptions,
+  AmqpOptionsFactory,
+  toDottedNotation,
+} from '@gedai/amqp';
+import {
+  AmqpPublisherContextModuleOptions,
+  AmqpPublisherContextOptionsFactory,
+} from '@gedai/tactical-design-amqp';
 import { RabbitMQExchangeConfig } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -17,7 +25,7 @@ export class AmqpConfig implements AmqpOptionsFactory {
     if (exchangeEventRoot) {
       exchanges.push({
         createExchangeIfNotExists: true,
-        name: exchangeEventRoot,
+        name: toDottedNotation(exchangeEventRoot),
         type: 'topic',
       });
     }
@@ -26,5 +34,17 @@ export class AmqpConfig implements AmqpOptionsFactory {
       appName,
       exchanges,
     };
+  }
+}
+
+@Injectable()
+export class AmqpPublisherConfig implements AmqpPublisherContextOptionsFactory {
+  constructor(private readonly config: ConfigService) {}
+
+  createAmqpPublisherOptions(): AmqpPublisherContextModuleOptions {
+    const eventBusName = this.config.getOrThrow<string>(
+      'AMQP_EXCHANGE_EVENT_ROOT',
+    );
+    return { eventBusName };
   }
 }

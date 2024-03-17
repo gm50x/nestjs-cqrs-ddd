@@ -1,11 +1,12 @@
-import { PublisherContext } from '@gedai/tactical-design';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
-import { AmqpPublisherContext } from './amqp-publisher-context';
 import { AmqpModuleOptions } from './amqp.factory';
-import { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } from './amqp.options';
+import {
+  ConfigurableModuleClass,
+  MODULE_OPTIONS_TOKEN,
+} from './amqp.module-builder';
 import { AmqpService } from './amqp.service';
 
 @Global()
@@ -34,13 +35,7 @@ import { AmqpService } from './amqp.service';
       },
     }),
   ],
-  providers: [
-    AmqpService,
-    {
-      provide: PublisherContext,
-      useClass: AmqpPublisherContext,
-    },
-  ],
-  exports: [MODULE_OPTIONS_TOKEN, AmqpService, PublisherContext],
+  providers: [AmqpService],
+  exports: [MODULE_OPTIONS_TOKEN, AmqpService],
 })
 export class AmqpModule extends ConfigurableModuleClass {}

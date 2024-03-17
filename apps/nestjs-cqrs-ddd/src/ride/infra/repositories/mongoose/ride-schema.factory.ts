@@ -1,4 +1,5 @@
 import { EntitySchemaFactory, PublisherContext } from '@gedai/tactical-design';
+import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { Coord } from '../../../domain/coord.value';
@@ -10,7 +11,10 @@ import { RideSchema } from './ride.schema';
 export class RideMongooseSchemaFactory
   implements EntitySchemaFactory<RideSchema, Ride>
 {
-  constructor(private readonly publisherContext: PublisherContext) {}
+  constructor(
+    @InjectPublisherContext()
+    private readonly publisherContext: PublisherContext,
+  ) {}
 
   create(entity: Ride): RideSchema {
     return {

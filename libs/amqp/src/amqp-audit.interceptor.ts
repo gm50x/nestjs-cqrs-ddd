@@ -1,7 +1,8 @@
-import { AmqpContextType } from '@gedai/amqp';
+import { isRabbitContext } from '@golevelup/nestjs-rabbitmq';
 import {
   CallHandler,
   ExecutionContext,
+  INestApplication,
   Injectable,
   Logger,
   NestInterceptor,
@@ -17,8 +18,7 @@ export class AmqpAuditInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
-    const contextType = context.getType<AmqpContextType>();
-    if (contextType !== AmqpContextType) {
+    if (!isRabbitContext(context)) {
       return next.handle();
     }
     const rpcContext = context.switchToRpc();
@@ -45,3 +45,9 @@ export class AmqpAuditInterceptor implements NestInterceptor {
     );
   }
 }
+
+export const configureAmqpAuditInterceptor = (app: INestApplication) => {
+  app.useGlobalInterceptors(new AmqpAuditInterceptor());
+  Logger.log('AMQP Audit Interceptor initialized', 'Configuration');
+  return app;
+};

@@ -1,5 +1,6 @@
 import { PaymentChargedEvent } from '@gedai/strategic-design';
 import { PublisherContext } from '@gedai/tactical-design';
+import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { PaymentFactory } from '../../../application/abstractions/payment.factory';
@@ -10,6 +11,7 @@ import { Payment } from '../../../domain/payment.entity';
 export class PaymentMongooseFactory implements PaymentFactory {
   constructor(
     private readonly paymentRepository: PaymentRepository,
+    @InjectPublisherContext()
     private readonly publisherContext: PublisherContext,
   ) {}
 

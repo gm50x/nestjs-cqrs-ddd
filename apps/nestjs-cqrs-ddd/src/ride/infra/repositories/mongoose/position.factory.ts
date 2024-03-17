@@ -1,5 +1,6 @@
 import { PositionUpdatedEvent } from '@gedai/strategic-design';
 import { PublisherContext } from '@gedai/tactical-design';
+import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { PositionFactory } from '../../../application/abstractions/position.factory';
@@ -12,6 +13,7 @@ import { Position } from '../../../domain/position.entity';
 export class PositionMongooseFactory implements PositionFactory {
   constructor(
     private readonly positionRepository: PositionRepository,
+    @InjectPublisherContext()
     private readonly publisherContext: PublisherContext,
   ) {}
 

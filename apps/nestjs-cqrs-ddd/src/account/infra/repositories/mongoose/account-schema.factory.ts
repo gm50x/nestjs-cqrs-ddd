@@ -1,4 +1,5 @@
 import { EntitySchemaFactory, PublisherContext } from '@gedai/tactical-design';
+import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { Account } from '../../../domain/account.entity';
@@ -12,7 +13,10 @@ import { AccountSchema } from './account.schema';
 export class AccountMongooseSchemaFactory
   implements EntitySchemaFactory<AccountSchema, Account>
 {
-  constructor(private readonly publisherContext: PublisherContext) {}
+  constructor(
+    @InjectPublisherContext()
+    private readonly publisherContext: PublisherContext,
+  ) {}
 
   create(entity: Account): AccountSchema {
     const token = entity.token

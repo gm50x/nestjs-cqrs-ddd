@@ -1,2 +1,1 @@
-export * from './mongoose-transaction.manager';
-export * from './transactional.module';
+export * from './mongoose-transactional.module';

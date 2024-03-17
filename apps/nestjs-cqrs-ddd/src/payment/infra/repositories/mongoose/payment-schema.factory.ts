@@ -1,4 +1,5 @@
 import { EntitySchemaFactory, PublisherContext } from '@gedai/tactical-design';
+import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { Payment } from '../../../domain/payment.entity';
@@ -8,7 +9,10 @@ import { PaymentSchema } from './payment.schema';
 export class PaymentMongooseSchemaFactory
   implements EntitySchemaFactory<PaymentSchema, Payment>
 {
-  constructor(private readonly publisherContext: PublisherContext) {}
+  constructor(
+    @InjectPublisherContext()
+    private readonly publisherContext: PublisherContext,
+  ) {}
   create(entity: Payment): PaymentSchema {
     return {
       _id: new Types.ObjectId(entity.id),

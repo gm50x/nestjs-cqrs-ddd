@@ -106,6 +106,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/amqp-resiliency/tsconfig.app.json"
       }
+    },
+    "tactical-design-amqp": {
+      "type": "library",
+      "root": "libs/tactical-design-amqp",
+      "entryFile": "index",
+      "sourceRoot": "libs/tactical-design-amqp/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/tactical-design-amqp/tsconfig.lib.json"
+      }
     }
   },
   "monorepo": true,

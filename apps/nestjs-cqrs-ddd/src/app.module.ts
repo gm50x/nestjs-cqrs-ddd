@@ -1,13 +1,16 @@
 import { AmqpModule } from '@gedai/amqp';
 import { AuditModule } from '@gedai/audit';
-import { AmqpConfig, ContextConfig, MongooseConfig } from '@gedai/config';
+import { ContextConfig } from '@gedai/config';
 import { ContextifyModule } from '@gedai/contextify';
-import { MongooseTransactionalModule } from '@gedai/transactional-mongoose/mongoose-transactional.module';
+import { AmqpPublisherContextModule } from '@gedai/tactical-design-amqp';
+import { MongooseTransactionalModule } from '@gedai/transactional-mongoose';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AccountModule } from './account/account.module';
+import { AmqpConfig, AmqpPublisherConfig } from './config/amqp.config';
+import { MongooseConfig } from './config/mongoose.config';
 import { PaymentModule } from './payment/payment.module';
 import { RideModule } from './ride/ride.module';
 
@@ -22,6 +25,9 @@ import { RideModule } from './ride/ride.module';
     MongooseModule.forRootAsync({ useClass: MongooseConfig }),
     MongooseTransactionalModule.forFeature({}),
     AmqpModule.forRootAsync({ useClass: AmqpConfig }),
+    AmqpPublisherContextModule.forFeatureAsync({
+      useClass: AmqpPublisherConfig,
+    }),
     AccountModule,
     RideModule,
     PaymentModule,

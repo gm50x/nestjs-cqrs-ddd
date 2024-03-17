@@ -1,5 +1,6 @@
 import { RideRequestedEvent } from '@gedai/strategic-design';
 import { PublisherContext } from '@gedai/tactical-design';
+import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import {
@@ -15,6 +16,7 @@ import { Ride } from '../../../domain/ride.entity';
 export class RideMongooseFactory implements RideFactory {
   constructor(
     private readonly rideRepository: RideRepository,
+    @InjectPublisherContext()
     private readonly publisherContext: PublisherContext,
   ) {}
 

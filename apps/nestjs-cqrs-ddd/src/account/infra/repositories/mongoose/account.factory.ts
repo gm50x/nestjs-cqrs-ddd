@@ -1,5 +1,6 @@
 import { AccountCreatedEvent } from '@gedai/strategic-design';
 import { PublisherContext } from '@gedai/tactical-design';
+import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { AccountFactory } from '../../../application/abstractions/account.factory';
@@ -13,6 +14,7 @@ import { PasswordFactory } from '../../../domain/password.value';
 export class AccountMongooseFactory implements AccountFactory {
   constructor(
     private readonly accountRepository: AccountRepository,
+    @InjectPublisherContext()
     private readonly publisherContext: PublisherContext,
   ) {}
 

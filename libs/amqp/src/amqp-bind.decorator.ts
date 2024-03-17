@@ -8,16 +8,25 @@ type AmqpBindOptions = {
   exchange: string;
   routingKey: string;
   queue: string;
+  channel?: string;
 };
 
-export const AmqpBind = ({ exchange, routingKey, queue }: AmqpBindOptions) =>
+export const AmqpBind = ({
+  exchange,
+  routingKey,
+  queue,
+  channel,
+}: AmqpBindOptions) =>
   applyDecorators(
     RabbitSubscribe({
       exchange,
       routingKey,
       queue,
       createQueueIfNotExists: true,
-      queueOptions: { deadLetterExchange: 'error' },
+      queueOptions: {
+        deadLetterExchange: 'error',
+        channel,
+      },
       errorHandler: defaultNackErrorHandler,
     }),
   );

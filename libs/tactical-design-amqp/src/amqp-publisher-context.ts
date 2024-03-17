@@ -1,30 +1,33 @@
+import { AmqpService, routingKeyOf, toDottedNotation } from '@gedai/amqp';
 import {
   AggregateEvent,
   AggregateRoot,
   PublisherContext,
 } from '@gedai/tactical-design';
-import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Constructor } from '@nestjs/cqrs';
-import { AmqpService } from './amqp.service';
-import { routingKeyOf } from './amqp.utils';
+import { MODULE_OPTIONS_TOKEN } from './amqp-publisher-context.module-builder';
+import { AmqpPublisherContextModuleOptions } from './amqp-publisher.factory';
 
 @Injectable()
 export class AmqpPublisherContext implements PublisherContext {
   private readonly logger = new Logger(this.constructor.name);
+  private readonly eventBusName: string;
 
   constructor(
     private readonly amqp: AmqpService,
-    private readonly config: ConfigService,
-  ) {}
+    @Inject(MODULE_OPTIONS_TOKEN)
+    private readonly options: AmqpPublisherContextModuleOptions,
+  ) {
+    this.eventBusName = toDottedNotation(options.eventBusName);
+  }
 
   private async publishAll(events: AggregateEvent[]) {
     this.logger.debug(`Publishing ${events.length} to the event bus`);
-    const eventBusName = this.config.get('AMQP_EXCHANGE_EVENT_ROOT');
     await Promise.all(
       events.map((x) =>
         this.amqp.publish(
-          eventBusName,
+          this.eventBusName,
           routingKeyOf(x),
           x, // TODO: headers for event
         ),
@@ -51,7 +54,7 @@ export class AmqpPublisherContext implements PublisherContext {
   mergeClassContext<T extends Constructor<AggregateRoot>>(Class: T): T {
     const publishAll = this.publishAll.bind(this);
     return class extends Class {
-      protected async publishAll(events) {
+      protected async publishAll(events: AggregateEvent[]) {
         await publishAll(events);
       }
     };
