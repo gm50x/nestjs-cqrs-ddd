@@ -1,5 +1,8 @@
 import { MongooseRepository } from '@gedai/tactical-design-mongoose';
-import { TransactionManager } from '@gedai/transactional';
+import {
+  InjectTransactionManager,
+  TransactionManager,
+} from '@gedai/transactional';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -14,6 +17,7 @@ export class RideMongooseRepository
   implements RideRepository
 {
   constructor(
+    @InjectTransactionManager()
     protected readonly transactionManager: TransactionManager,
     @InjectModel(RideSchema.name)
     protected readonly userModel: Model<RideSchema>,

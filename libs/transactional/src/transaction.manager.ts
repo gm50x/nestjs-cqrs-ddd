@@ -1,5 +1,6 @@
 import { ContextifyService } from '@gedai/contextify';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { TransactionStorageKeyToken } from './transaction-manager.token';
 
 export abstract class Transaction<T = any> {
   constructor(protected readonly _hostTransaction: T) {}
@@ -20,7 +21,7 @@ export interface Connection {
 
 @Injectable()
 export abstract class TransactionManager {
-  private readonly key = `__${this.constructor.name}.runningTransaction`;
+  @Inject(TransactionStorageKeyToken) private readonly key: string;
 
   constructor(protected readonly context: ContextifyService) {}
 

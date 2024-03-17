@@ -1,40 +1,48 @@
 import { ConfigurableModuleBuilder, Module, Type } from '@nestjs/common';
+import {
+  TransactionStorageKeyToken,
+  getTransactionToken,
+} from './transaction-manager.token';
 import { TransactionManager } from './transaction.manager';
 
-export type TransactionalModuleOptions = object;
+type TransactionalModuleOptions = object;
 export type TransactionalModuleExtraOptions = {
   isGlobal?: boolean;
+  connectionName?: string;
+  databaseProvider?: string;
   TransactionManagerAdapter: Type<TransactionManager>;
 };
 
-const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { ConfigurableModuleClass } =
   new ConfigurableModuleBuilder<TransactionalModuleOptions>()
     .setClassMethodName('forRoot')
     .setFactoryMethodName('createTransactionalOptions')
     .setExtras(null, (definitions, extras: TransactionalModuleExtraOptions) => {
-      const { TransactionManagerAdapter, isGlobal = true } = extras;
+      const { TransactionManagerAdapter, connectionName, databaseProvider } =
+        extras;
+      const TransactionManagerToken = getTransactionToken(
+        connectionName,
+        databaseProvider,
+      );
       return {
         ...definitions,
-        global: isGlobal,
+        global: true,
         providers: [
           ...(definitions.providers || []),
           {
-            provide: TransactionManager,
-            useClass: TransactionManagerAdapter,
+            provide: TransactionStorageKeyToken,
+            useValue: TransactionManagerToken,
           },
           {
-            provide: 'TRANSACTION_ADAPTER_NAME',
-            useValue: TransactionManagerAdapter.name,
+            provide: TransactionManagerToken,
+            useClass: TransactionManagerAdapter,
           },
         ],
-        exports: [...(definitions.exports || []), TransactionManager],
+        exports: [...(definitions.exports || []), TransactionManagerToken],
       };
     })
     .build();
 
-@Module({
-  imports: [],
-  providers: [],
-  exports: [MODULE_OPTIONS_TOKEN],
-})
+@Module({})
 export class TransactionalModule extends ConfigurableModuleClass {}

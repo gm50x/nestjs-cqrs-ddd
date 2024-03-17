@@ -1,6 +1,6 @@
 import { ContextifyService } from '@gedai/contextify';
 import { Transaction, TransactionManager } from '@gedai/transactional';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Type } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { ClientSession, Connection } from 'mongoose';
 
@@ -22,17 +22,22 @@ class MongooseTransaction extends Transaction<ClientSession> {
   }
 }
 
-@Injectable()
-export class MongooseTransactionManager extends TransactionManager {
-  constructor(
-    protected readonly context: ContextifyService,
-    @InjectConnection() protected readonly connection: Connection,
-  ) {
-    super(context);
+export function MongooseTransactionManager(connectionName?: string): Type<any> {
+  @Injectable()
+  class MongooseTransactionManagerHost extends TransactionManager {
+    constructor(
+      protected readonly context: ContextifyService,
+      @InjectConnection(connectionName)
+      protected readonly connection: Connection,
+    ) {
+      super(context);
+    }
+
+    async createTransaction(): Promise<Transaction> {
+      const session = await this.connection.startSession();
+      return new MongooseTransaction(session);
+    }
   }
 
-  async createTransaction(): Promise<Transaction> {
-    const session = await this.connection.startSession();
-    return new MongooseTransaction(session);
-  }
+  return MongooseTransactionManagerHost;
 }

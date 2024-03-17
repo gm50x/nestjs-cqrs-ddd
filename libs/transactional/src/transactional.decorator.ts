@@ -1,17 +1,30 @@
 import { Inject } from '@nestjs/common';
+import { getTransactionToken } from './transaction-manager.token';
 import { TransactionManager } from './transaction.manager';
 
-export function Transactional() {
-  const injectTransactionManager = Inject(TransactionManager);
+export const InjectTransactionManager = (
+  connectionName?: string,
+  databaseProvider?: string,
+) => Inject(getTransactionToken(connectionName, databaseProvider));
+
+export function Transactional(
+  connectionName?: string,
+  databaseProvider?: string,
+) {
+  const injectTransactionManager = InjectTransactionManager(
+    connectionName,
+    databaseProvider,
+  );
   return (
     target: any,
     _propertyKey: string,
     descriptor: PropertyDescriptor,
   ) => {
-    injectTransactionManager(target, '__transactionManager');
+    const token = getTransactionToken(connectionName, databaseProvider);
+    injectTransactionManager(target, token);
     const originalMethod = descriptor.value;
     descriptor.value = async function (...args: any[]) {
-      const transactionManager: TransactionManager = this.__transactionManager;
+      const transactionManager: TransactionManager = this[token];
       if (!transactionManager) {
         return originalMethod.apply(this, args);
       }
