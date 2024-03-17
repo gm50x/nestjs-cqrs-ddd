@@ -17,15 +17,6 @@
         "tsConfigPath": "libs/tactical-design/tsconfig.lib.json"
       }
     },
-    "audit": {
-      "type": "library",
-      "root": "libs/audit",
-      "entryFile": "index",
-      "sourceRoot": "libs/audit/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/audit/tsconfig.lib.json"
-      }
-    },
     "amqp": {
       "type": "library",
       "root": "libs/amqp",
@@ -35,13 +26,13 @@
         "tsConfigPath": "libs/amqp/tsconfig.lib.json"
       }
     },
-    "config": {
+    "common": {
       "type": "library",
-      "root": "libs/config",
+      "root": "libs/common",
       "entryFile": "index",
-      "sourceRoot": "libs/config/src",
+      "sourceRoot": "libs/common/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/config/tsconfig.lib.json"
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     },
     "contextify": {

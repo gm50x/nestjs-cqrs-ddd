@@ -1,4 +1,8 @@
 import { configureAmqpAuditInterceptor } from '@gedai/amqp';
+import { INestApplication, Type } from '@nestjs/common';
+import { getConnectionToken } from '@nestjs/mongoose';
+import { Test, TestingModule } from '@nestjs/testing';
+import axios from 'axios';
 import {
   configureCORS,
   configureCompression,
@@ -11,11 +15,7 @@ import {
   configureRoutePrefix,
   configureValidation,
   configureVersioning,
-} from '@gedai/config';
-import { INestApplication, Type } from '@nestjs/common';
-import { getConnectionToken } from '@nestjs/mongoose';
-import { Test, TestingModule } from '@nestjs/testing';
-import axios from 'axios';
+} from 'libs/common/src';
 import { Connection as MongooseConnection } from 'mongoose';
 import { setTimeout } from 'timers/promises';
 import { environment, rabbitmqURL, virtualHost } from './environment';
