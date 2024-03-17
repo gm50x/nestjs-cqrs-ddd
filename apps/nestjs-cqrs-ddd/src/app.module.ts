@@ -20,7 +20,7 @@ import { RideModule } from './ride/ride.module';
     }),
     AuditModule,
     MongooseModule.forRootAsync({ useClass: MongooseConfig }),
-    MongooseTransactionalModule.forRoot({}),
+    MongooseTransactionalModule.forFeature({}),
     AmqpModule.forRootAsync({ useClass: AmqpConfig }),
     AccountModule,
     RideModule,

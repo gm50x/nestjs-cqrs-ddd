@@ -16,7 +16,7 @@ export type TransactionalModuleExtraOptions = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { ConfigurableModuleClass } =
   new ConfigurableModuleBuilder<TransactionalModuleOptions>()
-    .setClassMethodName('forRoot')
+    .setClassMethodName('forFeature')
     .setFactoryMethodName('createTransactionalOptions')
     .setExtras(null, (definitions, extras: TransactionalModuleExtraOptions) => {
       const { TransactionManagerAdapter, connectionName, databaseProvider } =
