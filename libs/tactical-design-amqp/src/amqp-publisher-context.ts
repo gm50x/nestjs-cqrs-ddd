@@ -4,7 +4,7 @@ import {
   AggregateRoot,
   PublisherContext,
 } from '@gedai/tactical-design';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger, forwardRef } from '@nestjs/common';
 import { Constructor } from '@nestjs/cqrs';
 import { MODULE_OPTIONS_TOKEN } from './amqp-publisher-context.module-builder';
 import { AmqpPublisherContextModuleOptions } from './amqp-publisher.factory';
@@ -16,7 +16,7 @@ export class AmqpPublisherContext implements PublisherContext {
 
   constructor(
     private readonly amqp: AmqpService,
-    @Inject(MODULE_OPTIONS_TOKEN)
+    @Inject(forwardRef(() => MODULE_OPTIONS_TOKEN))
     private readonly options: AmqpPublisherContextModuleOptions,
   ) {
     this.eventBusName = toDottedNotation(options.eventBusName);
