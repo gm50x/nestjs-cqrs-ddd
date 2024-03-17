@@ -13,3 +13,9 @@ export enum QueueNames {
   Delay = 'delay',
   Dead = 'retrial.dead',
 }
+
+export enum ChannelNames {
+  Publisher = 'Publisher',
+  ErrorConsumer = 'Error',
+  RequeueConsumer = 'Requeue',
+}

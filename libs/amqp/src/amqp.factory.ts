@@ -1,4 +1,5 @@
 import {
+  RabbitMQChannelConfig,
   RabbitMQExchangeConfig,
   RabbitMQQueueConfig,
 } from '@golevelup/nestjs-rabbitmq';
@@ -10,6 +11,7 @@ export type AmqpModuleOptions = {
   reconnectInSeconds?: number;
   exchanges?: RabbitMQExchangeConfig[];
   queues?: RabbitMQQueueConfig[];
+  channels?: (RabbitMQChannelConfig & { name: string })[];
 };
 
 export interface AmqpOptionsFactory {

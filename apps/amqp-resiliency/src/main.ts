@@ -1,12 +1,12 @@
-import { Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
+import { configureAmqpAuditInterceptor } from '@gedai/amqp';
 import {
-  configureAmqpAuditInterceptor,
   configureContextInterceptor,
   configureExceptionsHandler,
   configureLogger,
-} from 'libs/common/src';
+} from '@gedai/common';
+import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {

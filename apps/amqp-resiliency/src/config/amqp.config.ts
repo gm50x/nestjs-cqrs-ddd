@@ -1,7 +1,7 @@
 import { AmqpModuleOptions, AmqpOptionsFactory } from '@gedai/amqp';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ExchangeNames, QueueNames } from '../models/amqp.enums';
+import { ChannelNames, ExchangeNames, QueueNames } from '../models/amqp.enums';
 
 @Injectable()
 export class AmqpConfig implements AmqpOptionsFactory {
@@ -31,6 +31,11 @@ export class AmqpConfig implements AmqpOptionsFactory {
         {
           name: QueueNames.Dead,
         },
+      ],
+      channels: [
+        { name: ChannelNames.Publisher, default: true },
+        { name: ChannelNames.ErrorConsumer },
+        { name: ChannelNames.RequeueConsumer },
       ],
     };
   }

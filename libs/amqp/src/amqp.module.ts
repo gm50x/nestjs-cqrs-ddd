@@ -23,6 +23,15 @@ import { AmqpService } from './amqp.service';
           queues: options.queues ?? [],
           enableControllerDiscovery: true,
           connectionInitOptions: { wait: false },
+          channels: (options.channels ?? []).reduce(
+            (acc, { name, ...channelConfig }) => {
+              return {
+                ...acc,
+                [name]: channelConfig,
+              };
+            },
+            {},
+          ),
           connectionManagerOptions: {
             reconnectTimeInSeconds: options.reconnectInSeconds ?? 10,
             heartbeatIntervalInSeconds:

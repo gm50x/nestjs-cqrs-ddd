@@ -5,7 +5,11 @@ import {
 import { Controller, Logger } from '@nestjs/common';
 import { Message } from 'amqplib';
 import { setTimeout } from 'timers/promises';
-import { ExchangeNames, QueueNames } from '../../models/amqp.enums';
+import {
+  ChannelNames,
+  ExchangeNames,
+  QueueNames,
+} from '../../models/amqp.enums';
 import { DelayMessageRetrialService } from '../../services/delay-message-retrial.service';
 
 const errorHandler: MessageErrorHandler = async (channel, message, error) => {
@@ -31,6 +35,9 @@ export class AmqpResiliencyController {
     exchange: ExchangeNames.Error,
     queue: QueueNames.Error,
     routingKey: '',
+    queueOptions: {
+      channel: ChannelNames.ErrorConsumer,
+    },
     errorHandler,
   })
   async onErrorDelayMessage(data: any, message: Message) {
@@ -41,6 +48,9 @@ export class AmqpResiliencyController {
     exchange: ExchangeNames.Delay,
     queue: QueueNames.Requeue,
     routingKey: '',
+    queueOptions: {
+      channel: ChannelNames.RequeueConsumer,
+    },
     errorHandler,
   })
   async onDelayedRequeueMessage(data: any, message: Message) {
