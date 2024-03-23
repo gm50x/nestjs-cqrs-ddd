@@ -1,6 +1,6 @@
-FROM rabbitmq:3.12-management
+FROM rabbitmq:3.13-management
 ENV DELAY_PLUGIN_NAME rabbitmq_delayed_message_exchange
-ENV DELAY_PLUGIN_VERSION 3.12.0
+ENV DELAY_PLUGIN_VERSION 3.13.0
 ENV DELAY_PLUGIN_BINARY ${DELAY_PLUGIN_NAME}-${DELAY_PLUGIN_VERSION}.ez
 ENV DELAY_PLUGIN_REGISTRY https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download
 ENV DELAY_PLUGIN_LOCATION ${RABBITMQ_HOME}/plugins/${DELAY_PLUGIN_BINARY}

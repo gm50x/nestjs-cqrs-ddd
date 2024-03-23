@@ -1,7 +1,4 @@
 import { configureAmqpAuditInterceptor } from '@gedai/amqp';
-import { Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
 import {
   configureCORS,
   configureCompression,
@@ -14,7 +11,10 @@ import {
   configureRoutePrefix,
   configureValidation,
   configureVersioning,
-} from 'libs/common/src';
+} from '@gedai/common';
+import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {

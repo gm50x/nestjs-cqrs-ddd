@@ -106,7 +106,7 @@
     "moduleNameMapper": {
       "^@gedai/tactical-design(|/.*)$": "<rootDir>/libs/tactical-design/src/$1",
       "^@gedai/amqp(|/.*)$": "<rootDir>/libs/amqp/src/$1",
-      "^@gedai/common(|/.*)$": "<rootDir>/libs/config/src/$1",
+      "^@gedai/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^@gedai/test-factory(|/.*)$": "<rootDir>/test/$1",
       "^@gedai/stub-factory(|/.*)$": "<rootDir>/test/stubs/$1",
       "^@gedai/contextify(|/.*)$": "<rootDir>/libs/contextify/src/$1",
