@@ -34,8 +34,8 @@ export class AmqpConfig implements AmqpOptionsFactory {
       ],
       channels: [
         { name: ChannelNames.Publisher, default: true },
-        { name: ChannelNames.ErrorConsumer },
-        { name: ChannelNames.RequeueConsumer },
+        { name: ChannelNames.ErrorConsumer, prefetchCount: 25 },
+        { name: ChannelNames.RequeueConsumer, prefetchCount: 25 },
       ],
     };
   }
