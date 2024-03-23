@@ -7,7 +7,7 @@ import {
   utilities as nestWinstonUtils,
 } from 'nest-winston';
 import { config, format, transports } from 'winston';
-import { SimpleAnonymizer } from './anonymizer.config';
+import { Anonymizer, SimpleAnonymizer } from './anonymizer.config';
 
 let contextService: ContextifyService;
 
@@ -36,16 +36,17 @@ const trace = format((info) => {
   return { ...info, traceId };
 });
 
-const sensitive = format((info) => {
-  const anonymized = SimpleAnonymizer.maskFields(info, [
-    'authorization',
-    'password',
-    /access.*token/i,
-    /client.*secret/i,
-    /.*api.*key/i,
-  ]);
-  return anonymized;
-});
+const sensitive = (anonymizer: Anonymizer) =>
+  format((info) => {
+    const anonymized = anonymizer.maskFields(info, [
+      'authorization',
+      'password',
+      /access.*token/i,
+      /client.*secret/i,
+      /.*api.*key/i,
+    ]);
+    return anonymized;
+  })();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const treatError = format(({ stack: _stack, ...info }) => {
@@ -66,20 +67,36 @@ const treatError = format(({ stack: _stack, ...info }) => {
   };
 });
 
-const remoteFormat = () =>
-  combine(timestamp(), severity(), trace(), treatError(), sensitive(), json());
-
-const localFormat = (appName: string) =>
+const remoteFormat = (anonymizer: Anonymizer) =>
   combine(
     timestamp(),
     severity(),
     trace(),
     treatError(),
-    sensitive(),
+    sensitive(anonymizer),
+    json(),
+  );
+
+const localFormat = (appName: string, anonymizer: Anonymizer) =>
+  combine(
+    timestamp(),
+    severity(),
+    trace(),
+    treatError(),
+    sensitive(anonymizer),
     nestLike(appName),
   );
 
-export const configureLogger = (app: INestApplication, silent = false) => {
+type ConfigureLoggerOptions = {
+  silent?: boolean;
+  anonymizer?: Anonymizer;
+};
+
+export const configureLogger = (
+  app: INestApplication,
+  options?: ConfigureLoggerOptions,
+) => {
+  const { silent = false, anonymizer = new SimpleAnonymizer() } = options || {};
   const configService = app.get(ConfigService);
   contextService = app.get(ContextifyService);
 
@@ -95,7 +112,9 @@ export const configureLogger = (app: INestApplication, silent = false) => {
     silent,
     levels: config.npm.levels,
     level: logLevel,
-    format: useLocalFormat ? localFormat(appName) : remoteFormat(),
+    format: useLocalFormat
+      ? localFormat(appName, anonymizer)
+      : remoteFormat(anonymizer),
     transports: [new Console()],
   };
 

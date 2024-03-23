@@ -1,11 +1,15 @@
 /** TODO: add unit tests */
-export class SimpleAnonymizer {
-  private static createClone(obj: object) {
+
+export interface Anonymizer {
+  maskFields<T extends object>(obj: T, fields: (string | RegExp)[]): T;
+}
+export class SimpleAnonymizer implements Anonymizer {
+  private createClone(obj: object) {
     const properties = JSON.parse(JSON.stringify(obj));
     return { ...obj, ...properties };
   }
 
-  static maskFields<T extends object>(obj: T, fields: (string | RegExp)[]): T {
+  maskFields<T extends object>(obj: T, fields: (string | RegExp)[]): T {
     const fieldsToMask = fields.map((x) =>
       typeof x === 'string' ? new RegExp(x.toLowerCase(), 'i') : x,
     );
@@ -14,7 +18,7 @@ export class SimpleAnonymizer {
     return result;
   }
 
-  private static applyMaskToFields(obj: any, fields: RegExp[]) {
+  private applyMaskToFields(obj: any, fields: RegExp[]) {
     if (typeof obj !== 'object' || obj === null) {
       return obj;
     }
