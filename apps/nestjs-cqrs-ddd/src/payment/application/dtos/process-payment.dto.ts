@@ -1,3 +1,6 @@
+import { IsString } from 'class-validator';
+
 export class ProcessPaymentInput {
-  constructor(readonly rideId: string) {}
+  @IsString()
+  readonly rideId: string;
 }
