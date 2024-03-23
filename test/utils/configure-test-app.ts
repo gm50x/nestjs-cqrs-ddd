@@ -38,7 +38,7 @@ export async function createTestApp(
     imports: [AppModule],
   }).compile();
   const app = moduleFixture.createNestApplication();
-  configureLogger(app, silentLogger);
+  configureLogger(app, { silent: silentLogger });
   configureCORS(app);
   configureCompression(app);
   configureExceptionsHandler(app);

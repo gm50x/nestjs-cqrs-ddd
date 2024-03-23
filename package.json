@@ -1,8 +1,8 @@
 {
   "name": "nestjs-cqrs-ddd",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "NestJS Boilerplace for CQRS and DDD",
+  "author": "Getúlio Magela Silva",
   "private": true,
   "license": "UNLICENSED",
   "main": "dist/main",

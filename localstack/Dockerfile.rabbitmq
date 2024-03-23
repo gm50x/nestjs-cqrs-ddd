@@ -9,4 +9,4 @@ RUN apt update \
   && apt clean
 RUN curl -L ${DELAY_PLUGIN_REGISTRY}/v${DELAY_PLUGIN_VERSION}/${DELAY_PLUGIN_BINARY} > ${DELAY_PLUGIN_LOCATION}
 RUN chown rabbitmq:rabbitmq ${DELAY_PLUGIN_LOCATION}
-RUN rabbitmq-plugins enable rabbitmq_delayed_message_exchange
+RUN rabbitmq-plugins enable rabbitmq_delayed_message_exchange rabbitmq_shovel rabbitmq_shovel_management
