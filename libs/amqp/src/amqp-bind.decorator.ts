@@ -9,6 +9,7 @@ type AmqpBindOptions = {
   routingKey: string;
   queue: string;
   channel?: string;
+  deadLetterExchange?: string;
 };
 
 export const AmqpBind = ({
@@ -16,6 +17,7 @@ export const AmqpBind = ({
   routingKey,
   queue,
   channel,
+  deadLetterExchange,
 }: AmqpBindOptions) =>
   applyDecorators(
     RabbitSubscribe({
@@ -24,7 +26,7 @@ export const AmqpBind = ({
       queue,
       createQueueIfNotExists: true,
       queueOptions: {
-        deadLetterExchange: 'error',
+        deadLetterExchange,
         channel,
       },
       errorHandler: defaultNackErrorHandler,
