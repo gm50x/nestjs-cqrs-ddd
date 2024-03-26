@@ -1,4 +1,4 @@
-import { AmqpBind, AmqpPayload, routingKeyOf } from '@gedai/amqp';
+import { AmqpPayload, AmqpSubscribe, routingKeyOf } from '@gedai/amqp';
 import { RideFinishedEvent } from '@gedai/strategic-design';
 import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
@@ -9,7 +9,7 @@ import { ProcessPaymentInput } from '../../application/dtos/process-payment.dto'
 export class ProcessPaymentController {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @AmqpBind({
+  @AmqpSubscribe({
     exchange: 'events',
     routingKey: routingKeyOf(RideFinishedEvent),
     queue: 'process-payments',

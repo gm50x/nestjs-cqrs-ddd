@@ -13,7 +13,7 @@ import {
 import { Channel } from 'amqp-connection-manager';
 import { ConsumeMessage } from 'amqplib';
 
-type AmqpBindOptions = {
+type AmqpSubscribeOptions = {
   exchange: string;
   routingKey: string;
   queue: string;
@@ -41,14 +41,14 @@ const deadLetterErrorHandler = (
   channel.ack(message, false);
 };
 
-export const AmqpBind = ({
+export const AmqpSubscribe = ({
   exchange,
   routingKey,
   queue,
   channel,
   deadLetterExchange,
   enableValidation,
-}: AmqpBindOptions) => {
+}: AmqpSubscribeOptions) => {
   const decorators = [
     RabbitSubscribe({
       exchange,
