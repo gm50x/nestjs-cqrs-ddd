@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/transactional';
+import { Transactional } from '@gedai/nestjs-tactical-design';
 import {
   ConflictException,
   UnprocessableEntityException,

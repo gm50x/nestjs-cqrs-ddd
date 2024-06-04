@@ -1,4 +1,4 @@
-import { Entity } from '@gedai/tactical-design';
+import { Entity } from '@gedai/nestjs-tactical-design';
 
 export class Payment extends Entity {
   constructor(

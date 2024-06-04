@@ -1,6 +1,6 @@
+import { PublisherContext } from '@gedai/nestjs-tactical-design';
+import { InjectPublisherContext } from '@gedai/nestjs-tactical-design-amqp';
 import { PositionUpdatedEvent } from '@gedai/strategic-design';
-import { PublisherContext } from '@gedai/tactical-design';
-import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { PositionFactory } from '../../../application/abstractions/position.factory';

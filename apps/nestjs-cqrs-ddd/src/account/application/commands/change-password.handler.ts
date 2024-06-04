@@ -1,4 +1,4 @@
-import { Transactional } from '@gedai/transactional';
+import { Transactional } from '@gedai/nestjs-tactical-design';
 import { UnauthorizedException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AccountRepository } from '../abstractions/account.repository';

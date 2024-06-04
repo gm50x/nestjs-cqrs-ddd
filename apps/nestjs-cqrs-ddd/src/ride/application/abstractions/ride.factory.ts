@@ -1,4 +1,4 @@
-import { EntityFactory } from '@gedai/tactical-design';
+import { EntityFactory } from '@gedai/nestjs-tactical-design';
 import { Ride } from '../../domain/ride.entity';
 
 export type Coord = {

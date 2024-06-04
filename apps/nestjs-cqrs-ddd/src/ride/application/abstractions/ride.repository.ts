@@ -1,4 +1,4 @@
-import { Repository } from '@gedai/tactical-design';
+import { Repository } from '@gedai/nestjs-tactical-design';
 
 import { Ride } from '../../domain/ride.entity';
 

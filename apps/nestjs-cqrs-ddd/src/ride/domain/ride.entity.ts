@@ -1,9 +1,9 @@
+import { Entity } from '@gedai/nestjs-tactical-design';
 import {
   RideAcceptedEvent,
   RideFinishedEvent,
   RideStartedEvent,
 } from '@gedai/strategic-design';
-import { Entity } from '@gedai/tactical-design';
 import { Coord } from './coord.value';
 import { DistanceCalculator } from './distance-calculator.ds';
 import { FareCalculatorFactory } from './fare-calculator.ds';

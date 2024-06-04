@@ -1,4 +1,4 @@
-import { EntityFactory } from '@gedai/tactical-design';
+import { EntityFactory } from '@gedai/nestjs-tactical-design';
 import { Payment } from '../../domain/payment.entity';
 
 export abstract class PaymentFactory implements EntityFactory<Payment> {

@@ -1,4 +1,4 @@
-import { IntegrationEvent } from '@gedai/tactical-design';
+import { IntegrationEvent } from '@gedai/nestjs-tactical-design';
 
 export class PaymentChargedEvent extends IntegrationEvent {
   constructor(

@@ -1,13 +1,8 @@
-import {
-  AmqpModuleOptions,
-  AmqpOptionsFactory,
-  toDottedNotation,
-} from '@gedai/amqp';
+import { AmqpModuleOptions, AmqpOptionsFactory } from '@gedai/nestjs-amqp';
 import {
   AmqpPublisherContextModuleOptions,
   AmqpPublisherContextOptionsFactory,
-} from '@gedai/tactical-design-amqp';
-import { RabbitMQExchangeConfig } from '@golevelup/nestjs-rabbitmq';
+} from '@gedai/nestjs-tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -17,22 +12,17 @@ export class AmqpConfig implements AmqpOptionsFactory {
 
   createAmqpOptions(): AmqpModuleOptions {
     const [appName, url, exchangeEventRoot] = [
-      this.config.get('APP_NAME'),
+      this.config.getOrThrow('APP_NAME'),
       this.config.getOrThrow('AMQP_URL'),
-      this.config.get('AMQP_EXCHANGE_EVENT_ROOT'),
+      this.config.getOrThrow('AMQP_EXCHANGE_EVENT_ROOT'),
     ];
-    const exchanges: RabbitMQExchangeConfig[] = [];
-    if (exchangeEventRoot) {
-      exchanges.push({
-        createExchangeIfNotExists: true,
-        name: toDottedNotation(exchangeEventRoot),
-        type: 'topic',
-      });
-    }
     return {
       url,
       appName,
-      exchanges,
+      exchanges: [
+        // ::StyleKeep::
+        { name: exchangeEventRoot },
+      ],
     };
   }
 }

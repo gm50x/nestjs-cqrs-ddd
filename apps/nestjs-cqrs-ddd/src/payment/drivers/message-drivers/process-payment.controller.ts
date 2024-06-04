@@ -1,5 +1,4 @@
-import { AmqpPayload, AmqpSubscribe, routingKeyOf } from '@gedai/amqp';
-import { RideFinishedEvent } from '@gedai/strategic-design';
+import { AmqpPayload, AmqpSubscription } from '@gedai/nestjs-amqp';
 import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ProcessPaymentCommand } from '../../application/commands/process-payment.command';
@@ -9,11 +8,10 @@ import { ProcessPaymentInput } from '../../application/dtos/process-payment.dto'
 export class ProcessPaymentController {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @AmqpSubscribe({
+  @AmqpSubscription({
     exchange: 'events',
-    routingKey: routingKeyOf(RideFinishedEvent),
+    routingKey: 'ride.finished', //TODO: routingKeyOf(RideFinishedEvent),
     queue: 'process-payments',
-    deadLetterExchange: 'error',
   })
   async execute(@AmqpPayload() message: ProcessPaymentInput) {
     await this.commandBus.execute(new ProcessPaymentCommand(message));

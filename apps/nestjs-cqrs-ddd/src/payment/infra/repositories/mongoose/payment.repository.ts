@@ -1,8 +1,8 @@
-import { MongooseRepository } from '@gedai/tactical-design-mongoose';
 import {
   InjectTransactionManager,
   TransactionManager,
-} from '@gedai/transactional';
+} from '@gedai/nestjs-tactical-design';
+import { MongooseRepository } from '@gedai/nestjs-tactical-design-mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';

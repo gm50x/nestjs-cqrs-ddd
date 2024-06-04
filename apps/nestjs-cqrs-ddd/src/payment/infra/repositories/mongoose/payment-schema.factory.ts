@@ -1,5 +1,8 @@
-import { EntitySchemaFactory, PublisherContext } from '@gedai/tactical-design';
-import { InjectPublisherContext } from '@gedai/tactical-design-amqp';
+import {
+  EntitySchemaFactory,
+  PublisherContext,
+} from '@gedai/nestjs-tactical-design';
+import { InjectPublisherContext } from '@gedai/nestjs-tactical-design-amqp';
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { Payment } from '../../../domain/payment.entity';

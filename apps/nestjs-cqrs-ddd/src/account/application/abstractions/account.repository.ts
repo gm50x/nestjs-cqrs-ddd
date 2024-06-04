@@ -1,4 +1,4 @@
-import { Repository } from '@gedai/tactical-design';
+import { Repository } from '@gedai/nestjs-tactical-design';
 import { Account } from '../../domain/account.entity';
 
 export abstract class AccountRepository implements Repository<Account> {
