@@ -1,4 +1,26 @@
 services:
+  uber-branas-io:
+    image: gedai/uber-branas-io:latest
+    build:
+      context: .
+      args:
+        target: 'uber-branas-io'
+    container_name: 'gedai-uber-branas-io'
+    restart: 'on-failure'
+    environment:
+      NODE_ENV: 'staging'
+      PORT: '3000'
+      LOG_LEVEL: 'debug'
+      LOG_FORMAT: 'pretty'
+      APP_NAME: 'UberBranasIO'
+      APP_DESCRIPTION: 'Demonstrates using NestJS with DDD and CQRS on MongoDB and AMQP based on BranasIO Course'
+      APP_VERSION: '1.0.0'
+      ROUTE_PREFIX: ''
+      AMQP_URL: 'amqp://gedai:gedai@host.docker.internal:5672'
+      MONGO_URL: 'mongodb://gedai:gedai@host.docker.internal:27017/nestjs-cqrs-ddd-docker?authSource=admin'
+      AMQP_EXCHANGE_EVENT_ROOT: 'event.root'
+    ports:
+      - 3000:3000
   rabbitmq:
     image: gedai/rabbitmq:3-management-delayed
     build:

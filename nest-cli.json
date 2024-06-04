@@ -1,23 +1,23 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/nestjs-cqrs-ddd/src",
+  "sourceRoot": "apps/uber-branas-io/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/nestjs-cqrs-ddd/tsconfig.app.json"
+    "tsConfigPath": "apps/uber-branas-io/tsconfig.app.json"
   },
   "projects": {
     "nestjs-cqrs-ddd": {
       "type": "application",
-      "root": "apps/nestjs-cqrs-ddd",
+      "root": "apps/uber-branas-io",
       "entryFile": "main",
-      "sourceRoot": "apps/nestjs-cqrs-ddd/src",
+      "sourceRoot": "apps/uber-branas-io/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/nestjs-cqrs-ddd/tsconfig.app.json"
+        "tsConfigPath": "apps/uber-branas-io/tsconfig.app.json"
       }
     }
   },
   "monorepo": true,
-  "root": "apps/nestjs-cqrs-ddd"
+  "root": "apps/uber-branas-io"
 }
