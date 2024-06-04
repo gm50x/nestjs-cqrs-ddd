@@ -1,24 +1,5 @@
 version: '3.9'
 services:
-  amqp-retrial-service:
-    image: gedai/amqp-retrial-service:nestjs-latest
-    build:
-      context: .
-      args:
-        target: 'amqp-retrial-service'
-    container_name: 'gedai-amqp-retrial-service'
-    restart: 'on-failure'
-    environment:
-      NODE_ENV: 'development'
-      PORT: '3001'
-      LOG_LEVEL: 'debug'
-      APP_NAME: 'amqp-retrial-service'
-      APP_DESCRIPTION: 'AMQP Retrial Service'
-      APP_VERSION: '1.0.0'
-      ROUTE_PREFIX: ''
-      AMQP_URL: 'amqp://gedai:gedai@host.docker.internal:5672'
-    ports:
-      - 3001:3001
   rabbitmq:
     image: gedai/rabbitmq:3-management-delayed
     build:

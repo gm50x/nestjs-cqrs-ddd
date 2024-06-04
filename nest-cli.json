@@ -89,15 +89,6 @@
         "tsConfigPath": "apps/nestjs-cqrs-ddd/tsconfig.app.json"
       }
     },
-    "amqp-retrial-service": {
-      "type": "application",
-      "root": "apps/amqp-retrial-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/amqp-retrial-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/amqp-retrial-service/tsconfig.app.json"
-      }
-    },
     "tactical-design-amqp": {
       "type": "library",
       "root": "libs/tactical-design-amqp",
