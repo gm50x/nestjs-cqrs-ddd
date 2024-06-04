@@ -20,7 +20,7 @@ services:
       MONGO_URL: 'mongodb://gedai:gedai@host.docker.internal:27017/nestjs-cqrs-ddd-docker?authSource=admin'
       AMQP_EXCHANGE_EVENT_ROOT: 'event.root'
     ports:
-      - 3000:3000
+      - 30000:3000
   rabbitmq:
     image: gedai/rabbitmq:3-management-delayed
     build:
