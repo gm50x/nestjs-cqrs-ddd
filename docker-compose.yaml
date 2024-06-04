@@ -57,7 +57,7 @@ services:
         "members":[
           {
             \"_id\": 0,
-            \"host\":\"localhost:27017\",
+            \"host\":\"host.docker.internal:27017\",
           }
         ]
       })' && if [ $(mongosh -u gedai -p gedai --quiet --host mongodb:27017 --eval 'rs.status().ok') -eq 1 ]; then exit 0; else exit 1; fi"
