@@ -1,113 +1,23 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/nestjs-cqrs-ddd/src",
+  "sourceRoot": "apps/uber-branas-io/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/nestjs-cqrs-ddd/tsconfig.app.json"
+    "tsConfigPath": "apps/uber-branas-io/tsconfig.app.json"
   },
   "projects": {
-    "tactical-design": {
-      "type": "library",
-      "root": "libs/tactical-design",
-      "entryFile": "index",
-      "sourceRoot": "libs/tactical-design/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/tactical-design/tsconfig.lib.json"
-      }
-    },
-    "amqp": {
-      "type": "library",
-      "root": "libs/amqp",
-      "entryFile": "index",
-      "sourceRoot": "libs/amqp/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/amqp/tsconfig.lib.json"
-      }
-    },
-    "common": {
-      "type": "library",
-      "root": "libs/common",
-      "entryFile": "index",
-      "sourceRoot": "libs/common/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/common/tsconfig.lib.json"
-      }
-    },
-    "contextify": {
-      "type": "library",
-      "root": "libs/contextify",
-      "entryFile": "index",
-      "sourceRoot": "libs/contextify/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/contextify/tsconfig.lib.json"
-      }
-    },
-    "strategic-design": {
-      "type": "library",
-      "root": "libs/strategic-design",
-      "entryFile": "index",
-      "sourceRoot": "libs/strategic-design/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/strategic-design/tsconfig.lib.json"
-      }
-    },
-    "transactional-mongoose": {
-      "type": "library",
-      "root": "libs/transactional-mongoose",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactional-mongoose/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactional-mongoose/tsconfig.lib.json"
-      }
-    },
-    "tactical-design-mongoose": {
-      "type": "library",
-      "root": "libs/tactical-design-mongoose",
-      "entryFile": "index",
-      "sourceRoot": "libs/tactical-design-mongoose/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/tactical-design-mongoose/tsconfig.lib.json"
-      }
-    },
-    "transactional": {
-      "type": "library",
-      "root": "libs/transactional",
-      "entryFile": "index",
-      "sourceRoot": "libs/transactional/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/transactional/tsconfig.lib.json"
-      }
-    },
     "nestjs-cqrs-ddd": {
       "type": "application",
-      "root": "apps/nestjs-cqrs-ddd",
+      "root": "apps/uber-branas-io",
       "entryFile": "main",
-      "sourceRoot": "apps/nestjs-cqrs-ddd/src",
+      "sourceRoot": "apps/uber-branas-io/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/nestjs-cqrs-ddd/tsconfig.app.json"
-      }
-    },
-    "amqp-retrial-service": {
-      "type": "application",
-      "root": "apps/amqp-retrial-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/amqp-retrial-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/amqp-retrial-service/tsconfig.app.json"
-      }
-    },
-    "tactical-design-amqp": {
-      "type": "library",
-      "root": "libs/tactical-design-amqp",
-      "entryFile": "index",
-      "sourceRoot": "libs/tactical-design-amqp/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/tactical-design-amqp/tsconfig.lib.json"
+        "tsConfigPath": "apps/uber-branas-io/tsconfig.app.json"
       }
     }
   },
   "monorepo": true,
-  "root": "apps/nestjs-cqrs-ddd"
+  "root": "apps/uber-branas-io"
 }

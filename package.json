@@ -25,6 +25,12 @@
     "test:all:cov": "jest --config ./test/config/jest-all.js --coverage"
   },
   "dependencies": {
+    "@gedai/nestjs-amqp": "^0.0.8",
+    "@gedai/nestjs-common": "^0.0.9",
+    "@gedai/nestjs-core": "^0.0.6",
+    "@gedai/nestjs-tactical-design": "^0.0.3",
+    "@gedai/nestjs-tactical-design-amqp": "^0.0.3",
+    "@gedai/nestjs-tactical-design-mongoose": "^0.0.3",
     "@golevelup/nestjs-rabbitmq": "^5.0.0",
     "@nestjs/axios": "^3.0.2",
     "@nestjs/common": "^10.3.3",
@@ -104,17 +110,9 @@
       "<rootDir>/apps/"
     ],
     "moduleNameMapper": {
-      "^@gedai/tactical-design(|/.*)$": "<rootDir>/libs/tactical-design/src/$1",
-      "^@gedai/amqp(|/.*)$": "<rootDir>/libs/amqp/src/$1",
-      "^@gedai/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^@gedai/test-factory(|/.*)$": "<rootDir>/test/$1",
       "^@gedai/stub-factory(|/.*)$": "<rootDir>/test/stubs/$1",
-      "^@gedai/contextify(|/.*)$": "<rootDir>/libs/contextify/src/$1",
-      "^@gedai/strategic-design(|/.*)$": "<rootDir>/libs/strategic-design/src/$1",
-      "^@gedai/transactional-mongoose(|/.*)$": "<rootDir>/libs/transactional-mongoose/src/$1",
-      "^@gedai/tactical-design-mongoose(|/.*)$": "<rootDir>/libs/tactical-design-mongoose/src/$1",
-      "^@gedai/transactional(|/.*)$": "<rootDir>/libs/transactional/src/$1",
-      "^@gedai/tactical-design-amqp(|/.*)$": "<rootDir>/libs/tactical-design-amqp/src/$1"
+      "^@gedai/strategic-design(|/.*)$": "<rootDir>/libs/strategic-design/src/$1"
     }
   }
 }

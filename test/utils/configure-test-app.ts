@@ -1,17 +1,16 @@
-import { configureAmqpAuditInterceptor } from '@gedai/amqp';
 import {
   configureCORS,
   configureCompression,
-  configureContextInterceptor,
-  configureExceptionsHandler,
-  configureHttpAuditInterceptor,
+  configureExceptionHandler,
+  configureHelmet,
+  configureHttpInspectorInbound,
+  configureHttpInspectorOutbound,
   configureLogger,
-  configureOpenAPI,
-  configureOutboundHttpTracing,
   configureRoutePrefix,
   configureValidation,
   configureVersioning,
-} from '@gedai/common';
+} from '@gedai/nestjs-common';
+import { configureContextWrappers } from '@gedai/nestjs-core';
 import { INestApplication, Type } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -21,15 +20,18 @@ import { setTimeout } from 'timers/promises';
 import { environment, rabbitmqURL, virtualHost } from './environment';
 
 export type TestOptions = {
-  silentLogger?: boolean;
   env?: Record<string, any>;
+  silentLogger?: boolean;
 };
 
 export async function createTestApp(
   AppModule: Type<any>,
   options?: TestOptions,
 ) {
-  const { silentLogger = true, env = {} } = options ?? {};
+  const { env = {}, silentLogger = true } = options ?? {};
+  if (silentLogger) {
+    env['LOG_SILENT'] = 'true';
+  }
   Object.entries({ ...env, ...environment }).forEach(
     ([key, value]) => (process.env[key] = value),
   );
@@ -38,18 +40,17 @@ export async function createTestApp(
     imports: [AppModule],
   }).compile();
   const app = moduleFixture.createNestApplication();
-  configureLogger(app, { silent: silentLogger });
+  configureContextWrappers(app);
+  configureLogger(app);
+  configureExceptionHandler(app);
+  configureHttpInspectorInbound(app);
+  configureHttpInspectorOutbound(app);
   configureCORS(app);
+  configureHelmet(app);
   configureCompression(app);
-  configureExceptionsHandler(app);
-  configureHttpAuditInterceptor(app);
-  configureAmqpAuditInterceptor(app);
-  configureContextInterceptor(app);
-  configureOpenAPI(app);
   configureValidation(app);
   configureVersioning(app);
   configureRoutePrefix(app);
-  configureOutboundHttpTracing(app);
 
   await app.init();
   return app;
