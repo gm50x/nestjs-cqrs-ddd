@@ -17,13 +17,15 @@ export class AppConfig implements CommonConfigOptionsFactory {
     const logSilent = this.config.get('LOG_SILENT', 'false');
     const httpTrafficInspectionMode = this.config.getOrThrow(
       'TRAFFIC_INSPECTION_HTTP_MODE',
-      'inbound',
+      'all',
     );
 
     return {
       appName,
       environment,
-      httpTrafficInspection: { mode: httpTrafficInspectionMode },
+      httpTrafficInspection: {
+        mode: httpTrafficInspectionMode,
+      },
       logger: {
         format: logFormat,
         level: logLevel,

@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@gedai/nestjs-amqp": "^0.0.8",
-    "@gedai/nestjs-common": "^0.0.9",
+    "@gedai/nestjs-common": "^0.0.10",
     "@gedai/nestjs-core": "^0.0.6",
     "@gedai/nestjs-tactical-design": "^0.0.3",
     "@gedai/nestjs-tactical-design-amqp": "^0.0.3",
