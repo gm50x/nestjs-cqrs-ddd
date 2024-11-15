@@ -25,6 +25,8 @@ export class AppConfig implements CommonConfigOptionsFactory {
       environment,
       httpTrafficInspection: {
         mode: httpTrafficInspectionMode,
+        allowedOutboundRoutes: [],
+        ignoredInboundRoutes: [],
       },
       logger: {
         format: logFormat,
